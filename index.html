@@ -160,6 +160,360 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/02/TIL(Today%20I%20Learn)/220426-til2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/02/TIL(Today%20I%20Learn)/220426-til2/" class="post-title-link" itemprop="url">220426-TIL(javaScrit 함수)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-02 10:54:22 / Updated at: 10:56:14" itemprop="dateCreated datePublished" datetime="2022-05-02T10:54:22+09:00">2022-05-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="🌟javaScript-함수"><a href="#🌟javaScript-함수" class="headerlink" title="🌟javaScript 함수"></a>🌟javaScript 함수</h1><h2 id="1-함수"><a href="#1-함수" class="headerlink" title="1. 함수"></a>1. 함수</h2><p>함수를 선언할 때 <code>()</code>안에 넣는 것을 <code>매개변수</code>라고 한다.<br>함수는 실행할때 <code>()</code>안에 넣는 것을 <code>인수</code>라고 한다.<br><img src="https://velog.velcdn.com/images/koseony/post/8c55fd46-3365-48d5-a322-810941359acf/image.png"><br><code>return</code>이 실행되면 <code>return</code> 밑에는 실행이 안된다.<br><img src="https://velog.velcdn.com/images/koseony/post/c06a626b-9d9b-4e6f-bf94-63c6fe2fed0b/image.png"><br>참이면 return으로 인해 함수 종료<br><img src="https://velog.velcdn.com/images/koseony/post/73ea16d3-877c-4ae6-a569-e3e4d43ea7ee/image.png"></p>
+<h2 id="2-화살표-함수"><a href="#2-화살표-함수" class="headerlink" title="2. 화살표 함수"></a>2. 화살표 함수</h2><p>화살표 함수는 <code>축약형</code>이다.<br><img src="https://velog.velcdn.com/images/koseony/post/668f8fe0-e157-4c7e-abb7-0f756fc0c85c/image.png"><br><code>객체는 ()</code>로 감싼다.<br><img src="https://velog.velcdn.com/images/koseony/post/272865e0-05ce-407a-ab76-e4bf58f5a293/image.png"></p>
+<h2 id="3-IIFE-즉시실행함수"><a href="#3-IIFE-즉시실행함수" class="headerlink" title="3. IIFE 즉시실행함수"></a>3. IIFE 즉시실행함수</h2><p>2번째 방법을 권장한다.<br><img src="https://velog.velcdn.com/images/koseony/post/c186630a-59d5-4025-a90a-1c960716dab3/image.png"></p>
+<h2 id="4-호이스팅"><a href="#4-호이스팅" class="headerlink" title="4. 호이스팅"></a>4. 호이스팅</h2><p>호이스팅이란 <code>함수 선언부가 유효범위 최상단으로 올려지는 현상</code>이다.<br>계속 메모리로 남아있어서 접근 가능하다.<br>아래 이미지는 const에 함수를 선언했기 때문에 순서를 지켜야 하지만<br><img src="https://velog.velcdn.com/images/koseony/post/7e2e1c51-31c1-471a-8bc8-b539b3219740/image.png"><br>아래 이미지는 어디서는 가져다 쓸 수 있다.</p>
+<blockquote>
+<p><img src="https://velog.velcdn.com/images/koseony/post/7178dd1f-7294-49c8-a175-cab081c0ac1c/image.png"></p>
+</blockquote>
+<h2 id="5-타이머-함수"><a href="#5-타이머-함수" class="headerlink" title="5. 타이머 함수"></a>5. 타이머 함수</h2><p><img src="https://velog.velcdn.com/images/koseony/post/bc9937aa-de87-4a42-a349-d326a65cf03e/image.png"></p>
+<h2 id="6-콜백"><a href="#6-콜백" class="headerlink" title="6. 콜백"></a>6. 콜백</h2><p>함수의 인수로 사용되는 함수를 콜백함수라고 한다.<br><img src="https://velog.velcdn.com/images/koseony/post/a413e610-2dca-4f62-8d7e-d50f7a61fd2a/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/544e4aff-a597-425d-b70d-9899f1f9a4aa/image.png"></p>
+<h2 id="7-생성자-함수-클래스"><a href="#7-생성자-함수-클래스" class="headerlink" title="7. 생성자 함수 (클래스)"></a>7. 생성자 함수 (클래스)</h2><p><img src="https://velog.velcdn.com/images/koseony/post/9700bb95-dfbd-4c61-9d18-ca5b496d1c22/image.png"><br>new를 이용해 생성자 함수 생성<br>하나의 객체 데이터 생성<br><img src="https://velog.velcdn.com/images/koseony/post/ef4e7d82-9a79-4409-8f24-656ef6cefd15/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/19e6fc99-31ed-46de-a8d5-fd5bd8a19f7b/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/f30290c9-837e-4ee0-a82d-715f61bd8410/image.png"><br>프로토타입!</p>
+<h2 id="8-this"><a href="#8-this" class="headerlink" title="8. this"></a>8. this</h2><p><img src="https://velog.velcdn.com/images/koseony/post/d669b490-776d-4b55-b8de-527905363406/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/c25f13c7-4fff-46d7-991b-5cc10431836f/image.png"><br>normal()은 호출할 때 ‘hoseon’이 들어가있어서 hoseon이 출력 된다.<br>arrow()는 함수범위에서 this를 정의하기때문에 함수정의 부분에 name이 없기때문에 undefined가 출력된다.  </p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/01f66a1f-03cb-477f-a58e-efb7a9a5c6e4/image.png"><br>setTimeout()을 쓸때는 콜백으로 화살표 함수를 사용한다.<br><img src="https://velog.velcdn.com/images/koseony/post/c8fc73a4-51ba-497c-a918-e11a7356539f/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/972f175d-9bc4-4db0-83d5-87b73927e647/image.png"></p>
+<h2 id="9-ES6-Classes"><a href="#9-ES6-Classes" class="headerlink" title="9. ES6 Classes"></a>9. ES6 Classes</h2><p><img src="https://velog.velcdn.com/images/koseony/post/1b4b64c6-f53c-42d5-a7b2-f71d3a86957f/image.png"></p>
+<h2 id="10-상속-확장"><a href="#10-상속-확장" class="headerlink" title="10. 상속(확장)"></a>10. 상속(확장)</h2><p>extends<br><img src="https://velog.velcdn.com/images/koseony/post/20c42ffc-73c7-4a08-be46-ab13f4e38ef2/image.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/02/TIL(Today%20I%20Learn)/220426-til/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/02/TIL(Today%20I%20Learn)/220426-til/" class="post-title-link" itemprop="url">220426_TIL(javascript 시작하기)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-02 10:37:49 / Updated at: 10:40:53" itemprop="dateCreated datePublished" datetime="2022-05-02T10:37:49+09:00">2022-05-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="⭐javaScript-시작하기"><a href="#⭐javaScript-시작하기" class="headerlink" title="⭐javaScript 시작하기"></a>⭐javaScript 시작하기</h1><h2 id="1-데이터-타입-확인"><a href="#1-데이터-타입-확인" class="headerlink" title="1. 데이터 타입 확인"></a>1. 데이터 타입 확인</h2><p><code>typeof</code>로 데이터 타입 확인하기.<br><img src="https://velog.velcdn.com/images/koseony/post/4fb331e2-6105-43ce-9ff0-f8f6736081fe/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/5d9e0932-6cf7-4dfa-bc48-386c6cfd9b50/image.png"><br>다음은 타입을 알려주는 함수를 만들어 타입 확인하기<br>(object로 뭉쳐서 알려준다)</p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/b2620aa5-064a-49a1-b561-f3650a0c0f82/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/feed8954-a6b9-4c47-a7a0-b9e0a6ea1bd9/image.png"></p>
+<h3 id="내보내기-세팅"><a href="#내보내기-세팅" class="headerlink" title="내보내기 세팅"></a>내보내기 세팅</h3><p>아래와 같이 expert default를 붙여셔 내보낼수있게 한다.<br><img src="https://velog.velcdn.com/images/koseony/post/8ede148a-fbe3-440b-b2c1-8d3e910e0742/image.png"></p>
+<h3 id="가지고-오기"><a href="#가지고-오기" class="headerlink" title="가지고 오기"></a>가지고 오기</h3><p>아래와 같이 <code>import</code>로 가지고 와서 함수 사용 가능.<br><img src="https://velog.velcdn.com/images/koseony/post/40b6e22e-8d54-46f6-9c38-c4b7454e795a/image.png"></p>
+<h2 id="2-연산자"><a href="#2-연산자" class="headerlink" title="2. 연산자"></a>2. 연산자</h2><p>기본적인 연산자들<br><img src="https://velog.velcdn.com/images/koseony/post/06147deb-d0fd-409d-8bee-22509fd6ada5/image.png"></p>
+<h2 id="3-비교-논리-연산자"><a href="#3-비교-논리-연산자" class="headerlink" title="3.비교, 논리 연산자"></a>3.비교, 논리 연산자</h2><ul>
+<li>비교 연산자 (comparison operate)<br><img src="https://velog.velcdn.com/images/koseony/post/01f296cc-a5a1-4c25-bca3-c279afd7a611/image.png"><img src="https://velog.velcdn.com/images/koseony/post/22f4243b-c498-4851-9cde-a105065a275d/image.png"></li>
+<li>논리 연산자 (logical operate)<br><img src="https://velog.velcdn.com/images/koseony/post/8ccce1dc-d165-4070-a461-892bb4216add/image.png"></li>
+</ul>
+<h2 id="4-삼항-연산자"><a href="#4-삼항-연산자" class="headerlink" title="4. 삼항 연산자"></a>4. 삼항 연산자</h2><p><img src="https://velog.velcdn.com/images/koseony/post/b3057e8f-4d15-4e91-9c8f-ae96c51aea68/image.png"></p>
+<h2 id="5-조건문-if-else"><a href="#5-조건문-if-else" class="headerlink" title="5. 조건문 if else"></a>5. 조건문 if else</h2><p><img src="https://velog.velcdn.com/images/koseony/post/97466bfd-7b4b-4a72-b62b-52471c1e4b18/image.png"></p>
+<h2 id="6-조건문-switch"><a href="#6-조건문-switch" class="headerlink" title="6. 조건문 switch"></a>6. 조건문 switch</h2><p><img src="https://velog.velcdn.com/images/koseony/post/0747907a-6763-483d-9f92-e2ecbf010f41/image.png"></p>
+<h2 id="7-반복문-for"><a href="#7-반복문-for" class="headerlink" title="7. 반복문 for"></a>7. 반복문 for</h2><p><img src="https://velog.velcdn.com/images/koseony/post/b3b33bc7-8560-4c9e-ad86-b77cf2e67c62/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/3871ae16-8c10-403f-9cc5-c760a2a3b4ef/image.png"></p>
+<h2 id="8-변수-유효범위"><a href="#8-변수-유효범위" class="headerlink" title="8. 변수 유효범위"></a>8. 변수 유효범위</h2><p><img src="https://velog.velcdn.com/images/koseony/post/4aedfbe6-2ed0-4db0-b551-979f2a8c7561/image.png"><br>const는 블록 단위 스코프이기 때문에 유효범위 밖에 있다.<br><img src="https://velog.velcdn.com/images/koseony/post/aabf06eb-eb2d-4859-81d6-3bd0b9c3d054/image.png"></p>
+<p>아래 이미지는 유효범위 안에 있긴하지만<br>데이터가 지정되어있지 않다.<br><img src="https://velog.velcdn.com/images/koseony/post/0c74585c-e118-4714-ab29-ac73039c9969/image.png"></p>
+<p>let과 const는 블록레벨에 유효범위는 가진다.<br>‘{}’<br><img src="https://velog.velcdn.com/images/koseony/post/d9d2da0c-63bb-4a21-b16d-3abee41b2bd8/image.png"></p>
+<p>var는 에러가 뜨지 않는다.<br><img src="https://velog.velcdn.com/images/koseony/post/d00760c0-092f-4186-b597-e5c893561935/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/24b63d2c-48c3-490a-93bb-b771b47deae2/image.png"><br>var는 함수레벨의 유효범위는 가지고 있다.</p>
+<p>❗그래서 var보다는 let, const를 사용한다.<br><img src="https://velog.velcdn.com/images/koseony/post/3ce430c8-8a2f-42fb-aea9-acab4572aeae/image.png"></p>
+<h2 id="9-형-변환"><a href="#9-형-변환" class="headerlink" title="9. 형 변환"></a>9. 형 변환</h2><p>동등 연산자.<br><img src="https://velog.velcdn.com/images/koseony/post/edbd4b1e-b144-4d9e-80c7-c6eec6cf94a7/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/9f5fb8c0-88c2-477e-bc7d-948228fcf024/image.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/02/javaScript/npm-project/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/02/javaScript/npm-project/" class="post-title-link" itemprop="url">npm(parcel, lodash)로 프로젝트 실행하기</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-02 10:17:04 / Updated at: 10:19:45" itemprop="dateCreated datePublished" datetime="2022-05-02T10:17:04+09:00">2022-05-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javaScript/" itemprop="url" rel="index"><span itemprop="name">javaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="npm이란"><a href="#npm이란" class="headerlink" title="npm이란?"></a>npm이란?</h1><p><img src="https://velog.velcdn.com/images/koseony/post/a5f83fd5-e9fe-40a1-92ed-f2be0a77c2b1/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/68ee17a0-137a-40cb-8074-33cdb8e526d6/image.png"><br>생태계에서 내가 필요한 기능(패키지)을 검색해서 활용</p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/05cf97b0-2eb9-4d7f-b660-66cd63912750/image.png"></p>
+<h2 id="1-npm을-활용해서-프로젝트-만들기"><a href="#1-npm을-활용해서-프로젝트-만들기" class="headerlink" title="1. npm을 활용해서 프로젝트 만들기"></a>1. npm을 활용해서 프로젝트 만들기</h2><p>원하는 디렉토리에 <code>npm init -y</code>를 이용해 연결을 해준다.<br><img src="https://velog.velcdn.com/images/koseony/post/d57631b8-6c34-4095-b184-e9b74c8af1a2/image.png"><br>그럼 package.json 파일이 생성된것을 확인할 수 있다.<br><img src="https://velog.velcdn.com/images/koseony/post/ad3db829-8ebf-4540-9ad6-26c87c7c6165/image.png"></p>
+<blockquote>
+<p>❗ package.json에 있는 옵션들</p>
+</blockquote>
+<ul>
+<li>name : 현재 폴더의 이름으로 생성(바꾸기 가능)</li>
+<li>version : 현재 프로젝트 버전</li>
+<li>description : 프로젝트 설명</li>
+<li>main : 현재의 프로젝트는 패키기로 만들어서 업로드할 때 필요</li>
+<li>script : 현재 프로젝트 내부에서 사용하는 스크립트들</li>
+<li>keywords : 키워드</li>
+<li>autohr : 저작자</li>
+<li>licence : 현재 프로젝트의 라이센스</li>
+</ul>
+<h2 id="2-parcel-bundler-설치"><a href="#2-parcel-bundler-설치" class="headerlink" title="2. parcel bundler 설치"></a>2. parcel bundler 설치</h2><p>parcel-bundler를 사용하려고 한다.<br>설치해보자.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install parcel-bundler -D</span><br></pre></td></tr></table></figure>
+<p>를 입력해서 설치<br><img src="https://velog.velcdn.com/images/koseony/post/9aaf2b2a-753a-408d-8dc2-70a1aaee60c4/image.png"><br>그럼 아래 이미지처럼 node_modules라는 폴더가 생긴것을 확인할 수 있다.<br><img src="https://velog.velcdn.com/images/koseony/post/c437456a-7077-496b-8ddd-a720f11e6b64/image.png"></p>
+<p>우리는 parcel-bundler를 설치했는데node_modules안에 보면 굉장히 많은게 설치되어있다.<br>그 이유는 parcel-bundler를 사용하기 위해 필요한것들이 다 설치가 돼서 그런것이다.  </p>
+<p>package.json 밑에 보면 설치한 paecel-bundler가 보인다.<br><img src="https://velog.velcdn.com/images/koseony/post/bccb6ca0-2d38-4039-b4a8-37507c1b51af/image.png"></p>
+<h2 id="3-lodash-설치"><a href="#3-lodash-설치" class="headerlink" title="3. lodash 설치"></a>3. lodash 설치</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install lodash</span><br></pre></td></tr></table></figure>
+<p>위 코드를 이용해 <code>lodash</code>를 설치해보자.<br><img src="https://velog.velcdn.com/images/koseony/post/88d39b43-4440-4147-abd7-4f87634a8940/image.png"><br>lodash도 설치하고 package.json을 보면<br>dev가 붙은것과 안붙은것이 있다.<br><img src="https://velog.velcdn.com/images/koseony/post/929704c7-48f4-46cd-9af9-073fe7b89af8/image.png"><br>-D를 붙이면 개발할때 필요한 패키지를 설치한다.<br><img src="https://velog.velcdn.com/images/koseony/post/b35fae62-3a38-4dc7-81ab-d3abdee79bd7/image.png"><br>lodash는 실제 웹사이트에서 동작하는 패키지이다.<br><img src="https://velog.velcdn.com/images/koseony/post/b3293d78-b711-47ea-954a-583b5ad35f53/image.png"></p>
+<h2 id="4-패키지를-이용해-프로젝트-구성해보기"><a href="#4-패키지를-이용해-프로젝트-구성해보기" class="headerlink" title="4. 패키지를 이용해 프로젝트 구성해보기"></a>4. 패키지를 이용해 프로젝트 구성해보기</h2><p>이제 parcel을 이용해서 프로젝트를 구성해보자<br><img src="https://velog.velcdn.com/images/koseony/post/7a239f31-ec32-4d83-a8b5-1aa0fa450a1d/image.png"><br>paecel은 우리 프로젝트에만 설치되어 있는거기 때문에 터미널에서 동작 시킬 수 없다.<br><img src="https://velog.velcdn.com/images/koseony/post/e980fa30-7134-4d21-8de5-683a659b305a/image.png"><br>그래서 아래와 같이 script를 수정해서 npm run dev를 실행해준다.<br><img src="https://velog.velcdn.com/images/koseony/post/cfd167ae-a14f-41ac-a706-4ba6299cf303/image.png"><br>그리고 <code>npm run dev</code>를 입력해 실행한다.<br><img src="https://velog.velcdn.com/images/koseony/post/d4d40079-687c-4598-91e2-059505995d22/image.png"></p>
+<p>열린 주소를 누르면 확인 가능<br><img src="https://velog.velcdn.com/images/koseony/post/22fa5f83-8602-4c23-b56a-3de6e4e1939c/image.png"><br>아래 이미지와 같이 <code>package.json</code>을 수정한다.<br><img src="https://velog.velcdn.com/images/koseony/post/b96c1e6e-5422-4733-a534-95f39ef9f134/image.png"><br><code>npm run build</code>로 실행하면<br><img src="https://velog.velcdn.com/images/koseony/post/b3d75520-5415-4cc8-acbe-824f472f6b00/image.png"><br><code>.cache</code>와 <code>dist</code>폴더가 생긴다.<br><img src="https://velog.velcdn.com/images/koseony/post/2ddd0da1-cdc4-44dc-a801-f463fde4234d/image.png"><br>parcel-bundler는 개발때만 사용</p>
+<blockquote>
+<h2 id="5-유의적-버전-넘버-작성하는-법"><a href="#5-유의적-버전-넘버-작성하는-법" class="headerlink" title="5. 유의적 버전 넘버 작성하는 법"></a>5. 유의적 버전 넘버 작성하는 법</h2><p><img src="https://velog.velcdn.com/images/koseony/post/44e5068e-b84b-429d-9d8d-5a96bac00ec4/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/d1a6511f-bae7-4cdb-a21d-213b045359d6/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/65ea7401-f81f-4bbe-91a1-973cc99ab073/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/17d95c19-e828-4f1c-b722-7b91fcbc1f6d/image.png"></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/02/javaScript/nodejs-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/02/javaScript/nodejs-install/" class="post-title-link" itemprop="url">Node.js 개요 및 설치</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-02 09:40:52 / Updated at: 09:44:59" itemprop="dateCreated datePublished" datetime="2022-05-02T09:40:52+09:00">2022-05-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javaScript/" itemprop="url" rel="index"><span itemprop="name">javaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1-Node-js란"><a href="#1-Node-js란" class="headerlink" title="1. Node.js란?"></a>1. Node.js란?</h1><p><img src="https://velog.velcdn.com/images/koseony/post/beaa06e1-fd46-4031-a70b-ff27a85fbb1d/image.png"><br>❗런타임 - 자바스크립트가 동작할수있는 환경<br><img src="https://velog.velcdn.com/images/koseony/post/1b12626b-da63-4258-9683-35bd4b1054e2/image.png"><br>js는 node.js와 브라우저에서 동작한다.</p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/8eb81ea7-723f-4af5-a4da-6b329d3cd7f7/image.png"><br>개발을 할때는 많은 모듈들이 있다<br>이 모듈을 node.js에서 사용한다.</p>
+<h1 id="2-Node-js-설치"><a href="#2-Node-js-설치" class="headerlink" title="2. Node.js 설치"></a>2. Node.js 설치</h1><p><img src="https://velog.velcdn.com/images/koseony/post/7c45dc29-dd07-4e94-b06a-ae4e7973abd0/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/7994b150-63fb-4f70-8b42-d76129980f8d/image.png"><br>연습 프로젝트를 진행할때는 안정적인 짝수 버전을 다운받아서 하는게 좋다.  </p>
+<p>node.js의 버전은 1개만 하는걸 추천하지 않는다.<br>nvm(node version manager)을 사용해서 버젼을 관리한다.</p>
+<h1 id="3-nvm-설치"><a href="#3-nvm-설치" class="headerlink" title="3. nvm 설치"></a>3. nvm 설치</h1><h3 id="mac-설치방법"><a href="#mac-설치방법" class="headerlink" title="mac 설치방법"></a>mac 설치방법</h3><p><img src="https://velog.velcdn.com/images/koseony/post/079b6d6c-94de-4e2e-9fe8-b8cedd241cee/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/ff03f86e-eeb9-48e5-be52-c2f576b6d1a2/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/d9d874f1-3c00-47eb-b64d-f32e3724f043/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/b3af7255-ce70-4766-90ef-1ac4865307b9/image.png"><br>터미널을 열고<br>복사한 코드를 붙여넣기<br><img src="https://velog.velcdn.com/images/koseony/post/efd0bcaf-6f75-446f-a558-310653ec5407/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/dd5598e4-f02a-45fb-95f8-b3009700e9c7/image.png"></p>
+<h3 id="windows-설치방법"><a href="#windows-설치방법" class="headerlink" title="windows 설치방법"></a>windows 설치방법</h3><p>nvm-windows로 검색<br><img src="https://velog.velcdn.com/images/koseony/post/bbf054cc-bf17-4d01-9c8f-652bdf00c286/image.png"><br>깃허브로 들어가서 밑으로 내린다.<br><img src="https://velog.velcdn.com/images/koseony/post/e3537b01-d05a-48e4-b91d-ddbfd1ae1492/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/7bbfe1ec-f715-40c7-9650-eb1bb5f5592d/image.png"><br>nvm-setup.zip눌러서 다운로드 받는다.<br><img src="https://velog.velcdn.com/images/koseony/post/8912519a-0d32-4a23-8657-68b27f3c4a4b/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/7e91926e-db38-4e74-975a-b2fdcc0d9687/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/02ba62e7-d544-4c57-bb93-95e6bf143db1/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/62e3736f-c8d7-45d2-ab66-99858596c25a/image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm --version</span><br></pre></td></tr></table></figure>
+<p>위 코드로 설치 완료 확인<br><img src="https://velog.velcdn.com/images/koseony/post/0e9c5d97-9702-417c-b855-ddb839806c9c/image.png"></p>
+<h1 id="4-nvm-사용법"><a href="#4-nvm-사용법" class="headerlink" title="4. nvm 사용법"></a>4. nvm 사용법</h1><p><img src="https://velog.velcdn.com/images/koseony/post/b9fb6512-ffc1-4513-9c5a-3a994b4b9968/image.png"><br>원하는 버전을 인스톨<br><img src="https://velog.velcdn.com/images/koseony/post/066a17f3-5383-4056-a7e2-01e219e3acfc/image.png"><br>아래와 같은 코드로 node 버전 변경</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm use version</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>❗ 변경이 되지 않을때는 관리자 권한으로 열어야 제대로 동작</p>
+</blockquote>
+<p><img src="https://velog.velcdn.com/images/koseony/post/3dffe234-395e-4cd8-8a2a-6ee29eb5b211/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/719520f1-b375-4b16-bb14-03ac3bc4c56c/image.png"></p>
+<p>여러명이 프로젝트를 관리하다 보면 node.js 버젼의 영향을 받을수도 있으니 버젼을 관리해야한다.</p>
+<ul>
+<li>node 버전 삭제<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm uninstall 버전</span><br></pre></td></tr></table></figure>
+을 입력하면 원하는 node 버전 삭제 가능<br><img src="https://velog.velcdn.com/images/koseony/post/f5998f63-2b21-497e-9ca0-dc7c56bcada7/image.png"></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
     <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/01/git/220425-gitBash-install/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -757,7 +1111,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -770,7 +1124,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
