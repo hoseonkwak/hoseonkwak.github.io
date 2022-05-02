@@ -20,18 +20,20 @@
     var CONFIG = {"hostname":"hoseonkwak.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="var와 let, const의 차이 ❗함수의 객체를 보고싶다면 console.dir로 보면된다.  var, let, const란?변수를 선언할 때 사용하는데 123var test &#x3D; &amp;#x27;test&amp;#x27;;let test &#x3D; &amp;#x27;test&amp;#x27;;const test &#x3D; &amp;#x27;test&amp;#x27;; var는 기존부터 있었고, let과 co">
+  <meta name="description" content="var와 let, const의 차이 ❗함수의 객체를 보고싶다면 console.dir로 보면된다.  var, let, const란?변수를 선언할 때 사용하는데 123var test &#x3D; &amp;#x27;test&amp;#x27;;let test &#x3D; &amp;#x27;test&amp;#x27;;const test &#x3D; &amp;#x27;test&amp;#x27;; var는 기존부터 있었고, let과 c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="var, let, const의 차이">
 <meta property="og:url" content="https://hoseonkwak.github.io/2022/05/01/TIL(Today%20I%20Learn)/220425-til/index.html">
 <meta property="og:site_name" content="koseony의 개발블로그">
-<meta property="og:description" content="var와 let, const의 차이 ❗함수의 객체를 보고싶다면 console.dir로 보면된다.  var, let, const란?변수를 선언할 때 사용하는데 123var test &#x3D; &amp;#x27;test&amp;#x27;;let test &#x3D; &amp;#x27;test&amp;#x27;;const test &#x3D; &amp;#x27;test&amp;#x27;; var는 기존부터 있었고, let과 co">
+<meta property="og:description" content="var와 let, const의 차이 ❗함수의 객체를 보고싶다면 console.dir로 보면된다.  var, let, const란?변수를 선언할 때 사용하는데 123var test &#x3D; &amp;#x27;test&amp;#x27;;let test &#x3D; &amp;#x27;test&amp;#x27;;const test &#x3D; &amp;#x27;test&amp;#x27;; var는 기존부터 있었고, let과 c">
 <meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/1d72bd99-7b9e-44d9-915d-2999aad4b338/image.jpg">
 <meta property="article:published_time" content="2022-05-01T10:26:04.000Z">
-<meta property="article:modified_time" content="2022-05-01T12:10:11.591Z">
+<meta property="article:modified_time" content="2022-05-02T09:45:55.762Z">
 <meta property="article:author" content="Hoseon Kwak">
 <meta property="article:tag" content="javaScript">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/koseony/post/1d72bd99-7b9e-44d9-915d-2999aad4b338/image.jpg">
 
 <link rel="canonical" href="https://hoseonkwak.github.io/2022/05/01/TIL(Today%20I%20Learn)/220425-til/">
 
@@ -188,10 +190,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">작성일</span>
-              
 
-              <time title="Post created: 2022-05-01 19:26:04 / Updated at: 21:10:11" itemprop="dateCreated datePublished" datetime="2022-05-01T19:26:04+09:00">2022-05-01</time>
+              <time title="Post created: 2022-05-01 19:26:04" itemprop="dateCreated datePublished" datetime="2022-05-01T19:26:04+09:00">2022-05-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2022-05-02 18:45:55" itemprop="dateModified" datetime="2022-05-02T18:45:55+09:00">2022-05-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -213,7 +221,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="var와-let-const의-차이"><a href="#var와-let-const의-차이" class="headerlink" title="var와 let, const의 차이"></a>var와 let, const의 차이</h1><blockquote>
+        <p><img src="https://velog.velcdn.com/images/koseony/post/1d72bd99-7b9e-44d9-915d-2999aad4b338/image.jpg" alt="thum"></p>
+<h1 id="var와-let-const의-차이"><a href="#var와-let-const의-차이" class="headerlink" title="var와 let, const의 차이"></a>var와 let, const의 차이</h1><blockquote>
 <p>❗함수의 객체를 보고싶다면 console.dir로 보면된다.</p>
 </blockquote>
 <h1 id="var-let-const란"><a href="#var-let-const란" class="headerlink" title="var, let, const란?"></a>var, let, const란?</h1><p>변수를 선언할 때 사용하는데</p>
@@ -340,7 +349,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -353,7 +362,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>

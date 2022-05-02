@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hoseonkwak.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="🎈정규표현식 https:&#x2F;&#x2F;regexr.com 을 사용 1. 정규식 생성   2. ‘g’플래그‘gi’는 대소문자 가리지 않겠다. 리터럴 방식 3. 메소드 3-1. test 3-2. replace 바뀐 내용으로 저장하려면 재할당 해준다. 4. 플래그(옵션)  옵션 없을 때  g 옵션  gi 옵션     m 옵션  각각의 줄의 마침표로 끝나는 부분을 찾아라">
+<meta property="og:type" content="article">
+<meta property="og:title" content="220428-til2">
+<meta property="og:url" content="https://hoseonkwak.github.io/2022/05/02/TIL(Today%20I%20Learn)/220428-til2/index.html">
+<meta property="og:site_name" content="koseony의 개발블로그">
+<meta property="og:description" content="🎈정규표현식 https:&#x2F;&#x2F;regexr.com 을 사용 1. 정규식 생성   2. ‘g’플래그‘gi’는 대소문자 가리지 않겠다. 리터럴 방식 3. 메소드 3-1. test 3-2. replace 바뀐 내용으로 저장하려면 재할당 해준다. 4. 플래그(옵션)  옵션 없을 때  g 옵션  gi 옵션     m 옵션  각각의 줄의 마침표로 끝나는 부분을 찾아라">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/ea692b52-124d-4e9a-8ea0-91a2300874d4/image.jpg">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/7a404792-3775-4aa5-80d3-5cca54bc5c47/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/e857a304-4b0e-4cae-8528-8049f05bae9e/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/fe37e549-804e-443b-a20d-27b9f8981429/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/a6e0989d-2466-4edf-bb8a-e6ee832bd25b/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/cf78fa58-0cc6-4f1e-8631-1522db1043ca/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/4c403c32-046d-4f8c-b8f9-05ced26044f4/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/2722a9a5-6926-43f5-9c39-665435693fb2/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/33438362-ff00-47bd-8c6c-3d5f9aad9140/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/e5909aae-a29d-4bf9-a9f6-bfcea75811a8/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/299c77a4-03b5-42f0-8941-f5f899fb7d72/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/73fe9d53-8d54-4c9f-9ecb-1a52f9a43ed7/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/d54aa9f1-4d6b-438f-ad56-dc866e5ca338/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/64c4840c-d65a-46cc-8353-49e1f816a934/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/86848a07-2a33-497c-a23b-389e9626433c/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/fe2fb74d-1ad0-4fc9-b8a6-1cfdfd5a4a9f/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/0dacf930-7736-480d-abc3-4f4edccedc19/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/eb97f251-96fa-40bb-928f-4e29125cf40e/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/bd8a43ac-84c4-420d-bf84-7c1b24739890/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/f5b5bcf9-f1cc-4e63-a28c-a615c4836f12/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/4c2ae379-f9b7-40bd-a716-f95520ebb50e/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/f6da3e1c-a281-4b7a-bbf5-713ef3473b1c/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/c3438da3-72c5-4548-b11e-be9b7567b6c2/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/ad027186-5822-4b78-a341-11f8c06194ab/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/2a8983fb-a011-451c-a922-c32ebde89b5b/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/181bc5e2-a739-484b-970b-2333e24df581/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/b660f726-6cbf-4d02-9041-72c5e0147bfe/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/60d24fba-b6c9-4bc9-9971-b1fb9427b687/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/b8fd76be-501d-435a-a1cb-a8c582cacee0/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/52b8cb9a-e061-4589-a69c-a439f7a1a03f/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/a61f97f6-623a-4ad7-a26e-53a84c1ca2e7/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/6c56cc8a-206d-46bd-a64e-71a27e95ace2/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/d6e8b6d5-0a9f-4459-b586-ce9ca952b598/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/794d6926-4ef9-4e46-b0e6-973dbaf315fd/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/149581f7-6797-4f46-a1f8-921737e9cecd/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/8a10b219-4952-41bf-a28d-1b39add3ae49/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/ac917026-af5a-443b-b5ed-417e0fdeaed8/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/8da750fe-058a-4535-b748-fff4a1895b54/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/af728dad-1519-45af-b2b3-b32db58a2a47/image.png">
+<meta property="article:published_time" content="2022-05-02T09:38:29.000Z">
+<meta property="article:modified_time" content="2022-05-02T09:41:09.662Z">
+<meta property="article:author" content="Hoseon Kwak">
+<meta property="article:tag" content="TIL(Today I Learn)">
+<meta property="article:tag" content="javaScript">
+<meta property="article:tag" content="정규표현식">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/koseony/post/ea692b52-124d-4e9a-8ea0-91a2300874d4/image.jpg">
+
+<link rel="canonical" href="https://hoseonkwak.github.io/2022/05/02/TIL(Today%20I%20Learn)/220428-til2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'ko'
+  };
+</script>
+
+  <title>220428-til2 | koseony의 개발블로그</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">koseony의 개발블로그</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/02/TIL(Today%20I%20Learn)/220428-til2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          220428-til2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-02 18:38:29 / Updated at: 18:41:09" itemprop="dateCreated datePublished" datetime="2022-05-02T18:38:29+09:00">2022-05-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="https://velog.velcdn.com/images/koseony/post/ea692b52-124d-4e9a-8ea0-91a2300874d4/image.jpg" alt="thum"></p>
+<h1 id="🎈정규표현식"><a href="#🎈정규표현식" class="headerlink" title="🎈정규표현식"></a>🎈정규표현식</h1><p><img src="https://velog.velcdn.com/images/koseony/post/7a404792-3775-4aa5-80d3-5cca54bc5c47/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/e857a304-4b0e-4cae-8528-8049f05bae9e/image.png"><br><a target="_blank" rel="noopener" href="https://regexr.com/">https://regexr.com</a> 을 사용<br><img src="https://velog.velcdn.com/images/koseony/post/fe37e549-804e-443b-a20d-27b9f8981429/image.png"></p>
+<h2 id="1-정규식-생성"><a href="#1-정규식-생성" class="headerlink" title="1. 정규식 생성"></a>1. 정규식 생성</h2><p><img src="https://velog.velcdn.com/images/koseony/post/a6e0989d-2466-4edf-bb8a-e6ee832bd25b/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/cf78fa58-0cc6-4f1e-8631-1522db1043ca/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/4c403c32-046d-4f8c-b8f9-05ced26044f4/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/2722a9a5-6926-43f5-9c39-665435693fb2/image.png"></p>
+<h2 id="2-‘g’플래그"><a href="#2-‘g’플래그" class="headerlink" title="2. ‘g’플래그"></a>2. ‘g’플래그</h2><p><img src="https://velog.velcdn.com/images/koseony/post/33438362-ff00-47bd-8c6c-3d5f9aad9140/image.png"><br>‘gi’는 대소문자 가리지 않겠다.</p>
+<p>리터럴 방식<br><img src="https://velog.velcdn.com/images/koseony/post/e5909aae-a29d-4bf9-a9f6-bfcea75811a8/image.png"></p>
+<h2 id="3-메소드"><a href="#3-메소드" class="headerlink" title="3. 메소드"></a>3. 메소드</h2><p><img src="https://velog.velcdn.com/images/koseony/post/299c77a4-03b5-42f0-8941-f5f899fb7d72/image.png"></p>
+<h3 id="3-1-test"><a href="#3-1-test" class="headerlink" title="3-1. test"></a>3-1. test</h3><p><img src="https://velog.velcdn.com/images/koseony/post/73fe9d53-8d54-4c9f-9ecb-1a52f9a43ed7/image.png"></p>
+<h3 id="3-2-replace"><a href="#3-2-replace" class="headerlink" title="3-2. replace"></a>3-2. replace</h3><p><img src="https://velog.velcdn.com/images/koseony/post/d54aa9f1-4d6b-438f-ad56-dc866e5ca338/image.png"></p>
+<p>바뀐 내용으로 저장하려면 재할당 해준다.<br><img src="https://velog.velcdn.com/images/koseony/post/64c4840c-d65a-46cc-8353-49e1f816a934/image.png"></p>
+<h2 id="4-플래그-옵션"><a href="#4-플래그-옵션" class="headerlink" title="4. 플래그(옵션)"></a>4. 플래그(옵션)</h2><p><img src="https://velog.velcdn.com/images/koseony/post/86848a07-2a33-497c-a23b-389e9626433c/image.png"></p>
+<ul>
+<li><p>옵션 없을 때<br><img src="https://velog.velcdn.com/images/koseony/post/fe2fb74d-1ad0-4fc9-b8a6-1cfdfd5a4a9f/image.png"></p>
+</li>
+<li><p>g 옵션<br><img src="https://velog.velcdn.com/images/koseony/post/0dacf930-7736-480d-abc3-4f4edccedc19/image.png"></p>
+</li>
+<li><p>gi 옵션<br><img src="https://velog.velcdn.com/images/koseony/post/eb97f251-96fa-40bb-928f-4e29125cf40e/image.png"></p>
+</li>
+</ul>
+<p><img src="https://velog.velcdn.com/images/koseony/post/bd8a43ac-84c4-420d-bf84-7c1b24739890/image.png"></p>
+<ul>
+<li>m 옵션<br><img src="https://velog.velcdn.com/images/koseony/post/f5b5bcf9-f1cc-4e63-a28c-a615c4836f12/image.png"></li>
+</ul>
+<p><img src="https://velog.velcdn.com/images/koseony/post/4c2ae379-f9b7-40bd-a716-f95520ebb50e/image.png"><br>각각의 줄의 마침표로 끝나는 부분을 찾아라<br>(배열로 출력)<br>($: 끝나는 부분을 찾아서 일치)  </p>
+<h2 id="5-패턴-표현"><a href="#5-패턴-표현" class="headerlink" title="5. 패턴(표현)"></a>5. 패턴(표현)</h2><p><img src="https://velog.velcdn.com/images/koseony/post/f6da3e1c-a281-4b7a-bbf5-713ef3473b1c/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/c3438da3-72c5-4548-b11e-be9b7567b6c2/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/ad027186-5822-4b78-a341-11f8c06194ab/image.png"></p>
+<h3 id="‘-’-사용"><a href="#‘-’-사용" class="headerlink" title="‘.’ 사용"></a>‘.’ 사용</h3><p><img src="https://velog.velcdn.com/images/koseony/post/2a8983fb-a011-451c-a922-c32ebde89b5b/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/181bc5e2-a739-484b-970b-2333e24df581/image.png"></p>
+<h3 id="‘-’-사용-1"><a href="#‘-’-사용-1" class="headerlink" title="‘|’ 사용"></a>‘|’ 사용</h3><p><img src="https://velog.velcdn.com/images/koseony/post/b660f726-6cbf-4d02-9041-72c5e0147bfe/image.png"></p>
+<h3 id="사용"><a href="#사용" class="headerlink" title="? 사용"></a>? 사용</h3><p><img src="https://velog.velcdn.com/images/koseony/post/60d24fba-b6c9-4bc9-9971-b1fb9427b687/image.png"></p>
+<h3 id="‘숫자’-사용"><a href="#‘숫자’-사용" class="headerlink" title="{‘숫자’} 사용"></a>{‘숫자’} 사용</h3><p>2번 연속<br><img src="https://velog.velcdn.com/images/koseony/post/b8fd76be-501d-435a-a1cb-a8c582cacee0/image.png"><br>2연속 이상<br><img src="https://velog.velcdn.com/images/koseony/post/52b8cb9a-e061-4589-a69c-a439f7a1a03f/image.png"><br>2연속 이상 3연속 이하<br><img src="https://velog.velcdn.com/images/koseony/post/a61f97f6-623a-4ad7-a26e-53a84c1ca2e7/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/6c56cc8a-206d-46bd-a64e-71a27e95ace2/image.png"></p>
+<h3 id="사용-1"><a href="#사용-1" class="headerlink" title="[] 사용"></a>[] 사용</h3><p><img src="https://velog.velcdn.com/images/koseony/post/d6e8b6d5-0a9f-4459-b586-ce9ca952b598/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/794d6926-4ef9-4e46-b0e6-973dbaf315fd/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/149581f7-6797-4f46-a1f8-921737e9cecd/image.png"></p>
+<h3 id="‘f’가-들어간-단어-찾기"><a href="#‘f’가-들어간-단어-찾기" class="headerlink" title="‘f’가 들어간 단어 찾기"></a>‘f’가 들어간 단어 찾기</h3><p><img src="https://velog.velcdn.com/images/koseony/post/8a10b219-4952-41bf-a28d-1b39add3ae49/image.png"></p>
+<h3 id="공백-없애기"><a href="#공백-없애기" class="headerlink" title="공백 없애기"></a>공백 없애기</h3><p><img src="https://velog.velcdn.com/images/koseony/post/ac917026-af5a-443b-b5ed-417e0fdeaed8/image.png"></p>
+<h3 id="앞쪽-일치"><a href="#앞쪽-일치" class="headerlink" title="앞쪽 일치"></a>앞쪽 일치</h3><p><img src="https://velog.velcdn.com/images/koseony/post/8da750fe-058a-4535-b748-fff4a1895b54/image.png"></p>
+<h3 id="뒤쪽-일치"><a href="#뒤쪽-일치" class="headerlink" title="뒤쪽 일치"></a>뒤쪽 일치</h3><p><img src="https://velog.velcdn.com/images/koseony/post/af728dad-1519-45af-b2b3-b32db58a2a47/image.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/TIL-Today-I-Learn/" rel="tag"># TIL(Today I Learn)</a>
+              <a href="/tags/javaScript/" rel="tag"># javaScript</a>
+              <a href="/tags/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D/" rel="tag"># 정규표현식</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/02/TIL(Today%20I%20Learn)/220428-til/" rel="prev" title="220427-TIL(javaScript 데이터 실습)">
+      <i class="fa fa-chevron-left"></i> 220427-TIL(javaScript 데이터 실습)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8E%88%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D"><span class="nav-number">1.</span> <span class="nav-text">🎈정규표현식</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%EC%A0%95%EA%B7%9C%EC%8B%9D-%EC%83%9D%EC%84%B1"><span class="nav-number">1.1.</span> <span class="nav-text">1. 정규식 생성</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E2%80%98g%E2%80%99%ED%94%8C%EB%9E%98%EA%B7%B8"><span class="nav-number">1.2.</span> <span class="nav-text">2. ‘g’플래그</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%EB%A9%94%EC%86%8C%EB%93%9C"><span class="nav-number">1.3.</span> <span class="nav-text">3. 메소드</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-test"><span class="nav-number">1.3.1.</span> <span class="nav-text">3-1. test</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-replace"><span class="nav-number">1.3.2.</span> <span class="nav-text">3-2. replace</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%ED%94%8C%EB%9E%98%EA%B7%B8-%EC%98%B5%EC%85%98"><span class="nav-number">1.4.</span> <span class="nav-text">4. 플래그(옵션)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%ED%8C%A8%ED%84%B4-%ED%91%9C%ED%98%84"><span class="nav-number">1.5.</span> <span class="nav-text">5. 패턴(표현)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%98-%E2%80%99-%EC%82%AC%EC%9A%A9"><span class="nav-number">1.5.1.</span> <span class="nav-text">‘.’ 사용</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%98-%E2%80%99-%EC%82%AC%EC%9A%A9-1"><span class="nav-number">1.5.2.</span> <span class="nav-text">‘|’ 사용</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%82%AC%EC%9A%A9"><span class="nav-number">1.5.3.</span> <span class="nav-text">? 사용</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%98%EC%88%AB%EC%9E%90%E2%80%99-%EC%82%AC%EC%9A%A9"><span class="nav-number">1.5.4.</span> <span class="nav-text">{‘숫자’} 사용</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%82%AC%EC%9A%A9-1"><span class="nav-number">1.5.5.</span> <span class="nav-text">[] 사용</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%98f%E2%80%99%EA%B0%80-%EB%93%A4%EC%96%B4%EA%B0%84-%EB%8B%A8%EC%96%B4-%EC%B0%BE%EA%B8%B0"><span class="nav-number">1.5.6.</span> <span class="nav-text">‘f’가 들어간 단어 찾기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EA%B3%B5%EB%B0%B1-%EC%97%86%EC%95%A0%EA%B8%B0"><span class="nav-number">1.5.7.</span> <span class="nav-text">공백 없애기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%95%9E%EC%AA%BD-%EC%9D%BC%EC%B9%98"><span class="nav-number">1.5.8.</span> <span class="nav-text">앞쪽 일치</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%92%A4%EC%AA%BD-%EC%9D%BC%EC%B9%98"><span class="nav-number">1.5.9.</span> <span class="nav-text">뒤쪽 일치</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hoseon Kwak</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hoseon Kwak</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
