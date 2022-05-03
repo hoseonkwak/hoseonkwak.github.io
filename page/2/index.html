@@ -160,6 +160,101 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/02/javaScript/npm-project/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/02/javaScript/npm-project/" class="post-title-link" itemprop="url">npm(parcel, lodash)로 프로젝트 실행하기</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-02 10:17:04 / Updated at: 10:19:45" itemprop="dateCreated datePublished" datetime="2022-05-02T10:17:04+09:00">2022-05-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javaScript/" itemprop="url" rel="index"><span itemprop="name">javaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="npm이란"><a href="#npm이란" class="headerlink" title="npm이란?"></a>npm이란?</h1><p><img src="https://velog.velcdn.com/images/koseony/post/a5f83fd5-e9fe-40a1-92ed-f2be0a77c2b1/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/68ee17a0-137a-40cb-8074-33cdb8e526d6/image.png"><br>생태계에서 내가 필요한 기능(패키지)을 검색해서 활용</p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/05cf97b0-2eb9-4d7f-b660-66cd63912750/image.png"></p>
+<h2 id="1-npm을-활용해서-프로젝트-만들기"><a href="#1-npm을-활용해서-프로젝트-만들기" class="headerlink" title="1. npm을 활용해서 프로젝트 만들기"></a>1. npm을 활용해서 프로젝트 만들기</h2><p>원하는 디렉토리에 <code>npm init -y</code>를 이용해 연결을 해준다.<br><img src="https://velog.velcdn.com/images/koseony/post/d57631b8-6c34-4095-b184-e9b74c8af1a2/image.png"><br>그럼 package.json 파일이 생성된것을 확인할 수 있다.<br><img src="https://velog.velcdn.com/images/koseony/post/ad3db829-8ebf-4540-9ad6-26c87c7c6165/image.png"></p>
+<blockquote>
+<p>❗ package.json에 있는 옵션들</p>
+</blockquote>
+<ul>
+<li>name : 현재 폴더의 이름으로 생성(바꾸기 가능)</li>
+<li>version : 현재 프로젝트 버전</li>
+<li>description : 프로젝트 설명</li>
+<li>main : 현재의 프로젝트는 패키기로 만들어서 업로드할 때 필요</li>
+<li>script : 현재 프로젝트 내부에서 사용하는 스크립트들</li>
+<li>keywords : 키워드</li>
+<li>autohr : 저작자</li>
+<li>licence : 현재 프로젝트의 라이센스</li>
+</ul>
+<h2 id="2-parcel-bundler-설치"><a href="#2-parcel-bundler-설치" class="headerlink" title="2. parcel bundler 설치"></a>2. parcel bundler 설치</h2><p>parcel-bundler를 사용하려고 한다.<br>설치해보자.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install parcel-bundler -D</span><br></pre></td></tr></table></figure>
+<p>를 입력해서 설치<br><img src="https://velog.velcdn.com/images/koseony/post/9aaf2b2a-753a-408d-8dc2-70a1aaee60c4/image.png"><br>그럼 아래 이미지처럼 node_modules라는 폴더가 생긴것을 확인할 수 있다.<br><img src="https://velog.velcdn.com/images/koseony/post/c437456a-7077-496b-8ddd-a720f11e6b64/image.png"></p>
+<p>우리는 parcel-bundler를 설치했는데node_modules안에 보면 굉장히 많은게 설치되어있다.<br>그 이유는 parcel-bundler를 사용하기 위해 필요한것들이 다 설치가 돼서 그런것이다.  </p>
+<p>package.json 밑에 보면 설치한 paecel-bundler가 보인다.<br><img src="https://velog.velcdn.com/images/koseony/post/bccb6ca0-2d38-4039-b4a8-37507c1b51af/image.png"></p>
+<h2 id="3-lodash-설치"><a href="#3-lodash-설치" class="headerlink" title="3. lodash 설치"></a>3. lodash 설치</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install lodash</span><br></pre></td></tr></table></figure>
+<p>위 코드를 이용해 <code>lodash</code>를 설치해보자.<br><img src="https://velog.velcdn.com/images/koseony/post/88d39b43-4440-4147-abd7-4f87634a8940/image.png"><br>lodash도 설치하고 package.json을 보면<br>dev가 붙은것과 안붙은것이 있다.<br><img src="https://velog.velcdn.com/images/koseony/post/929704c7-48f4-46cd-9af9-073fe7b89af8/image.png"><br>-D를 붙이면 개발할때 필요한 패키지를 설치한다.<br><img src="https://velog.velcdn.com/images/koseony/post/b35fae62-3a38-4dc7-81ab-d3abdee79bd7/image.png"><br>lodash는 실제 웹사이트에서 동작하는 패키지이다.<br><img src="https://velog.velcdn.com/images/koseony/post/b3293d78-b711-47ea-954a-583b5ad35f53/image.png"></p>
+<h2 id="4-패키지를-이용해-프로젝트-구성해보기"><a href="#4-패키지를-이용해-프로젝트-구성해보기" class="headerlink" title="4. 패키지를 이용해 프로젝트 구성해보기"></a>4. 패키지를 이용해 프로젝트 구성해보기</h2><p>이제 parcel을 이용해서 프로젝트를 구성해보자<br><img src="https://velog.velcdn.com/images/koseony/post/7a239f31-ec32-4d83-a8b5-1aa0fa450a1d/image.png"><br>paecel은 우리 프로젝트에만 설치되어 있는거기 때문에 터미널에서 동작 시킬 수 없다.<br><img src="https://velog.velcdn.com/images/koseony/post/e980fa30-7134-4d21-8de5-683a659b305a/image.png"><br>그래서 아래와 같이 script를 수정해서 npm run dev를 실행해준다.<br><img src="https://velog.velcdn.com/images/koseony/post/cfd167ae-a14f-41ac-a706-4ba6299cf303/image.png"><br>그리고 <code>npm run dev</code>를 입력해 실행한다.<br><img src="https://velog.velcdn.com/images/koseony/post/d4d40079-687c-4598-91e2-059505995d22/image.png"></p>
+<p>열린 주소를 누르면 확인 가능<br><img src="https://velog.velcdn.com/images/koseony/post/22fa5f83-8602-4c23-b56a-3de6e4e1939c/image.png"><br>아래 이미지와 같이 <code>package.json</code>을 수정한다.<br><img src="https://velog.velcdn.com/images/koseony/post/b96c1e6e-5422-4733-a534-95f39ef9f134/image.png"><br><code>npm run build</code>로 실행하면<br><img src="https://velog.velcdn.com/images/koseony/post/b3d75520-5415-4cc8-acbe-824f472f6b00/image.png"><br><code>.cache</code>와 <code>dist</code>폴더가 생긴다.<br><img src="https://velog.velcdn.com/images/koseony/post/2ddd0da1-cdc4-44dc-a801-f463fde4234d/image.png"><br>parcel-bundler는 개발때만 사용</p>
+<blockquote>
+<h2 id="5-유의적-버전-넘버-작성하는-법"><a href="#5-유의적-버전-넘버-작성하는-법" class="headerlink" title="5. 유의적 버전 넘버 작성하는 법"></a>5. 유의적 버전 넘버 작성하는 법</h2><p><img src="https://velog.velcdn.com/images/koseony/post/44e5068e-b84b-429d-9d8d-5a96bac00ec4/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/d1a6511f-bae7-4cdb-a21d-213b045359d6/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/65ea7401-f81f-4bbe-91a1-973cc99ab073/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/17d95c19-e828-4f1c-b722-7b91fcbc1f6d/image.png"></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
     <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/02/javaScript/nodejs-install/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -854,7 +949,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -867,7 +962,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>

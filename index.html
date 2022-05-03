@@ -160,6 +160,239 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/03/TIL(Today%20I%20Learn)/220503-til/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/03/TIL(Today%20I%20Learn)/220503-til/" class="post-title-link" itemprop="url">TIL 220503 webpack</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-03 18:39:00 / Updated at: 18:45:03" itemprop="dateCreated datePublished" datetime="2022-05-03T18:39:00+09:00">2022-05-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="https://velog.velcdn.com/images/koseony/post/7a4ef322-1647-44b0-92a4-530490ebef4f/image.jpg" alt="thum"></p>
+<h1 id="Webpack-Bundler"><a href="#Webpack-Bundler" class="headerlink" title="Webpack Bundler"></a>Webpack Bundler</h1><h2 id="1-설치하기"><a href="#1-설치하기" class="headerlink" title="1. 설치하기"></a>1. 설치하기</h2><p>원하는 디렉토리에 아래와 같은 코드 입력</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br></pre></td></tr></table></figure>
+<p><img src="https://velog.velcdn.com/images/koseony/post/01c752ee-3bbf-4962-8535-bf77b3d93bd5/image.png"><br>package.json파일이 생성되면 성공</p>
+<p>그 다음에 아래 코드로 설치</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i -D webpack webpack-cli webpack-dev-server@next</span><br></pre></td></tr></table></figure>
+<h2 id="2-기본세팅하기"><a href="#2-기본세팅하기" class="headerlink" title="2. 기본세팅하기"></a>2. 기본세팅하기</h2><p>설치가 완료되면 package.json 수정<br>원래는 아래과 같이 되어 있다.<br><img src="https://velog.velcdn.com/images/koseony/post/8c7a94a1-c322-4eea-966b-c9767b55656d/image.png"></p>
+<p>scripts부분은 아래와 같이 수정해준다.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;dev&quot;</span><span class="punctuation">:</span> <span class="string">&quot;webpack-dev-server --mode development&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;webpack --mode production&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://velog.velcdn.com/images/koseony/post/6298e191-2233-423e-9589-3ceedb9a8124/image.png"></p>
+<ul>
+<li><p>index.html 만들기<br>index.html 을 새로 만든다.<br><img src="https://velog.velcdn.com/images/koseony/post/53ec0a70-115f-42a1-9637-cd221778989c/image.png"></p>
+</li>
+<li><p>js 폴더 만들고 main.js파일 만들기<br><img src="https://velog.velcdn.com/images/koseony/post/eb856d8a-cfd9-40eb-9009-6bde7a636fb2/image.png"></p>
+</li>
+<li><p>webpack.config.js 파일 만들기<br>webpack은 서버를 열려면 구성파일이 필요하다<br>아래 이미지 처럼 webpack.config.js파일을 만들어준다.<br><img src="https://velog.velcdn.com/images/koseony/post/4b2bd9d5-0e72-4cd3-a2b4-5f39bcd27c05/image.png"></p>
+</li>
+<li><p>webpack.config.js 구성하기<br>아래 코드과 같이 구성한다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// import</span></span><br><span class="line"><span class="keyword">const</span> path =  <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// export</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">// 파일을 읽어들이기 시작하는 진입점 설정</span></span><br><span class="line">  <span class="attr">entry</span>: <span class="string">&#x27;./js/main.js&#x27;</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 결과물(번들)을 반환하는 설정</span></span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;dist&#x27;</span>),</span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;main.js&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://velog.velcdn.com/images/koseony/post/e7b6192a-e680-45d4-82fd-e0d4d3a391ad/image.png"></p>
+</li>
+<li><p>터미널로 테스트<br><code>npm run build</code>를 입력하면 아래 이미치처럼 dist 폴더가 생성된다.<br><img src="https://velog.velcdn.com/images/koseony/post/54ad2e22-7477-4b29-9710-ecabe42779e5/image.png"></p>
+</li>
+</ul>
+<hr>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// import</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="comment">// export</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">// 파일을 읽어들이기 시작하는 진입점 설정</span></span><br><span class="line">  <span class="attr">entry</span>: <span class="string">&#x27;./js/main.js&#x27;</span>,</span><br><span class="line">  <span class="comment">// 결과물(번들)을 반환하는 설정</span></span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="comment">// path: path.resolve(__dirname, &#x27;dist&#x27;),</span></span><br><span class="line">    <span class="comment">// filename: &#x27;main.js&#x27;,</span></span><br><span class="line">    <span class="attr">clean</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>위와 같이 path와 filename부분을 가려줘도<br>기본 폴더가 dist로 설정되어 있고 entry를 설정해줬기 때문에 제대로 추가가된다.<br>clean: ture를 주면 build할 때 필요 없는 파일들을 날려준다.</p>
+</blockquote>
+<hr>
+<h2 id="3-plugins"><a href="#3-plugins" class="headerlink" title="3. plugins"></a>3. plugins</h2><p><code>npm i -D html-webpack-plugin</code>으로 플러그인 설치<br>그 다음에 webpack.config.js를 수정</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// import</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">HtmlPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// export</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">// 파일을 읽어들이기 시작하는 진입점 설정</span></span><br><span class="line">  <span class="attr">entry</span>: <span class="string">&#x27;./js/main.js&#x27;</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 결과물(번들)을 반환하는 설정</span></span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="comment">// path: path.resolve(__dirname, &#x27;dist&#x27;),</span></span><br><span class="line">    <span class="comment">// filename: &#x27;main.js&#x27;,</span></span><br><span class="line">    <span class="attr">clean</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">HtmlPlugin</span>(&#123;</span><br><span class="line">      <span class="attr">template</span>: <span class="string">&#x27;./index.html&#x27;</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line">  <span class="attr">devServer</span>: &#123;</span><br><span class="line">    <span class="attr">host</span>: <span class="string">&#x27;localhost&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>개발서버 띄우기<br><code>npm run dev</code>로 개발서버 띄우기</li>
+</ul>
+<p><img src="https://velog.velcdn.com/images/koseony/post/05e95901-81e6-44c6-8d29-bf4e266b913a/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/c74bad26-0161-41f8-a9c7-9c86110f4765/image.png"></p>
+<p>제대로 동작한다.</p>
+<h2 id="4-정적-파일-연결"><a href="#4-정적-파일-연결" class="headerlink" title="4. 정적 파일 연결"></a>4. 정적 파일 연결</h2><p>아래 이미지와 같이 img태그의 경로를 설장하면 위치가 맞지 않아 찾지 못한다.<br><img src="https://velog.velcdn.com/images/koseony/post/68432c76-179d-4ef8-b2ea-1b1ee7c49a5f/image.png"></p>
+<p>하지만 bundle해서 사용 가능하다 세팅해보자<br>터미널에 <code>npm i -D copy-webpack-plugin</code>를 입력해서 설치한다.</p>
+<p>그리고 webpack.config.js 파일에 들어가서</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// import</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">HtmlPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">CopyPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;copy-webpack-plugin&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>import 부분에<br><code>const CopyPlugin = require(&#39;copy-webpack-plugin&#39;);</code> 를 추가하고<br>plugins 부분에</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">plugins</span>: [</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">HtmlPlugin</span>(&#123;</span><br><span class="line">      <span class="attr">template</span>: <span class="string">&#x27;./index.html&#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">CopyPlugin</span>(&#123;</span><br><span class="line">      <span class="attr">patterns</span>: [</span><br><span class="line">        &#123; <span class="attr">from</span>: <span class="string">&#x27;static&#x27;</span> &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br></pre></td></tr></table></figure>
+<p><code>new CopyPlugin</code>부분을 추가한다.</p>
+<ul>
+<li>개발서버 열기<br><code>npm run dev</code>를 해서 서버를 열어준다.  <blockquote>
+<p>❗ [webpack-dev-middleware] HookWebpackError: Not supported 여기서 이런 에러가 발생했다 그래서 <code>npm install copy-webpack-plugin@8 -D</code>로 버전을 낮췄더니 해결되었다.</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://velog.velcdn.com/images/koseony/post/b31dc09c-df9f-4a7b-93bf-a696a31cdd60/image.png"><br>문제없이 잘 열렸다.</p>
+<ul>
+<li><code>npm run build</code> 해주기<br><code>npm run build</code>을 해주면 아래 이미지처럼 dist 폴더가 제대로 구성된다.<br><img src="https://velog.velcdn.com/images/koseony/post/edf68a42-5437-4935-8807-dcb97003d385/image.png"></li>
+</ul>
+<h2 id="5-module"><a href="#5-module" class="headerlink" title="5. module"></a>5. module</h2><p>스타일을 적용해보자<br>아래와 같이 static에 css폴더를 만들고 안에 main.css파일을 만든다.<br><img src="https://velog.velcdn.com/images/koseony/post/8194498a-73aa-4b8c-a718-98890e5e36d8/image.png"></p>
+<p>css파일은 아래와 같이 입력해준다.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>: orange;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>npm run dev</code>를 입력해서 확인해보면<br><img src="https://velog.velcdn.com/images/koseony/post/65318cbd-18a1-4517-bb92-2c36f0cfd33c/image.png"><br>잘 적용되었다.</p>
+<p>그런데 webpack에서는 다른 방법으로 css를 관리할수 있다.<br>실습해보자.</p>
+<ul>
+<li><p>css 폴더 밖으로 빼기<br>css폴더를 아래 이미지와 같이 static 밖으로 빼준다.<br><img src="https://velog.velcdn.com/images/koseony/post/9d7e602c-3435-4a89-bfa4-bb54ef024237/image.png"></p>
+</li>
+<li><p>main.js파일에서 import해주기<br>그다음 아래 이미지처럼 <code>main.js</code>에서 <code>import</code>해준다.<br><img src="https://velog.velcdn.com/images/koseony/post/76b5f5ea-d952-4fe6-8539-f0f7c17d5fce/image.png"></p>
+</li>
+<li><p>css읽는 패키지 설치<br>터미얼에서 <code>npm i -D css-loader style-loader</code>를 입력하여 패키지를 설치한다.  </p>
+</li>
+<li><p>webpack.config.js 수정</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        <span class="attr">use</span>: [</span><br><span class="line">          <span class="string">&#x27;style-loader&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;css-loader&#x27;</span></span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<p>아래 이미지처럼 위의 코드를 입력해준다.<br><img src="https://velog.velcdn.com/images/koseony/post/65ffaaa5-95a0-4b54-ab50-b55f7aabc4b1/image.png"></p>
+</li>
+</ul>
+<h2 id="6-SCSS"><a href="#6-SCSS" class="headerlink" title="6. SCSS"></a>6. SCSS</h2><p>SCSS 적용하기  </p>
+<ul>
+<li><p>scss로 바꾸기<br>기존의 css폴더와 main.css를 아래 이미지와 같이 SCSS폴더와 main.scss로 바꿔준다.<br><img src="https://velog.velcdn.com/images/koseony/post/5a7f4f7a-c494-4341-bd5b-3adab86dc5a4/image.png"></p>
+</li>
+<li><p>main.js 수정하기<br>아래 이미지처럼 import부분 수정한다.<br><img src="https://velog.velcdn.com/images/koseony/post/d490a72c-1878-49c8-b97f-af4bbba4820d/image.png"></p>
+</li>
+<li><p>webpack.config.js 수정하기<br>webpack.config.js파일의 test부분을<br><code>test: /\.s?css$/</code>로 수정한다.  </p>
+<blockquote>
+<p>s? &#x3D;&gt; s가 있을수도 있고 없을수도있다는 뜻</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://velog.velcdn.com/images/koseony/post/f776134c-b455-43e7-bd2b-1455f3b98bc3/image.png"></p>
+<ul>
+<li>scss 패키지 설치하기<br><code>npm i -D sass-loader sass</code>로 패키지 설치하고 webpack.config.js파일을 아래 이미지 처럼 수정<br><img src="https://velog.velcdn.com/images/koseony/post/c6f59240-9566-4898-9f4b-374561bc0ea4/image.png"></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">test</span>: <span class="regexp">/\.s?css$/</span>,</span><br><span class="line">        <span class="attr">use</span>: [</span><br><span class="line">          <span class="string">&#x27;style-loader&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;sass-loader&#x27;</span></span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>scss 파일 수정하기<br>아래처럼 scss파일 수정한다.<br><img src="https://velog.velcdn.com/images/koseony/post/23c5a510-0680-44c0-b2d1-665abedff787/image.png"></li>
+</ul>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$color--black</span>: <span class="number">#000</span>;</span><br><span class="line"><span class="variable">$color--white</span>: <span class="number">#fff</span>;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span>&#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="variable">$color--black</span>;</span><br><span class="line">  <span class="selector-tag">h1</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="variable">$color--white</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">40px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://velog.velcdn.com/images/koseony/post/279fe10d-d8f9-45b5-9d40-4076b7c794d5/image.png"><br>제대로 동작중!!</p>
+<h2 id="7-Autoprefixer"><a href="#7-Autoprefixer" class="headerlink" title="7. Autoprefixer"></a>7. Autoprefixer</h2><p>Autoprefixer 패키지 연결하기</p>
+<ul>
+<li><p>scss를 수정해서 잘 동작하는지 확인하겠다.<br>아래 이미지처럼 <code>display:flex</code>를 추가한다.<br><img src="https://velog.velcdn.com/images/koseony/post/0dbdf394-3ea8-474f-912d-c3c368fd3733/image.png"></p>
+</li>
+<li><p>패키지 설치<br><code>npm i -D postcss autoprefixer postcss-loader</code>로 패키지 설치</p>
+</li>
+<li><p>webpack.config.js 수정하기<br>아래와 같이 수정한다. 순서가 중요하다<br>(아래것부터 실행)  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">test</span>: <span class="regexp">/\.s?css$/</span>,</span><br><span class="line">        <span class="attr">use</span>: [</span><br><span class="line">          <span class="string">&#x27;style-loader&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;postcss-loader&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;sass-loader&#x27;</span></span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<p><img src="https://velog.velcdn.com/images/koseony/post/da5ed354-aaeb-4822-9cb4-0bba231ea31a/image.png"></p>
+</li>
+<li><p>package.json 파일 수정<br>아래와 같이 package.json파일에 추가해준다.  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;browserslist&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;&gt; 1%&quot;</span>,</span><br><span class="line">    <span class="string">&quot;last 2 versions&quot;</span></span><br><span class="line">  ]</span><br></pre></td></tr></table></figure>
+<p><img src="https://velog.velcdn.com/images/koseony/post/33e6e602-a82a-4f12-b9f4-0b0e001e2205/image.png"></p>
+</li>
+<li><p>.postcssrs.js파일 만들기<br>루트경로에 <code>.postcssrs.js</code>파일을 만들어준다.<br><img src="https://velog.velcdn.com/images/koseony/post/ba9330bd-d0d3-4956-9f1d-e4bbbfa72eed/image.png"><br>그리고 아래와 같이 코드를 입력한다.  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="built_in">require</span>(<span class="string">&#x27;autoprefixer&#x27;</span>)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://velog.velcdn.com/images/koseony/post/cc54315f-1ad5-4bd3-b63b-a654193f3a0b/image.png"></p>
+</li>
+<li><p>개발서버 열고 확인하기<br><code>npm run dev</code>로 서버를 열고 <code>h1</code>태그를 확인해보면 잘 적용되어있는걸 볼 수 있다.<br><img src="https://velog.velcdn.com/images/koseony/post/b7db60f3-5f43-48e7-b893-c1797413bd47/image.png"></p>
+</li>
+<li><p>마지막으로 index.html에 가서 사용하지 않는 링크 삭제<br>아래 이미지에 있는 link 태그는 이제 필요 없기 때문에 지워준다.<br><img src="https://velog.velcdn.com/images/koseony/post/be802572-615f-48d8-98d3-daed4065fdb3/image.png"></p>
+</li>
+</ul>
+<p>…<br>짠!<br><img src="https://velog.velcdn.com/images/koseony/post/5130bdb2-0e17-4f2f-8db0-634a1960df14/image.png"></p>
+<h2 id="8-babel"><a href="#8-babel" class="headerlink" title="8. babel"></a>8. babel</h2><ul>
+<li><p>패키지 설치<br><code>npm i -D @babel/core @babel/preset-env @babel/plugin-transform-runtime</code> 로 설치  </p>
+</li>
+<li><p>설치가 완료되면 루트경로에 <code>.babelrc.js</code> 파일생성후 아래와 같이 코딩  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">presets</span>: [<span class="string">&#x27;@babel/preset-env&#x27;</span>],</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    [<span class="string">&#x27;@babel/plugin-transform-runtime&#x27;</span>]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://velog.velcdn.com/images/koseony/post/37aa17fc-af1d-4053-a826-bf81aecd2f02/image.png"></p>
+</li>
+<li><p>webpack.config.js 수정하기<br>아래와 같이 수정  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,</span><br><span class="line">  <span class="attr">use</span>: [</span><br><span class="line">    <span class="string">&#x27;babel-loader&#x27;</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://velog.velcdn.com/images/koseony/post/2533e6ca-dced-477f-b23e-f021d663332b/image.png"></p>
+</li>
+</ul>
+<p><code>$ npm i -D babel-loader</code>로 패키지 설치</p>
+<h2 id="9-Netlify-배포"><a href="#9-Netlify-배포" class="headerlink" title="9. Netlify 배포"></a>9. Netlify 배포</h2><ul>
+<li><p>gitignore을 만들고 아래처럼 깃에 올리지 않을 파일들 설정<br><img src="https://velog.velcdn.com/images/koseony/post/5874d340-d1b1-48df-94b9-145d8691dd14/image.png"></p>
+</li>
+<li><p>git 연결<br><code>git init</code>으로 깃 연결하기<br><img src="https://velog.velcdn.com/images/koseony/post/76966987-07dc-40e3-bde6-c532cb31b53a/image.png"></p>
+</li>
+<li><p>git status<br><img src="https://velog.velcdn.com/images/koseony/post/96ff1571-fa55-4e72-8c41-532e786a8c0e/image.png"></p>
+</li>
+<li><p>git add<br><img src="https://velog.velcdn.com/images/koseony/post/18a1dd89-2440-45f5-9eb6-421877120ec3/image.png"></p>
+</li>
+<li><p>git commit<br><img src="https://velog.velcdn.com/images/koseony/post/bbb32191-d808-42cb-b638-8a82ef64fe08/image.png"></p>
+</li>
+<li><p>git remote 추가<br><img src="https://velog.velcdn.com/images/koseony/post/9534091b-fb8a-492c-b5aa-a169eaef4bbc/image.png"></p>
+</li>
+<li><p>git branch 추가 및 push<br><img src="https://velog.velcdn.com/images/koseony/post/c875abe5-caea-462b-abe3-b92d7d7f17d1/image.png"></p>
+</li>
+<li><p>netlify 로그인<br><img src="https://velog.velcdn.com/images/koseony/post/2b801d05-5d3a-4e56-afc1-f82138da009e/image.png"><br><code>import an existing project</code> 클릭<br><img src="https://velog.velcdn.com/images/koseony/post/af399811-d43d-40d2-9d02-fb06416cf7e6/image.png"><br><code>Github</code>을 누른다.<br><img src="https://velog.velcdn.com/images/koseony/post/32eb9a92-23c0-491d-a26a-5c71d313d5eb/image.png"><br>자동으로 로그인 후에 아래에서 webpack-template-basic을 눌러준다.<br><img src="https://velog.velcdn.com/images/koseony/post/210e5c77-9536-417e-8b08-074983a9a6f6/image.png"><br>아래 부분이 제대로 맞는지 확인<br><img src="https://velog.velcdn.com/images/koseony/post/79c0d4ea-bb5f-465f-9c95-f329280af2be/image.png"><br>그리고 deploy site 버튼 클릭</p>
+</li>
+</ul>
+<p>그럼 배포</p>
+<h2 id="10-NPX-Degit"><a href="#10-NPX-Degit" class="headerlink" title="10. NPX, Degit"></a>10. NPX, Degit</h2><ul>
+<li>vs code 새창으로 연다.</li>
+</ul>
+<p>원하는 디렉토리에 <code>npx degit hoseonkwak/webpack-template-basic webpack-template-test</code>를 입력한다.<br>본인계정 이름 + 프로젝트 이름이다.<br><img src="https://velog.velcdn.com/images/koseony/post/01db63db-36c7-4904-937a-18c0c35d2cf1/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/a09ff1d5-ee3c-4326-8bec-3f35864bee30/image.png"></p>
+<ul>
+<li>vs code 열기<br><code>code . -r</code>을 입력해서 vs code로 열어준다.<br><img src="https://velog.velcdn.com/images/koseony/post/5fca45f3-d164-4aca-a1ab-27b32dc5ada2/image.png"></li>
+</ul>
+<p>버전이 없는 프로젝트로 열린다.</p>
+<p>npx degit을 이용해서 처음부터 버전이 없는 프로젝트로 시작할 수 있다.</p>
+<ul>
+<li>다운로드해서 사용하는 방법<br>download zip을 해서 받을수도 있다.</li>
+</ul>
+<p><img src="https://velog.velcdn.com/images/koseony/post/5a28f092-3496-46a4-938d-7447f8650efb/image.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
     <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/02/TIL(Today%20I%20Learn)/220502-til2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1178,101 +1411,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
-    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/02/javaScript/npm-project/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hoseon Kwak">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="koseony의 개발블로그">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/02/javaScript/npm-project/" class="post-title-link" itemprop="url">npm(parcel, lodash)로 프로젝트 실행하기</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">작성일</span>
-              
-
-              <time title="Post created: 2022-05-02 10:17:04 / Updated at: 10:19:45" itemprop="dateCreated datePublished" datetime="2022-05-02T10:17:04+09:00">2022-05-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javaScript/" itemprop="url" rel="index"><span itemprop="name">javaScript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="npm이란"><a href="#npm이란" class="headerlink" title="npm이란?"></a>npm이란?</h1><p><img src="https://velog.velcdn.com/images/koseony/post/a5f83fd5-e9fe-40a1-92ed-f2be0a77c2b1/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/68ee17a0-137a-40cb-8074-33cdb8e526d6/image.png"><br>생태계에서 내가 필요한 기능(패키지)을 검색해서 활용</p>
-<p><img src="https://velog.velcdn.com/images/koseony/post/05cf97b0-2eb9-4d7f-b660-66cd63912750/image.png"></p>
-<h2 id="1-npm을-활용해서-프로젝트-만들기"><a href="#1-npm을-활용해서-프로젝트-만들기" class="headerlink" title="1. npm을 활용해서 프로젝트 만들기"></a>1. npm을 활용해서 프로젝트 만들기</h2><p>원하는 디렉토리에 <code>npm init -y</code>를 이용해 연결을 해준다.<br><img src="https://velog.velcdn.com/images/koseony/post/d57631b8-6c34-4095-b184-e9b74c8af1a2/image.png"><br>그럼 package.json 파일이 생성된것을 확인할 수 있다.<br><img src="https://velog.velcdn.com/images/koseony/post/ad3db829-8ebf-4540-9ad6-26c87c7c6165/image.png"></p>
-<blockquote>
-<p>❗ package.json에 있는 옵션들</p>
-</blockquote>
-<ul>
-<li>name : 현재 폴더의 이름으로 생성(바꾸기 가능)</li>
-<li>version : 현재 프로젝트 버전</li>
-<li>description : 프로젝트 설명</li>
-<li>main : 현재의 프로젝트는 패키기로 만들어서 업로드할 때 필요</li>
-<li>script : 현재 프로젝트 내부에서 사용하는 스크립트들</li>
-<li>keywords : 키워드</li>
-<li>autohr : 저작자</li>
-<li>licence : 현재 프로젝트의 라이센스</li>
-</ul>
-<h2 id="2-parcel-bundler-설치"><a href="#2-parcel-bundler-설치" class="headerlink" title="2. parcel bundler 설치"></a>2. parcel bundler 설치</h2><p>parcel-bundler를 사용하려고 한다.<br>설치해보자.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install parcel-bundler -D</span><br></pre></td></tr></table></figure>
-<p>를 입력해서 설치<br><img src="https://velog.velcdn.com/images/koseony/post/9aaf2b2a-753a-408d-8dc2-70a1aaee60c4/image.png"><br>그럼 아래 이미지처럼 node_modules라는 폴더가 생긴것을 확인할 수 있다.<br><img src="https://velog.velcdn.com/images/koseony/post/c437456a-7077-496b-8ddd-a720f11e6b64/image.png"></p>
-<p>우리는 parcel-bundler를 설치했는데node_modules안에 보면 굉장히 많은게 설치되어있다.<br>그 이유는 parcel-bundler를 사용하기 위해 필요한것들이 다 설치가 돼서 그런것이다.  </p>
-<p>package.json 밑에 보면 설치한 paecel-bundler가 보인다.<br><img src="https://velog.velcdn.com/images/koseony/post/bccb6ca0-2d38-4039-b4a8-37507c1b51af/image.png"></p>
-<h2 id="3-lodash-설치"><a href="#3-lodash-설치" class="headerlink" title="3. lodash 설치"></a>3. lodash 설치</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install lodash</span><br></pre></td></tr></table></figure>
-<p>위 코드를 이용해 <code>lodash</code>를 설치해보자.<br><img src="https://velog.velcdn.com/images/koseony/post/88d39b43-4440-4147-abd7-4f87634a8940/image.png"><br>lodash도 설치하고 package.json을 보면<br>dev가 붙은것과 안붙은것이 있다.<br><img src="https://velog.velcdn.com/images/koseony/post/929704c7-48f4-46cd-9af9-073fe7b89af8/image.png"><br>-D를 붙이면 개발할때 필요한 패키지를 설치한다.<br><img src="https://velog.velcdn.com/images/koseony/post/b35fae62-3a38-4dc7-81ab-d3abdee79bd7/image.png"><br>lodash는 실제 웹사이트에서 동작하는 패키지이다.<br><img src="https://velog.velcdn.com/images/koseony/post/b3293d78-b711-47ea-954a-583b5ad35f53/image.png"></p>
-<h2 id="4-패키지를-이용해-프로젝트-구성해보기"><a href="#4-패키지를-이용해-프로젝트-구성해보기" class="headerlink" title="4. 패키지를 이용해 프로젝트 구성해보기"></a>4. 패키지를 이용해 프로젝트 구성해보기</h2><p>이제 parcel을 이용해서 프로젝트를 구성해보자<br><img src="https://velog.velcdn.com/images/koseony/post/7a239f31-ec32-4d83-a8b5-1aa0fa450a1d/image.png"><br>paecel은 우리 프로젝트에만 설치되어 있는거기 때문에 터미널에서 동작 시킬 수 없다.<br><img src="https://velog.velcdn.com/images/koseony/post/e980fa30-7134-4d21-8de5-683a659b305a/image.png"><br>그래서 아래와 같이 script를 수정해서 npm run dev를 실행해준다.<br><img src="https://velog.velcdn.com/images/koseony/post/cfd167ae-a14f-41ac-a706-4ba6299cf303/image.png"><br>그리고 <code>npm run dev</code>를 입력해 실행한다.<br><img src="https://velog.velcdn.com/images/koseony/post/d4d40079-687c-4598-91e2-059505995d22/image.png"></p>
-<p>열린 주소를 누르면 확인 가능<br><img src="https://velog.velcdn.com/images/koseony/post/22fa5f83-8602-4c23-b56a-3de6e4e1939c/image.png"><br>아래 이미지와 같이 <code>package.json</code>을 수정한다.<br><img src="https://velog.velcdn.com/images/koseony/post/b96c1e6e-5422-4733-a534-95f39ef9f134/image.png"><br><code>npm run build</code>로 실행하면<br><img src="https://velog.velcdn.com/images/koseony/post/b3d75520-5415-4cc8-acbe-824f472f6b00/image.png"><br><code>.cache</code>와 <code>dist</code>폴더가 생긴다.<br><img src="https://velog.velcdn.com/images/koseony/post/2ddd0da1-cdc4-44dc-a801-f463fde4234d/image.png"><br>parcel-bundler는 개발때만 사용</p>
-<blockquote>
-<h2 id="5-유의적-버전-넘버-작성하는-법"><a href="#5-유의적-버전-넘버-작성하는-법" class="headerlink" title="5. 유의적 버전 넘버 작성하는 법"></a>5. 유의적 버전 넘버 작성하는 법</h2><p><img src="https://velog.velcdn.com/images/koseony/post/44e5068e-b84b-429d-9d8d-5a96bac00ec4/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/d1a6511f-bae7-4cdb-a21d-213b045359d6/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/65ea7401-f81f-4bbe-91a1-973cc99ab073/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/17d95c19-e828-4f1c-b722-7b91fcbc1f6d/image.png"></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1342,7 +1480,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -1355,7 +1493,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
