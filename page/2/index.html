@@ -160,6 +160,180 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/02/TIL(Today%20I%20Learn)/220426-til2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/02/TIL(Today%20I%20Learn)/220426-til2/" class="post-title-link" itemprop="url">220426-TIL(javaScrit 함수)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-02 10:54:22 / Updated at: 18:44:35" itemprop="dateCreated datePublished" datetime="2022-05-02T10:54:22+09:00">2022-05-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="https://velog.velcdn.com/images/koseony/post/57a9b5ed-d682-459b-b2f8-cc4f2c42f5a4/image.jpg" alt="thum"></p>
+<h1 id="🌟javaScript-함수"><a href="#🌟javaScript-함수" class="headerlink" title="🌟javaScript 함수"></a>🌟javaScript 함수</h1><h2 id="1-함수"><a href="#1-함수" class="headerlink" title="1. 함수"></a>1. 함수</h2><p>함수를 선언할 때 <code>()</code>안에 넣는 것을 <code>매개변수</code>라고 한다.<br>함수는 실행할때 <code>()</code>안에 넣는 것을 <code>인수</code>라고 한다.<br><img src="https://velog.velcdn.com/images/koseony/post/8c55fd46-3365-48d5-a322-810941359acf/image.png"><br><code>return</code>이 실행되면 <code>return</code> 밑에는 실행이 안된다.<br><img src="https://velog.velcdn.com/images/koseony/post/c06a626b-9d9b-4e6f-bf94-63c6fe2fed0b/image.png"><br>참이면 return으로 인해 함수 종료<br><img src="https://velog.velcdn.com/images/koseony/post/73ea16d3-877c-4ae6-a569-e3e4d43ea7ee/image.png"></p>
+<h2 id="2-화살표-함수"><a href="#2-화살표-함수" class="headerlink" title="2. 화살표 함수"></a>2. 화살표 함수</h2><p>화살표 함수는 <code>축약형</code>이다.<br><img src="https://velog.velcdn.com/images/koseony/post/668f8fe0-e157-4c7e-abb7-0f756fc0c85c/image.png"><br><code>객체는 ()</code>로 감싼다.<br><img src="https://velog.velcdn.com/images/koseony/post/272865e0-05ce-407a-ab76-e4bf58f5a293/image.png"></p>
+<h2 id="3-IIFE-즉시실행함수"><a href="#3-IIFE-즉시실행함수" class="headerlink" title="3. IIFE 즉시실행함수"></a>3. IIFE 즉시실행함수</h2><p>2번째 방법을 권장한다.<br><img src="https://velog.velcdn.com/images/koseony/post/c186630a-59d5-4025-a90a-1c960716dab3/image.png"></p>
+<h2 id="4-호이스팅"><a href="#4-호이스팅" class="headerlink" title="4. 호이스팅"></a>4. 호이스팅</h2><p>호이스팅이란 <code>함수 선언부가 유효범위 최상단으로 올려지는 현상</code>이다.<br>계속 메모리로 남아있어서 접근 가능하다.<br>아래 이미지는 const에 함수를 선언했기 때문에 순서를 지켜야 하지만<br><img src="https://velog.velcdn.com/images/koseony/post/7e2e1c51-31c1-471a-8bc8-b539b3219740/image.png"><br>아래 이미지는 어디서는 가져다 쓸 수 있다.</p>
+<blockquote>
+<p><img src="https://velog.velcdn.com/images/koseony/post/7178dd1f-7294-49c8-a175-cab081c0ac1c/image.png"></p>
+</blockquote>
+<h2 id="5-타이머-함수"><a href="#5-타이머-함수" class="headerlink" title="5. 타이머 함수"></a>5. 타이머 함수</h2><p><img src="https://velog.velcdn.com/images/koseony/post/bc9937aa-de87-4a42-a349-d326a65cf03e/image.png"></p>
+<h2 id="6-콜백"><a href="#6-콜백" class="headerlink" title="6. 콜백"></a>6. 콜백</h2><p>함수의 인수로 사용되는 함수를 콜백함수라고 한다.<br><img src="https://velog.velcdn.com/images/koseony/post/a413e610-2dca-4f62-8d7e-d50f7a61fd2a/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/544e4aff-a597-425d-b70d-9899f1f9a4aa/image.png"></p>
+<h2 id="7-생성자-함수-클래스"><a href="#7-생성자-함수-클래스" class="headerlink" title="7. 생성자 함수 (클래스)"></a>7. 생성자 함수 (클래스)</h2><p><img src="https://velog.velcdn.com/images/koseony/post/9700bb95-dfbd-4c61-9d18-ca5b496d1c22/image.png"><br>new를 이용해 생성자 함수 생성<br>하나의 객체 데이터 생성<br><img src="https://velog.velcdn.com/images/koseony/post/ef4e7d82-9a79-4409-8f24-656ef6cefd15/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/19e6fc99-31ed-46de-a8d5-fd5bd8a19f7b/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/f30290c9-837e-4ee0-a82d-715f61bd8410/image.png"><br>프로토타입!</p>
+<h2 id="8-this"><a href="#8-this" class="headerlink" title="8. this"></a>8. this</h2><p><img src="https://velog.velcdn.com/images/koseony/post/d669b490-776d-4b55-b8de-527905363406/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/c25f13c7-4fff-46d7-991b-5cc10431836f/image.png"><br>normal()은 호출할 때 ‘hoseon’이 들어가있어서 hoseon이 출력 된다.<br>arrow()는 함수범위에서 this를 정의하기때문에 함수정의 부분에 name이 없기때문에 undefined가 출력된다.  </p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/01f66a1f-03cb-477f-a58e-efb7a9a5c6e4/image.png"><br>setTimeout()을 쓸때는 콜백으로 화살표 함수를 사용한다.<br><img src="https://velog.velcdn.com/images/koseony/post/c8fc73a4-51ba-497c-a918-e11a7356539f/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/972f175d-9bc4-4db0-83d5-87b73927e647/image.png"></p>
+<h2 id="9-ES6-Classes"><a href="#9-ES6-Classes" class="headerlink" title="9. ES6 Classes"></a>9. ES6 Classes</h2><p><img src="https://velog.velcdn.com/images/koseony/post/1b4b64c6-f53c-42d5-a7b2-f71d3a86957f/image.png"></p>
+<h2 id="10-상속-확장"><a href="#10-상속-확장" class="headerlink" title="10. 상속(확장)"></a>10. 상속(확장)</h2><p>extends<br><img src="https://velog.velcdn.com/images/koseony/post/20c42ffc-73c7-4a08-be46-ab13f4e38ef2/image.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/02/TIL(Today%20I%20Learn)/220426-til/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/02/TIL(Today%20I%20Learn)/220426-til/" class="post-title-link" itemprop="url">220426_TIL(javascript 시작하기)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-02 10:37:49 / Updated at: 18:45:21" itemprop="dateCreated datePublished" datetime="2022-05-02T10:37:49+09:00">2022-05-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="https://velog.velcdn.com/images/koseony/post/9a4e12cf-534e-4c9f-80e6-7ff6b137e1fd/image.jpg" alt="thum"></p>
+<h1 id="⭐javaScript-시작하기"><a href="#⭐javaScript-시작하기" class="headerlink" title="⭐javaScript 시작하기"></a>⭐javaScript 시작하기</h1><h2 id="1-데이터-타입-확인"><a href="#1-데이터-타입-확인" class="headerlink" title="1. 데이터 타입 확인"></a>1. 데이터 타입 확인</h2><p><code>typeof</code>로 데이터 타입 확인하기.<br><img src="https://velog.velcdn.com/images/koseony/post/4fb331e2-6105-43ce-9ff0-f8f6736081fe/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/5d9e0932-6cf7-4dfa-bc48-386c6cfd9b50/image.png"><br>다음은 타입을 알려주는 함수를 만들어 타입 확인하기<br>(object로 뭉쳐서 알려준다)</p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/b2620aa5-064a-49a1-b561-f3650a0c0f82/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/feed8954-a6b9-4c47-a7a0-b9e0a6ea1bd9/image.png"></p>
+<h3 id="내보내기-세팅"><a href="#내보내기-세팅" class="headerlink" title="내보내기 세팅"></a>내보내기 세팅</h3><p>아래와 같이 expert default를 붙여셔 내보낼수있게 한다.<br><img src="https://velog.velcdn.com/images/koseony/post/8ede148a-fbe3-440b-b2c1-8d3e910e0742/image.png"></p>
+<h3 id="가지고-오기"><a href="#가지고-오기" class="headerlink" title="가지고 오기"></a>가지고 오기</h3><p>아래와 같이 <code>import</code>로 가지고 와서 함수 사용 가능.<br><img src="https://velog.velcdn.com/images/koseony/post/40b6e22e-8d54-46f6-9c38-c4b7454e795a/image.png"></p>
+<h2 id="2-연산자"><a href="#2-연산자" class="headerlink" title="2. 연산자"></a>2. 연산자</h2><p>기본적인 연산자들<br><img src="https://velog.velcdn.com/images/koseony/post/06147deb-d0fd-409d-8bee-22509fd6ada5/image.png"></p>
+<h2 id="3-비교-논리-연산자"><a href="#3-비교-논리-연산자" class="headerlink" title="3.비교, 논리 연산자"></a>3.비교, 논리 연산자</h2><ul>
+<li>비교 연산자 (comparison operate)<br><img src="https://velog.velcdn.com/images/koseony/post/01f296cc-a5a1-4c25-bca3-c279afd7a611/image.png"><img src="https://velog.velcdn.com/images/koseony/post/22f4243b-c498-4851-9cde-a105065a275d/image.png"></li>
+<li>논리 연산자 (logical operate)<br><img src="https://velog.velcdn.com/images/koseony/post/8ccce1dc-d165-4070-a461-892bb4216add/image.png"></li>
+</ul>
+<h2 id="4-삼항-연산자"><a href="#4-삼항-연산자" class="headerlink" title="4. 삼항 연산자"></a>4. 삼항 연산자</h2><p><img src="https://velog.velcdn.com/images/koseony/post/b3057e8f-4d15-4e91-9c8f-ae96c51aea68/image.png"></p>
+<h2 id="5-조건문-if-else"><a href="#5-조건문-if-else" class="headerlink" title="5. 조건문 if else"></a>5. 조건문 if else</h2><p><img src="https://velog.velcdn.com/images/koseony/post/97466bfd-7b4b-4a72-b62b-52471c1e4b18/image.png"></p>
+<h2 id="6-조건문-switch"><a href="#6-조건문-switch" class="headerlink" title="6. 조건문 switch"></a>6. 조건문 switch</h2><p><img src="https://velog.velcdn.com/images/koseony/post/0747907a-6763-483d-9f92-e2ecbf010f41/image.png"></p>
+<h2 id="7-반복문-for"><a href="#7-반복문-for" class="headerlink" title="7. 반복문 for"></a>7. 반복문 for</h2><p><img src="https://velog.velcdn.com/images/koseony/post/b3b33bc7-8560-4c9e-ad86-b77cf2e67c62/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/3871ae16-8c10-403f-9cc5-c760a2a3b4ef/image.png"></p>
+<h2 id="8-변수-유효범위"><a href="#8-변수-유효범위" class="headerlink" title="8. 변수 유효범위"></a>8. 변수 유효범위</h2><p><img src="https://velog.velcdn.com/images/koseony/post/4aedfbe6-2ed0-4db0-b551-979f2a8c7561/image.png"><br>const는 블록 단위 스코프이기 때문에 유효범위 밖에 있다.<br><img src="https://velog.velcdn.com/images/koseony/post/aabf06eb-eb2d-4859-81d6-3bd0b9c3d054/image.png"></p>
+<p>아래 이미지는 유효범위 안에 있긴하지만<br>데이터가 지정되어있지 않다.<br><img src="https://velog.velcdn.com/images/koseony/post/0c74585c-e118-4714-ab29-ac73039c9969/image.png"></p>
+<p>let과 const는 블록레벨에 유효범위는 가진다.<br>‘{}’<br><img src="https://velog.velcdn.com/images/koseony/post/d9d2da0c-63bb-4a21-b16d-3abee41b2bd8/image.png"></p>
+<p>var는 에러가 뜨지 않는다.<br><img src="https://velog.velcdn.com/images/koseony/post/d00760c0-092f-4186-b597-e5c893561935/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/24b63d2c-48c3-490a-93bb-b771b47deae2/image.png"><br>var는 함수레벨의 유효범위는 가지고 있다.</p>
+<p>❗그래서 var보다는 let, const를 사용한다.<br><img src="https://velog.velcdn.com/images/koseony/post/3ce430c8-8a2f-42fb-aea9-acab4572aeae/image.png"></p>
+<h2 id="9-형-변환"><a href="#9-형-변환" class="headerlink" title="9. 형 변환"></a>9. 형 변환</h2><p>동등 연산자.<br><img src="https://velog.velcdn.com/images/koseony/post/edbd4b1e-b144-4d9e-80c7-c6eec6cf94a7/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/9f5fb8c0-88c2-477e-bc7d-948228fcf024/image.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
     <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/02/javaScript/npm-project/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -949,7 +1123,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -962,7 +1136,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
