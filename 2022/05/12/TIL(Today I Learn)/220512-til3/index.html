@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hoseonkwak.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="리액트 디테일 잡기1. jsxjsx소개https:&#x2F;&#x2F;ko.reactjs.org&#x2F;docs&#x2F;introducing-jsx.html#gatsby-focus-wrapper        2. propshttps:&#x2F;&#x2F;ko.reactjs.org&#x2F;docs&#x2F;components-and-props.html#gatsby-focus-wrapper     컴포넌트 합성  12345">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TIL 220512 react 디테일 잡기 - (jsx, props, state, 컴포넌트 생명주기)">
+<meta property="og:url" content="https://hoseonkwak.github.io/2022/05/12/TIL(Today%20I%20Learn)/220512-til3/index.html">
+<meta property="og:site_name" content="koseony의 개발블로그">
+<meta property="og:description" content="리액트 디테일 잡기1. jsxjsx소개https:&#x2F;&#x2F;ko.reactjs.org&#x2F;docs&#x2F;introducing-jsx.html#gatsby-focus-wrapper        2. propshttps:&#x2F;&#x2F;ko.reactjs.org&#x2F;docs&#x2F;components-and-props.html#gatsby-focus-wrapper     컴포넌트 합성  12345">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/ff7a80d8-af74-4cc0-8fab-19570117de22/image.jpg">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/6936edb6-a8f6-4be3-a702-a9113407b940/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/b54f9c4e-584c-4b25-b41f-b9b5e5d1b74a/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/1034c6fb-9121-437b-beb5-fc72355205d3/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/ce6ae0f3-b191-4015-8ab6-c3f8f4dc87f9/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/68588006-8d6c-4519-a9bf-d4d75438fd0f/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/326ba253-a958-4939-a283-af5fe2240a05/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/6ccf15a1-1a18-4767-8b64-7e4fdd232d34/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/60341535-3401-44a5-8fb6-fae7f793a745/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/644c4a05-0cf8-4e71-93ae-65b3eee376ef/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/f3649892-f057-438e-a6ef-8c3c42d1ec38/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/b1a24bba-1129-422a-bfd6-5b541f57598e/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/145a5c0b-80c9-4ed3-b3ae-b4c19aa5d744/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/e7cb1a0e-52bd-49a0-9ff6-80e22bf13885/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/f4304497-455e-40a4-927f-5d7f81981ed5/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/19b5aba3-c6d5-43e8-b40a-cfb1f98cf9a2/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/3c8ac24d-a466-4bb6-8558-f6d524e78608/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/92fe1918-8e14-467e-9b71-20cbaa2f7ed3/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/c586a8cb-fa0f-45ed-8daf-90b5de2d9485/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/7752f288-efad-4ff8-8b49-afe243ecb10a/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/5c9b8601-4918-4d87-8032-fff503fd34c9/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/c46b2d35-8603-460d-9789-759f4609149b/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/1ee00c81-2429-4768-977e-aa66a1327647/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/d0fea92f-54ee-49e9-829f-e7ab8e828584/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/560bb579-9098-4ed9-aaa8-df0ac53b9bbc/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/351ff798-a2c7-491c-98db-4be5d0d5676a/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/bc002c21-ab3d-4c5e-91b1-99633d58665a/image.png">
+<meta property="article:published_time" content="2022-05-12T13:09:01.000Z">
+<meta property="article:modified_time" content="2022-05-12T13:13:29.188Z">
+<meta property="article:author" content="Hoseon Kwak">
+<meta property="article:tag" content="TIL(Today I Learn)">
+<meta property="article:tag" content="react">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/koseony/post/ff7a80d8-af74-4cc0-8fab-19570117de22/image.jpg">
+
+<link rel="canonical" href="https://hoseonkwak.github.io/2022/05/12/TIL(Today%20I%20Learn)/220512-til3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'ko'
+  };
+</script>
+
+  <title>TIL 220512 react 디테일 잡기 - (jsx, props, state, 컴포넌트 생명주기) | koseony의 개발블로그</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">koseony의 개발블로그</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/12/TIL(Today%20I%20Learn)/220512-til3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TIL 220512 react 디테일 잡기 - (jsx, props, state, 컴포넌트 생명주기)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-12 22:09:01 / Updated at: 22:13:29" itemprop="dateCreated datePublished" datetime="2022-05-12T22:09:01+09:00">2022-05-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="https://velog.velcdn.com/images/koseony/post/ff7a80d8-af74-4cc0-8fab-19570117de22/image.jpg" alt="thum"></p>
+<h1 id="리액트-디테일-잡기"><a href="#리액트-디테일-잡기" class="headerlink" title="리액트 디테일 잡기"></a>리액트 디테일 잡기</h1><h2 id="1-jsx"><a href="#1-jsx" class="headerlink" title="1. jsx"></a>1. jsx</h2><h3 id="jsx소개"><a href="#jsx소개" class="headerlink" title="jsx소개"></a>jsx소개</h3><p><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/introducing-jsx.html#gatsby-focus-wrapper">https://ko.reactjs.org/docs/introducing-jsx.html#gatsby-focus-wrapper</a></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/6936edb6-a8f6-4be3-a702-a9113407b940/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/b54f9c4e-584c-4b25-b41f-b9b5e5d1b74a/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/1034c6fb-9121-437b-beb5-fc72355205d3/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/ce6ae0f3-b191-4015-8ab6-c3f8f4dc87f9/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/68588006-8d6c-4519-a9bf-d4d75438fd0f/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/326ba253-a958-4939-a283-af5fe2240a05/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/6ccf15a1-1a18-4767-8b64-7e4fdd232d34/image.png"></p>
+<h2 id="2-props"><a href="#2-props" class="headerlink" title="2. props"></a>2. props</h2><p><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/components-and-props.html#gatsby-focus-wrapper">https://ko.reactjs.org/docs/components-and-props.html#gatsby-focus-wrapper</a></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/60341535-3401-44a5-8fb6-fae7f793a745/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/644c4a05-0cf8-4e71-93ae-65b3eee376ef/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/f3649892-f057-438e-a6ef-8c3c42d1ec38/image.png"></p>
+<ul>
+<li>컴포넌트 합성</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Welcome</span>(<span class="params">props</span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>hello, &#123;props.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Composition</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Welcome</span> <span class="attr">name</span>=<span class="string">&quot;kwak&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Welcome</span> <span class="attr">name</span>=<span class="string">&quot;lee&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Welcome</span> <span class="attr">name</span>=<span class="string">&quot;milim&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./App.css&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Composition</span> <span class="keyword">from</span> <span class="string">&#x27;./component/2-4.props/Composition&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Composition</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="https://velog.velcdn.com/images/koseony/post/b1a24bba-1129-422a-bfd6-5b541f57598e/image.png"></p>
+<ul>
+<li>컴포넌트 추출<br><img src="https://velog.velcdn.com/images/koseony/post/145a5c0b-80c9-4ed3-b3ae-b4c19aa5d744/image.png"><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Comment</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;Comment&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;UserInfo&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">className</span>=<span class="string">&quot;Avatar&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">src</span>=<span class="string">&#123;props.author.avatarUrl&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">alt</span>=<span class="string">&#123;props.author.name&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        /&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;UserInfo-name&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          &#123;props.author.name&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;Comment-text&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;props.text&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;Comment-date&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;formatDate(props.date)&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<img src="https://velog.velcdn.com/images/koseony/post/e7cb1a0e-52bd-49a0-9ff6-80e22bf13885/image.png"><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Avatar</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">className</span>=<span class="string">&quot;Avatar&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">src</span>=<span class="string">&#123;props.user.avatarUrl&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">alt</span>=<span class="string">&#123;props.user.name&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    /&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<img src="https://velog.velcdn.com/images/koseony/post/f4304497-455e-40a4-927f-5d7f81981ed5/image.png"><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Comment</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;Comment&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;UserInfo&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Avatar</span> <span class="attr">user</span>=<span class="string">&#123;props.author&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;UserInfo-name&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          &#123;props.author.name&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;Comment-text&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;props.text&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;Comment-date&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;formatDate(props.date)&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<img src="https://velog.velcdn.com/images/koseony/post/19b5aba3-c6d5-43e8-b40a-cfb1f98cf9a2/image.png"><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">UserInfo</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;UserInfo&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Avatar</span> <span class="attr">user</span>=<span class="string">&#123;props.user&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;UserInfo-name&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;props.user.name&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+Comment 가 더욱 단순해졌습니다.<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Comment</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;Comment&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">UserInfo</span> <span class="attr">user</span>=<span class="string">&#123;props.author&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;Comment-text&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;props.text&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;Comment-date&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;formatDate(props.date)&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>처음에는 컴포넌트를 추출하는 작업이 지루해 보일 수 있습니다. 하지만 재사용 가능한 컴포넌트를 만들어 놓는 것은 더 큰 앱에서 작업할 때 두각을 나타냅니다. UI 일부가 여러 번 사용되거나 (Button, Panel, Avatar), UI 일부가 자체적으로 복잡한 (App, FeedStory, Comment) 경우에는 별도의 컴포넌트로 만드는 게 좋습니다.</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://velog.velcdn.com/images/koseony/post/3c8ac24d-a466-4bb6-8558-f6d524e78608/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/92fe1918-8e14-467e-9b71-20cbaa2f7ed3/image.png"></p>
+<h2 id="3-state"><a href="#3-state" class="headerlink" title="3. state"></a>3. state</h2><p><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/state-and-lifecycle.html#gatsby-focus-wrapper">https://ko.reactjs.org/docs/state-and-lifecycle.html#gatsby-focus-wrapper</a></p>
+<ul>
+<li><p>시계</p>
+</li>
+<li><p>ClassComponent.jsx</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">ClassComponent</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>(props);</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span> = &#123; <span class="attr">date</span>: <span class="keyword">new</span> <span class="title class_">Date</span>() &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">componentDidMount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">timerID</span> = <span class="built_in">setInterval</span>(</span><br><span class="line">      <span class="function">() =&gt;</span> <span class="variable language_">this</span>.<span class="title function_">tick</span>(),</span><br><span class="line">      <span class="number">1000</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">componentWillUnmount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="built_in">clearInterval</span>(<span class="variable language_">this</span>.<span class="property">timerID</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">tick</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;</span><br><span class="line">      <span class="attr">date</span>: <span class="keyword">new</span> <span class="title class_">Date</span>()</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, world!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>It is &#123;this.state.date.toLocaleTimeString()&#125;.<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>App.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./App.css&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Extraction</span> <span class="keyword">from</span> <span class="string">&#x27;./component/2-4.props/Extraction/Extraction&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ClassComponent</span> <span class="keyword">from</span> <span class="string">&#x27;./component/2-5.State/ClassComponent&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ClassComponent</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="https://velog.velcdn.com/images/koseony/post/c586a8cb-fa0f-45ed-8daf-90b5de2d9485/image.png"></p>
+</li>
+<li><p>함수형 컴포넌트</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123;useEffect, useState&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">FunctionalComponent</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [date, setDate] = <span class="title function_">useState</span>(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">tick</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="title function_">setDate</span>(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>( <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> interval = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> <span class="title function_">tick</span>(), <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">clearInterval</span>(interval);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, world! It&#x27;s functional<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>It is &#123;date.toLocaleTimeString()&#125;.<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://velog.velcdn.com/images/koseony/post/7752f288-efad-4ff8-8b49-afe243ecb10a/image.png"></p>
+</li>
+</ul>
+<p><img src="https://velog.velcdn.com/images/koseony/post/5c9b8601-4918-4d87-8032-fff503fd34c9/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/c46b2d35-8603-460d-9789-759f4609149b/image.png"></p>
+<h2 id="4-컴포넌트-생명주기"><a href="#4-컴포넌트-생명주기" class="headerlink" title="4. 컴포넌트 생명주기"></a>4. 컴포넌트 생명주기</h2><ul>
+<li>React.Component<br><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/react-component.html#the-component-lifecycle">https://ko.reactjs.org/docs/react-component.html#the-component-lifecycle</a></li>
+</ul>
+<p><img src="https://velog.velcdn.com/images/koseony/post/1ee00c81-2429-4768-977e-aa66a1327647/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/d0fea92f-54ee-49e9-829f-e7ab8e828584/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/560bb579-9098-4ed9-aaa8-df0ac53b9bbc/image.png"></p>
+<p><a target="_blank" rel="noopener" href="https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/">https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/</a></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/351ff798-a2c7-491c-98db-4be5d0d5676a/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/bc002c21-ab3d-4c5e-91b1-99633d58665a/image.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/TIL-Today-I-Learn/" rel="tag"># TIL(Today I Learn)</a>
+              <a href="/tags/react/" rel="tag"># react</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/12/TIL(Today%20I%20Learn)/220512-til2/" rel="prev" title="TIL 220512 react맛보기 - (style, Ref, form, error)">
+      <i class="fa fa-chevron-left"></i> TIL 220512 react맛보기 - (style, Ref, form, error)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%EB%A6%AC%EC%95%A1%ED%8A%B8-%EB%94%94%ED%85%8C%EC%9D%BC-%EC%9E%A1%EA%B8%B0"><span class="nav-number">1.</span> <span class="nav-text">리액트 디테일 잡기</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-jsx"><span class="nav-number">1.1.</span> <span class="nav-text">1. jsx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jsx%EC%86%8C%EA%B0%9C"><span class="nav-number">1.1.1.</span> <span class="nav-text">jsx소개</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-props"><span class="nav-number">1.2.</span> <span class="nav-text">2. props</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-state"><span class="nav-number">1.3.</span> <span class="nav-text">3. state</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%83%9D%EB%AA%85%EC%A3%BC%EA%B8%B0"><span class="nav-number">1.4.</span> <span class="nav-text">4. 컴포넌트 생명주기</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hoseon Kwak</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hoseon Kwak</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

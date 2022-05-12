@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hoseonkwak.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1. key  to do 리스트 만들기123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384&lt;!DOCTYPE html&amp;g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TIL 220512 react맛보기 - (style, Ref, form, error)">
+<meta property="og:url" content="https://hoseonkwak.github.io/2022/05/12/TIL(Today%20I%20Learn)/220512-til2/index.html">
+<meta property="og:site_name" content="koseony의 개발블로그">
+<meta property="og:description" content="1. key  to do 리스트 만들기123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384&lt;!DOCTYPE html&amp;g">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/bbb4d510-aa91-4311-890d-daa90bfd70da/image.jpg">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/3278a95b-32d5-4484-bcb6-236284c3f608/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/ec6a3f0d-b3f9-482c-8aad-04c7d4b3c38e/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/96a3af96-7613-42dd-a877-025488b68e40/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/a302c950-c64d-46f8-b002-13ee80d155b6/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/e809feca-0d1e-42c1-8672-63e6deffb0d2/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/1d48b3b4-5abb-4000-a995-1abcd04eac52/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/a94c0c1c-58fd-4cc4-9e55-bd0f2fcac6b1/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/1be845c5-dd5a-4f6b-9d47-db4856c7673c/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/93c9ebee-0556-4ee0-a654-6cfd08852f8d/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/cf5b2c96-3176-4442-8880-7dc0d3b8845c/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/95503802-15c4-49e4-b38f-f8485dcf98b1/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/f2fef3a1-94b2-421e-b975-4daf18232dde/image.png">
+<meta property="article:published_time" content="2022-05-12T13:04:56.000Z">
+<meta property="article:modified_time" content="2022-05-12T13:08:06.330Z">
+<meta property="article:author" content="Hoseon Kwak">
+<meta property="article:tag" content="TIL(Today I Learn)">
+<meta property="article:tag" content="react">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/koseony/post/bbb4d510-aa91-4311-890d-daa90bfd70da/image.jpg">
+
+<link rel="canonical" href="https://hoseonkwak.github.io/2022/05/12/TIL(Today%20I%20Learn)/220512-til2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'ko'
+  };
+</script>
+
+  <title>TIL 220512 react맛보기 - (style, Ref, form, error) | koseony의 개발블로그</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">koseony의 개발블로그</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/12/TIL(Today%20I%20Learn)/220512-til2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TIL 220512 react맛보기 - (style, Ref, form, error)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-12 22:04:56 / Updated at: 22:08:06" itemprop="dateCreated datePublished" datetime="2022-05-12T22:04:56+09:00">2022-05-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="https://velog.velcdn.com/images/koseony/post/bbb4d510-aa91-4311-890d-daa90bfd70da/image.jpg" alt="thum"></p>
+<h2 id="1-key"><a href="#1-key" class="headerlink" title="1. key"></a>1. key</h2><p><img src="https://velog.velcdn.com/images/koseony/post/3278a95b-32d5-4484-bcb6-236284c3f608/image.png"></p>
+<ul>
+<li>to do 리스트 만들기<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;ko&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react@17/umd/react.development.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react-dom@17/umd/react-dom.development.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/@babel/standalone/babel.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;root&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/babel&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> rootElement = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;root&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> todos = [</span></span><br><span class="line"><span class="language-javascript">        [</span></span><br><span class="line"><span class="language-javascript">          &#123; <span class="attr">id</span>: <span class="number">1</span>, <span class="attr">value</span>: <span class="string">&quot;Wash dishes&quot;</span> &#125;,</span></span><br><span class="line"><span class="language-javascript">          &#123; <span class="attr">id</span>: <span class="number">2</span>, <span class="attr">value</span>: <span class="string">&quot;clean th bed&quot;</span> &#125;,</span></span><br><span class="line"><span class="language-javascript">          &#123; <span class="attr">id</span>: <span class="number">3</span>, <span class="attr">value</span>: <span class="string">&quot;Running&quot;</span> &#125;,</span></span><br><span class="line"><span class="language-javascript">          &#123; <span class="attr">id</span>: <span class="number">4</span>, <span class="attr">value</span>: <span class="string">&quot;Learning&quot;</span> &#125;</span></span><br><span class="line"><span class="language-javascript">        ],</span></span><br><span class="line"><span class="language-javascript">        [</span></span><br><span class="line"><span class="language-javascript">          &#123; <span class="attr">id</span>: <span class="number">4</span>, <span class="attr">value</span>: <span class="string">&quot;Learning&quot;</span> &#125;,</span></span><br><span class="line"><span class="language-javascript">          &#123; <span class="attr">id</span>: <span class="number">1</span>, <span class="attr">value</span>: <span class="string">&quot;Wash dishes&quot;</span> &#125;,</span></span><br><span class="line"><span class="language-javascript">          &#123; <span class="attr">id</span>: <span class="number">2</span>, <span class="attr">value</span>: <span class="string">&quot;clean th bed&quot;</span> &#125;,</span></span><br><span class="line"><span class="language-javascript">          &#123; <span class="attr">id</span>: <span class="number">3</span>, <span class="attr">value</span>: <span class="string">&quot;Running&quot;</span> &#125;</span></span><br><span class="line"><span class="language-javascript">        ],</span></span><br><span class="line"><span class="language-javascript">        [</span></span><br><span class="line"><span class="language-javascript">          &#123; <span class="attr">id</span>: <span class="number">3</span>, <span class="attr">value</span>: <span class="string">&quot;Running&quot;</span> &#125;,</span></span><br><span class="line"><span class="language-javascript">          &#123; <span class="attr">id</span>: <span class="number">4</span>, <span class="attr">value</span>: <span class="string">&quot;Learning&quot;</span> &#125;,</span></span><br><span class="line"><span class="language-javascript">          &#123; <span class="attr">id</span>: <span class="number">1</span>, <span class="attr">value</span>: <span class="string">&quot;Wash dishes&quot;</span> &#125;,</span></span><br><span class="line"><span class="language-javascript">          &#123; <span class="attr">id</span>: <span class="number">2</span>, <span class="attr">value</span>: <span class="string">&quot;clean th bed&quot;</span> &#125;</span></span><br><span class="line"><span class="language-javascript">        ],</span></span><br><span class="line"><span class="language-javascript">        [</span></span><br><span class="line"><span class="language-javascript">          &#123; <span class="attr">id</span>: <span class="number">2</span>, <span class="attr">value</span>: <span class="string">&quot;clean th bed&quot;</span> &#125;,</span></span><br><span class="line"><span class="language-javascript">          &#123; <span class="attr">id</span>: <span class="number">3</span>, <span class="attr">value</span>: <span class="string">&quot;Running&quot;</span> &#125;,</span></span><br><span class="line"><span class="language-javascript">          &#123; <span class="attr">id</span>: <span class="number">4</span>, <span class="attr">value</span>: <span class="string">&quot;Learning&quot;</span> &#125;,</span></span><br><span class="line"><span class="language-javascript">          &#123; <span class="attr">id</span>: <span class="number">1</span>, <span class="attr">value</span>: <span class="string">&quot;Wash dishes&quot;</span> &#125;</span></span><br><span class="line"><span class="language-javascript">        ]</span></span><br><span class="line"><span class="language-javascript">      ];</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> <span class="title function_">App</span> = (<span class="params"></span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> [items, setItems] = <span class="title class_">React</span>.<span class="title function_">useState</span>(todos);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="title class_">React</span>.<span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="keyword">const</span> interval = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> random = <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">3</span>);</span></span><br><span class="line"><span class="language-javascript">            <span class="title function_">setItems</span>(todos[random]);</span></span><br><span class="line"><span class="language-javascript">          &#125;, <span class="number">1000</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">          <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="built_in">clearInterval</span>(interval);</span></span><br><span class="line"><span class="language-javascript">          &#125;;</span></span><br><span class="line"><span class="language-javascript">        &#125;, []);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> <span class="title function_">handleDoneClick</span> = (<span class="params">todo</span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="title function_">setItems</span>(<span class="function">(<span class="params">items</span>) =&gt;</span> items.<span class="title function_">filter</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> item !== todo));</span></span><br><span class="line"><span class="language-javascript">        &#125;;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> <span class="title function_">handleRestoreClick</span> = (<span class="params"></span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="title function_">setItems</span>(<span class="function">(<span class="params">items</span>) =&gt;</span> [</span></span><br><span class="line"><span class="language-javascript">            ...items,</span></span><br><span class="line"><span class="language-javascript">            todos.<span class="title function_">find</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> !items.<span class="title function_">includes</span>(item))</span></span><br><span class="line"><span class="language-javascript">          ]);</span></span><br><span class="line"><span class="language-javascript">        &#125;;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> (</span></span><br><span class="line"><span class="language-javascript">          <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            &#123;items.map((todo, index) =&gt; (</span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">              <span class="tag">&lt;<span class="name">div</span> <span class="attr">key</span>=<span class="string">&#123;todo.value&#125;</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">                <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> handleDoneClick(todo)&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">                  &#123;todo.value&#125;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">                <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">              <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            ))&#125;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;handleRestoreClick&#125;</span>&gt;</span>Restore<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">          <span class="tag">&lt;/&gt;</span></span></span></span><br><span class="line"><span class="language-javascript">        );</span></span><br><span class="line"><span class="language-javascript">      &#125;;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>, rootElement);</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<img src="https://velog.velcdn.com/images/koseony/post/ec6a3f0d-b3f9-482c-8aad-04c7d4b3c38e/image.png"></li>
+</ul>
+<p><img src="https://velog.velcdn.com/images/koseony/post/96a3af96-7613-42dd-a877-025488b68e40/image.png"></p>
+<blockquote>
+</blockquote>
+<p>key에 todo.id나 todo.value를 주면 tab을 눌렀을 때<br>계속 같은 버튼을 바라보지만 index로 주면 계속 바뀐다.</p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/a302c950-c64d-46f8-b002-13ee80d155b6/image.png"></p>
+<h2 id="2-상태-끌어올리기-State-lifting-up"><a href="#2-상태-끌어올리기-State-lifting-up" class="headerlink" title="2. 상태 끌어올리기(State lifting up)"></a>2. 상태 끌어올리기(State lifting up)</h2><ul>
+<li>로그인 폼 만들기<br><img src="https://velog.velcdn.com/images/koseony/post/e809feca-0d1e-42c1-8672-63e6deffb0d2/image.png"></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;ko&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react@17/umd/react.development.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react-dom@17/umd/react-dom.development.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/@babel/standalone/babel.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;root&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/babel&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> rootElement = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;root&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> <span class="title function_">Id</span> = (<span class="params">&#123; handleIdChange &#125;</span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> (</span></span><br><span class="line"><span class="language-javascript">          <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            <span class="tag">&lt;<span class="name">label</span>&gt;</span>ID: <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">onChange</span>=<span class="string">&#123;handleIdChange&#125;</span> /&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">          <span class="tag">&lt;/&gt;</span></span></span></span><br><span class="line"><span class="language-javascript">        );</span></span><br><span class="line"><span class="language-javascript">      &#125;;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> <span class="title function_">Password</span> = (<span class="params">&#123; handlePwChange &#125;</span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> (</span></span><br><span class="line"><span class="language-javascript">          <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            <span class="tag">&lt;<span class="name">label</span>&gt;</span>PW: <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;Password&quot;</span> <span class="attr">onChange</span>=<span class="string">&#123;handlePwChange&#125;</span> /&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">          <span class="tag">&lt;/&gt;</span></span></span></span><br><span class="line"><span class="language-javascript">        );</span></span><br><span class="line"><span class="language-javascript">      &#125;;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> <span class="title function_">App</span> = (<span class="params"></span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> [id, setId] = <span class="title class_">React</span>.<span class="title function_">useState</span>(<span class="string">&quot;&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> [pw, setPw] = <span class="title class_">React</span>.<span class="title function_">useState</span>(<span class="string">&quot;&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> <span class="title function_">handleIdChange</span> = (<span class="params">e</span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="title function_">setId</span>(e.<span class="property">target</span>.<span class="property">value</span>);</span></span><br><span class="line"><span class="language-javascript">          <span class="comment">// console.log(`id length: $&#123;e.target.value.length &gt; 0&#125;`);</span></span></span><br><span class="line"><span class="language-javascript">        &#125;;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> <span class="title function_">handlePwChange</span> = (<span class="params">e</span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="title function_">setPw</span>(e.<span class="property">target</span>.<span class="property">value</span>);</span></span><br><span class="line"><span class="language-javascript">          <span class="comment">// console.log(`pw length: $&#123;e.target.value.length &gt; 0&#125;`);</span></span></span><br><span class="line"><span class="language-javascript">        &#125;;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> <span class="title function_">handleLoginClick</span> = (<span class="params">e</span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="title function_">alert</span>(<span class="string">`id: <span class="subst">$&#123;id&#125;</span>, pw: <span class="subst">$&#123;pw&#125;</span>`</span>);</span></span><br><span class="line"><span class="language-javascript">        &#125;;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> (</span></span><br><span class="line"><span class="language-javascript">          <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            <span class="tag">&lt;<span class="name">Id</span> <span class="attr">handleIdChange</span>=<span class="string">&#123;handleIdChange&#125;</span> /&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            <span class="tag">&lt;<span class="name">Password</span> <span class="attr">handlePwChange</span>=<span class="string">&#123;handlePwChange&#125;</span> /&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            <span class="tag">&lt;<span class="name">button</span></span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml"><span class="language-javascript">              <span class="attr">disabled</span>=<span class="string">&#123;id.length</span> === <span class="string">0</span> || <span class="attr">pw.length</span> === <span class="string">0&#125;</span></span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml"><span class="language-javascript">              <span class="attr">onClick</span>=<span class="string">&#123;handleLoginClick&#125;</span></span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml"><span class="language-javascript">            &gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">              Login</span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">          <span class="tag">&lt;/&gt;</span></span></span></span><br><span class="line"><span class="language-javascript">        );</span></span><br><span class="line"><span class="language-javascript">      &#125;;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>, rootElement);</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://velog.velcdn.com/images/koseony/post/1d48b3b4-5abb-4000-a995-1abcd04eac52/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/a94c0c1c-58fd-4cc4-9e55-bd0f2fcac6b1/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/1be845c5-dd5a-4f6b-9d47-db4856c7673c/image.png"></p>
+<blockquote>
+<p>handleIdChange과 handlePwChange를 App안에 넣어서 끌어올려서 App이 id,pw의 값을 알 수 있게 만드는것이 끌러올리기다.</p>
+</blockquote>
+<p><img src="https://velog.velcdn.com/images/koseony/post/93c9ebee-0556-4ee0-a654-6cfd08852f8d/image.png"></p>
+<h2 id="3-데이터-Fetch-해보기"><a href="#3-데이터-Fetch-해보기" class="headerlink" title="3. 데이터 Fetch 해보기"></a>3. 데이터 Fetch 해보기</h2><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/ko/docs/Web/API/Fetch_API">Fetch API</a> (MDN 페이지)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;ko&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react@17/umd/react.development.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react-dom@17/umd/react-dom.development.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/@babel/standalone/babel.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;root&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/babel&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> rootElement = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;root&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> <span class="title function_">App</span> = (<span class="params"></span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> [data, setData] = <span class="title class_">React</span>.<span class="title function_">useState</span>(<span class="literal">null</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> [error, setError] = <span class="title class_">React</span>.<span class="title function_">useState</span>(<span class="literal">null</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="title class_">React</span>.<span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="title function_">fetch</span>(</span></span><br><span class="line"><span class="language-javascript">            <span class="string">&quot;https://raw.githubusercontent.com/techoi/raw-data-api/main/simple-api.json&quot;</span></span></span><br><span class="line"><span class="language-javascript">          )</span></span><br><span class="line"><span class="language-javascript">            .<span class="title function_">then</span>(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">              <span class="keyword">return</span> response.<span class="title function_">json</span>();</span></span><br><span class="line"><span class="language-javascript">            &#125;)</span></span><br><span class="line"><span class="language-javascript">            .<span class="title function_">then</span>(<span class="function">(<span class="params">myJson</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">              <span class="title function_">setData</span>(myJson.<span class="property">data</span>);</span></span><br><span class="line"><span class="language-javascript">            &#125;)</span></span><br><span class="line"><span class="language-javascript">            .<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">              <span class="title function_">setError</span>(error.<span class="property">message</span>);</span></span><br><span class="line"><span class="language-javascript">            &#125;);</span></span><br><span class="line"><span class="language-javascript">        &#125;, []);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">if</span> (error != <span class="literal">null</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>There is some error!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">if</span> (data == <span class="literal">null</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Loading...<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> (</span></span><br><span class="line"><span class="language-javascript">          <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>People<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            &#123;data.people.map((person) =&gt; (</span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">              <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">                <span class="tag">&lt;<span class="name">span</span>&gt;</span>name: &#123;person.name&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">                <span class="tag">&lt;<span class="name">span</span>&gt;</span>age: &#123;person.age&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">              <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            ))&#125;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="language-javascript">        );</span></span><br><span class="line"><span class="language-javascript">      &#125;;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>, rootElement);</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://velog.velcdn.com/images/koseony/post/cf5b2c96-3176-4442-8880-7dc0d3b8845c/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/95503802-15c4-49e4-b38f-f8485dcf98b1/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/f2fef3a1-94b2-421e-b975-4daf18232dde/image.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/TIL-Today-I-Learn/" rel="tag"># TIL(Today I Learn)</a>
+              <a href="/tags/react/" rel="tag"># react</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/12/TIL(Today%20I%20Learn)/220512-til/" rel="prev" title="TIL 220512 react맛보기 - (style, Ref, form, error)">
+      <i class="fa fa-chevron-left"></i> TIL 220512 react맛보기 - (style, Ref, form, error)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/12/TIL(Today%20I%20Learn)/220512-til3/" rel="next" title="TIL 220512 react 디테일 잡기 - (jsx, props, state, 컴포넌트 생명주기)">
+      TIL 220512 react 디테일 잡기 - (jsx, props, state, 컴포넌트 생명주기) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-key"><span class="nav-number">1.</span> <span class="nav-text">1. key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%EC%83%81%ED%83%9C-%EB%81%8C%EC%96%B4%EC%98%AC%EB%A6%AC%EA%B8%B0-State-lifting-up"><span class="nav-number">2.</span> <span class="nav-text">2. 상태 끌어올리기(State lifting up)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%EB%8D%B0%EC%9D%B4%ED%84%B0-Fetch-%ED%95%B4%EB%B3%B4%EA%B8%B0"><span class="nav-number">3.</span> <span class="nav-text">3. 데이터 Fetch 해보기</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hoseon Kwak</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hoseon Kwak</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
