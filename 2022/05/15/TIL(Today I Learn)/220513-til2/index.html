@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hoseonkwak.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="리액트 디테일 잡기1. Hooks Class의 단점을 보완하면서라이프사이클 등과 관련된 함수를 재사용 가능토록 함      1-1. State Hookhttps:&#x2F;&#x2F;ko.reactjs.org&#x2F;docs&#x2F;hooks-state.html  1-2. Using the Effect Hookhttps:&#x2F;&#x2F;ko.reactjs.org&#x2F;docs&#x2F;hooks-effect.ht">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TIL 220513 react 디테일 잡기 - (Hooks, Composition, HOC, Menoization)">
+<meta property="og:url" content="https://hoseonkwak.github.io/2022/05/15/TIL(Today%20I%20Learn)/220513-til2/index.html">
+<meta property="og:site_name" content="koseony의 개발블로그">
+<meta property="og:description" content="리액트 디테일 잡기1. Hooks Class의 단점을 보완하면서라이프사이클 등과 관련된 함수를 재사용 가능토록 함      1-1. State Hookhttps:&#x2F;&#x2F;ko.reactjs.org&#x2F;docs&#x2F;hooks-state.html  1-2. Using the Effect Hookhttps:&#x2F;&#x2F;ko.reactjs.org&#x2F;docs&#x2F;hooks-effect.ht">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/18c85b71-04fe-4be9-9dd8-21320332caaa/image.jpg">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/2b81d0e7-5af2-4efc-b367-96405473ef4d/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/eb59b289-37ec-4c50-bea5-5f11fe8033a8/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/7e9832f1-01c4-4c08-8329-bf98e56d0428/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/3ece1e06-505b-47ed-ac87-7d52db89e9a3/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/4de65676-3937-46fe-877d-4a5211903149/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/4b546bb2-f7d1-4b38-80da-3d8973dda493/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/9f47d7fe-fe3c-427d-9d25-a289504b78ab/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/2c52fa95-732a-480a-9291-de2687d02cf3/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/4ccc648e-0a99-4fde-af5f-f22df00b7c08/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/6b6b5fe1-82af-431b-baf9-ff626826be4a/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/7c7f2fbf-4bf3-4d64-9dc8-cb5fa440d277/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/83ef5f1b-8a35-4786-96f7-5546524252e4/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/992efcc7-c765-4b6e-a68d-77ebcd0ac1ae/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/12901b08-0ad8-45ae-9d49-8dbb1638ca92/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/694d9951-3898-471d-a66a-4b78e2c6575d/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/c67a55b8-a0d3-40b0-b0c5-9ad024970c60/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/eca041bf-da16-463a-91c5-983213e4e335/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/9d949d42-145c-462c-b3e9-dcbc6c4aade4/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/8416846f-0e1e-4d19-b351-e7ef4300e43a/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/757ba051-dd7d-482c-a8e9-307e0bc46683/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/91904b2f-6d1d-4af9-83ff-fa6590a75039/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/fa8bf2d4-6b8d-4045-9e1f-d0544ca09774/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/2752ca30-89a6-4b6b-b198-187aa05c9362/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/5587963e-9db3-4f19-9b4e-2db0062d707f/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/dd092612-c9fa-46c3-9679-fa480c2144bd/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/749d3114-24b5-4542-a214-68b09a605fa9/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/c945fffd-29cf-4aa7-b221-ee75ab20e2c7/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/8317a46d-b8ed-4a21-8b5e-5080ffa97cbc/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/2bf4af21-61a4-4b28-bd46-8a06a9473f42/image.png">
+<meta property="article:published_time" content="2022-05-15T07:50:05.000Z">
+<meta property="article:modified_time" content="2022-05-15T07:55:42.305Z">
+<meta property="article:author" content="Hoseon Kwak">
+<meta property="article:tag" content="TIL(Today I Learn)">
+<meta property="article:tag" content="react">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/koseony/post/18c85b71-04fe-4be9-9dd8-21320332caaa/image.jpg">
+
+<link rel="canonical" href="https://hoseonkwak.github.io/2022/05/15/TIL(Today%20I%20Learn)/220513-til2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'ko'
+  };
+</script>
+
+  <title>TIL 220513 react 디테일 잡기 - (Hooks, Composition, HOC, Menoization) | koseony의 개발블로그</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">koseony의 개발블로그</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/15/TIL(Today%20I%20Learn)/220513-til2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TIL 220513 react 디테일 잡기 - (Hooks, Composition, HOC, Menoization)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-15 16:50:05 / Updated at: 16:55:42" itemprop="dateCreated datePublished" datetime="2022-05-15T16:50:05+09:00">2022-05-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="https://velog.velcdn.com/images/koseony/post/18c85b71-04fe-4be9-9dd8-21320332caaa/image.jpg" alt="thum"></p>
+<h1 id="리액트-디테일-잡기"><a href="#리액트-디테일-잡기" class="headerlink" title="리액트 디테일 잡기"></a>리액트 디테일 잡기</h1><h2 id="1-Hooks"><a href="#1-Hooks" class="headerlink" title="1. Hooks"></a>1. Hooks</h2><blockquote>
+<p>Class의 <strong>단점</strong>을 보완하면서<br>라이프사이클 등과 관련된 함수를 <strong>재사용</strong> 가능토록 함</p>
+</blockquote>
+<p><img src="https://velog.velcdn.com/images/koseony/post/2b81d0e7-5af2-4efc-b367-96405473ef4d/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/eb59b289-37ec-4c50-bea5-5f11fe8033a8/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/7e9832f1-01c4-4c08-8329-bf98e56d0428/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/3ece1e06-505b-47ed-ac87-7d52db89e9a3/image.png"></p>
+<h3 id="1-1-State-Hook"><a href="#1-1-State-Hook" class="headerlink" title="1-1. State Hook"></a>1-1. State Hook</h3><p><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/hooks-state.html">https://ko.reactjs.org/docs/hooks-state.html</a></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/4de65676-3937-46fe-877d-4a5211903149/image.png"></p>
+<h3 id="1-2-Using-the-Effect-Hook"><a href="#1-2-Using-the-Effect-Hook" class="headerlink" title="1-2. Using the Effect Hook"></a>1-2. Using the Effect Hook</h3><p><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/hooks-effect.html">https://ko.reactjs.org/docs/hooks-effect.html</a></p>
+<blockquote>
+<p><strong>데이터</strong> 가져오기<br><strong>구독</strong> 설정하기<br>수동으로 리액트 컴포넌트의 DOM을 <strong>수정</strong>하기</p>
+</blockquote>
+<ul>
+<li>class 사용 시<br><img src="https://velog.velcdn.com/images/koseony/post/4b546bb2-f7d1-4b38-80da-3d8973dda493/image.png"></li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FriendStatus</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>(props);</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span> = &#123; <span class="attr">isOnline</span>: <span class="literal">null</span> &#125;;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">handleStatusChange</span> = <span class="variable language_">this</span>.<span class="property">handleStatusChange</span>.<span class="title function_">bind</span>(<span class="variable language_">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">componentDidMount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title class_">ChatAPI</span>.<span class="title function_">subscribeToFriendStatus</span>(</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">friend</span>.<span class="property">id</span>,</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">handleStatusChange</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">componentWillUnmount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title class_">ChatAPI</span>.<span class="title function_">unsubscribeFromFriendStatus</span>(</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">friend</span>.<span class="property">id</span>,</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">handleStatusChange</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">handleStatusChange</span>(<span class="params">status</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;</span><br><span class="line">      <span class="attr">isOnline</span>: status.<span class="property">isOnline</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">isOnline</span> === <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;Loading...&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">isOnline</span> ? <span class="string">&quot;Online&quot;</span> : <span class="string">&quot;Offline&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/koseony/post/9f47d7fe-fe3c-427d-9d25-a289504b78ab/image.png"></p>
+<ul>
+<li>effect 사용 시<br><img src="https://velog.velcdn.com/images/koseony/post/2c52fa95-732a-480a-9291-de2687d02cf3/image.png"></li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState, useEffect &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">FriendStatus</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [isOnline, setIsOnline] = <span class="title function_">useState</span>(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">handleStatusChange</span>(<span class="params">status</span>) &#123;</span><br><span class="line">      <span class="title function_">setIsOnline</span>(status.<span class="property">isOnline</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title class_">ChatAPI</span>.<span class="title function_">subscribeToFriendStatus</span>(props.<span class="property">friend</span>.<span class="property">id</span>, handleStatusChange);</span><br><span class="line">    <span class="comment">// effect 이후에 어떻게 정리(clean-up)할 것인지 표시합니다.</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> <span class="title function_">cleanup</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="title class_">ChatAPI</span>.<span class="title function_">unsubscribeFromFriendStatus</span>(props.<span class="property">friend</span>.<span class="property">id</span>, handleStatusChange);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isOnline === <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Loading...&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> isOnline ? <span class="string">&quot;Online&quot;</span> : <span class="string">&quot;Offline&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/koseony/post/4ccc648e-0a99-4fde-af5f-f22df00b7c08/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/6b6b5fe1-82af-431b-baf9-ff626826be4a/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/7c7f2fbf-4bf3-4d64-9dc8-cb5fa440d277/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/83ef5f1b-8a35-4786-96f7-5546524252e4/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/992efcc7-c765-4b6e-a68d-77ebcd0ac1ae/image.png"></p>
+<h3 id="1-3-Custom-Hooks"><a href="#1-3-Custom-Hooks" class="headerlink" title="1-3. Custom Hooks"></a>1-3. Custom Hooks</h3><p>아래 문서 확인<br><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/hooks-custom.html">https://ko.reactjs.org/docs/hooks-custom.html</a></p>
+<h3 id="useReducer-예제"><a href="#useReducer-예제" class="headerlink" title="useReducer 예제"></a>useReducer 예제</h3><ul>
+<li>먼저 state</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">State</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> initialCount = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = <span class="title function_">useState</span>(initialCount);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      Count: &#123;count&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setCount(initialCount)&#125;&gt;Reset<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setCount((prev) =&gt; prev - 1)&#125;&gt;-<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setCount((prev) =&gt; prev + 1)&#125;&gt;+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/koseony/post/12901b08-0ad8-45ae-9d49-8dbb1638ca92/image.png"></p>
+<ul>
+<li>reducer</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useReducer &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Reducer</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> initialState = &#123; <span class="attr">count</span>: <span class="number">0</span> &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">reducer</span>(<span class="params">state, action</span>) &#123;</span><br><span class="line">    <span class="keyword">switch</span> (action.<span class="property">type</span>) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&quot;reset&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> initialState;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&quot;increment&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> &#123; <span class="attr">count</span>: state.<span class="property">count</span> + <span class="number">1</span> &#125;;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&quot;decrement&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> &#123; <span class="attr">count</span>: state.<span class="property">count</span> - <span class="number">1</span> &#125;;</span><br><span class="line">      <span class="attr">default</span>:</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [state, dispatch] = <span class="title function_">useReducer</span>(reducer, initialState);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      Count(reducer): &#123;state.count&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> dispatch(&#123; type: &quot;reset&quot; &#125;)&#125;&gt;reset<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> dispatch(&#123; type: &quot;decrement&quot; &#125;)&#125;&gt;-<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> dispatch(&#123; type: &quot;increment&quot; &#125;)&#125;&gt;+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/koseony/post/694d9951-3898-471d-a66a-4b78e2c6575d/image.png"></p>
+<h2 id="2-Composition"><a href="#2-Composition" class="headerlink" title="2. Composition"></a>2. Composition</h2><p><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/composition-vs-inheritance.html#gatsby-focus-wrapper">https://ko.reactjs.org/docs/composition-vs-inheritance.html#gatsby-focus-wrapper</a></p>
+<ul>
+<li>예시<br><img src="https://velog.velcdn.com/images/koseony/post/c67a55b8-a0d3-40b0-b0c5-9ad024970c60/image.png"></li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Dialog.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Dialog</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;&#123;backgroundColor:</span> &#x27;<span class="attr">pink</span>&#x27;&#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;props.children&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//WelcomeDialog.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">CustomDialog</span> <span class="keyword">from</span> <span class="string">&#x27;./CustomDialog&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Dialog</span> <span class="keyword">from</span> <span class="string">&#x27;./Dialog&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">WelcomeDialog</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// return (</span></span><br><span class="line">  <span class="comment">//   &lt;Dialog&gt;</span></span><br><span class="line">  <span class="comment">//     &lt;h1&gt;Welcome&lt;/h1&gt;</span></span><br><span class="line">  <span class="comment">//     &lt;h5&gt;Thank you&lt;/h5&gt;</span></span><br><span class="line">  <span class="comment">//   &lt;/Dialog&gt;</span></span><br><span class="line">  <span class="comment">// )</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">CustomDialog</span> <span class="attr">title</span>=<span class="string">&quot;Welcome&quot;</span> <span class="attr">description</span>=<span class="string">&quot;thank you&quot;</span> /&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//CustomDialog.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Dialog</span> <span class="keyword">from</span> <span class="string">&#x27;./Dialog&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">CustomDialog</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Dialog</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;props.title&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h5</span>&gt;</span>&#123;props.description&#125;<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">Dialog</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/koseony/post/eca041bf-da16-463a-91c5-983213e4e335/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/9d949d42-145c-462c-b3e9-dcbc6c4aade4/image.png"></p>
+<ul>
+<li>심화 예시<br><img src="https://velog.velcdn.com/images/koseony/post/8416846f-0e1e-4d19-b351-e7ef4300e43a/image.png"></li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Dialog.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Dialog</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [isOpen, setIsOpen] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setIsOpen(true)&#125;&gt;Open <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;isOpen &amp;&amp; (</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">style</span>=<span class="string">&#123;&#123;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">position:</span> &quot;<span class="attr">absolute</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">zIndex:</span> <span class="attr">99</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">top:</span> &quot;<span class="attr">50</span>%&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">left:</span> &quot;<span class="attr">50</span>%&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">transform:</span> &quot;<span class="attr">translate</span>(<span class="attr">-50</span>%, <span class="attr">-50</span>%)&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">border:</span> &quot;<span class="attr">1px</span> <span class="attr">solid</span> <span class="attr">black</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">padding:</span> &quot;<span class="attr">24px</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">backgroundColor:</span> &quot;<span class="attr">white</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          &#125;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        &gt;</span></span></span><br><span class="line"><span class="language-xml">          &#123;typeof props.title === &quot;string&quot; ? (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;props.title&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          ) : (</span></span><br><span class="line"><span class="language-xml">            props.title</span></span><br><span class="line"><span class="language-xml">          )&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">          &#123;typeof props.description === &quot;string&quot; ? (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">h5</span>&gt;</span>&#123;props.description&#125;<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          ) : (</span></span><br><span class="line"><span class="language-xml">            props.description</span></span><br><span class="line"><span class="language-xml">          )&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">          &#123;typeof props.button === &quot;string&quot; ? (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">backgroundColor:</span> &quot;<span class="attr">red</span>&quot;, <span class="attr">color:</span> &quot;<span class="attr">white</span>&quot; &#125;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setIsOpen(false)&#125;</span></span><br><span class="line"><span class="language-xml">            &gt;</span></span><br><span class="line"><span class="language-xml">              &#123;props.button&#125;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          ) : (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setIsOpen(false)&#125;&gt;&#123;props.button&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          )&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      )&#125;</span></span><br><span class="line"><span class="language-xml">      &#123;isOpen &amp;&amp; (</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">style</span>=<span class="string">&#123;&#123;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">position:</span> &quot;<span class="attr">fixed</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">top:</span> <span class="attr">0</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">left:</span> <span class="attr">0</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">bottom:</span> <span class="attr">0</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">right:</span> <span class="attr">0</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">backgroundColor:</span> &quot;<span class="attr">lightgray</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          &#125;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        /&gt;</span></span></span><br><span class="line"><span class="language-xml">      )&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// ThankyouDialog.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Dialog</span> <span class="keyword">from</span> <span class="string">&quot;./Dialog&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">ThankyouDialog</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Dialog</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">title</span>=<span class="string">&#123;</span>&lt;<span class="attr">h1</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">color:</span> &quot;<span class="attr">royalblue</span>&quot; &#125;&#125;&gt;</span>Thanks<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">      description=&quot;It is honor to meet you!&quot;</span></span><br><span class="line"><span class="language-xml">      button=&#123;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">backgroundColor:</span> &quot;<span class="attr">pink</span>&quot;, <span class="attr">color:</span> &quot;<span class="attr">white</span>&quot; &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">          close</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#125;</span></span><br><span class="line"><span class="language-xml">    /&gt;</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/koseony/post/757ba051-dd7d-482c-a8e9-307e0bc46683/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/91904b2f-6d1d-4af9-83ff-fa6590a75039/image.png"></p>
+<h2 id="3-HOC-고차-컴포넌트"><a href="#3-HOC-고차-컴포넌트" class="headerlink" title="3.HOC(고차 컴포넌트)"></a>3.HOC(고차 컴포넌트)</h2><p><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/higher-order-components.html#dont-mutate-the-original-component-use-composition">https://ko.reactjs.org/docs/higher-order-components.html#dont-mutate-the-original-component-use-composition</a><br><img src="https://velog.velcdn.com/images/koseony/post/fa8bf2d4-6b8d-4045-9e1f-d0544ca09774/image.png"></p>
+<ul>
+<li>예시<br><img src="https://velog.velcdn.com/images/koseony/post/2752ca30-89a6-4b6b-b198-187aa05c9362/image.png"></li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Button.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> withLoading <span class="keyword">from</span> <span class="string">&quot;./withLoading&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Button</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>Button<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">withLoading</span>(<span class="title class_">Button</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// widthLoading.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useEffect, useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">withLoading</span>(<span class="params">Component</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">WithLoadingComponent</span> = (<span class="params">props</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> [loading, setLoading] = <span class="title function_">useState</span>(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="title function_">setLoading</span>(<span class="literal">false</span>), <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="function">() =&gt;</span> <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    &#125;, []);</span><br><span class="line">    <span class="keyword">return</span> loading ? <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Loading...<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span> : <span class="language-xml"><span class="tag">&lt;<span class="name">Component</span> &#123;<span class="attr">...props</span>&#125; /&gt;</span></span>;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">WithLoadingComponent</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//Input.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> withLoading <span class="keyword">from</span> <span class="string">&quot;./withLoading&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Input</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">defaultValue</span>=<span class="string">&quot;Input&quot;</span> /&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">withLoading</span>(<span class="title class_">Input</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/koseony/post/5587963e-9db3-4f19-9b4e-2db0062d707f/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/dd092612-c9fa-46c3-9679-fa480c2144bd/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/749d3114-24b5-4542-a214-68b09a605fa9/image.png"></p>
+<h2 id="4-Memoization"><a href="#4-Memoization" class="headerlink" title="4. Memoization"></a>4. Memoization</h2><p><a target="_blank" rel="noopener" href="https://ko.wikipedia.org/wiki/%EB%A9%94%EB%AA%A8%EC%9D%B4%EC%A0%9C%EC%9D%B4%EC%85%98">https://ko.wikipedia.org/wiki/%EB%A9%94%EB%AA%A8%EC%9D%B4%EC%A0%9C%EC%9D%B4%EC%85%98</a></p>
+<blockquote>
+<p>메모이제이션은 컴퓨터 프로그램이 동일한 계산을 반복해야 할 때, 이전에 계산한 값을 메모리에 저장함으로써 동일한 계산의 반복 수행을 제거하여 프로그램 실행 속도를 빠르게 하는 기술이다.</p>
+</blockquote>
+<ul>
+<li>예시<br><img src="https://velog.velcdn.com/images/koseony/post/c945fffd-29cf-4aa7-b221-ee75ab20e2c7/image.png"></li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Memo.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useEffect, useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Comments</span> <span class="keyword">from</span> <span class="string">&quot;./Comments&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> commentList = [</span><br><span class="line">  &#123; <span class="attr">title</span>: <span class="string">&quot;comment1&quot;</span>, <span class="attr">content</span>: <span class="string">&quot;message1&quot;</span>, <span class="attr">likes</span>: <span class="number">1</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">title</span>: <span class="string">&quot;comment2&quot;</span>, <span class="attr">content</span>: <span class="string">&quot;message2&quot;</span>, <span class="attr">likes</span>: <span class="number">1</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">title</span>: <span class="string">&quot;comment3&quot;</span>, <span class="attr">content</span>: <span class="string">&quot;message3&quot;</span>, <span class="attr">likes</span>: <span class="number">1</span> &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Memo</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [comments, setComments] = <span class="title function_">useState</span>(commentList);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> interval = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">setComments</span>(<span class="function">(<span class="params">prevComments</span>) =&gt;</span> [</span><br><span class="line">        ...prevComments,</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">title</span>: <span class="string">`comment<span class="subst">$&#123;prevComments.length + <span class="number">1</span>&#125;</span>`</span>,</span><br><span class="line">          <span class="attr">content</span>: <span class="string">`message<span class="subst">$&#123;prevComments.length + <span class="number">1</span>&#125;</span>`</span>,</span><br><span class="line">          <span class="attr">likes</span>: <span class="number">1</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      ]);</span><br><span class="line">    &#125;, <span class="number">3000</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">clearInterval</span>(interval);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">Comments</span> <span class="attr">commentList</span>=<span class="string">&#123;comments&#125;</span> /&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Comments.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useCallback &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">CommentItem</span> <span class="keyword">from</span> <span class="string">&quot;./CommentItem&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Comments</span>(<span class="params">&#123; commentList &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> handleClick = <span class="title function_">useCallback</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">`눌림`</span>);</span><br><span class="line">  &#125;, []);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;commentList.map((comment) =&gt; (</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">CommentItem</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">key</span>=<span class="string">&#123;comment.title&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">title</span>=<span class="string">&#123;comment.title&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">content</span>=<span class="string">&#123;comment.content&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">likes</span>=<span class="string">&#123;comment.likes&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">onClick</span>=<span class="string">&#123;handleClick&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        /&gt;</span></span></span><br><span class="line"><span class="language-xml">      ))&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//CommentItem.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Profiler</span>, memo, useState, useMemo &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./CommentItem.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">CommentItem</span>(<span class="params">&#123; title, content, likes, onClick &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [clickCount, setClickCount] = <span class="title function_">useState</span>(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">onRenderCallback</span>(<span class="params"></span></span><br><span class="line"><span class="params">    id, <span class="comment">// 방금 커밋된 Profiler 트리의 &quot;id&quot;</span></span></span><br><span class="line"><span class="params">    phase, <span class="comment">// &quot;mount&quot; (트리가 방금 마운트가 된 경우) 혹은 &quot;update&quot;(트리가 리렌더링된 경우)</span></span></span><br><span class="line"><span class="params">    actualDuration, <span class="comment">// 커밋된 업데이트를 렌더링하는데 걸린 시간</span></span></span><br><span class="line"><span class="params">    baseDuration, <span class="comment">// 메모이제이션 없이 하위 트리 전체를 렌더링하는데 걸리는 예상시간</span></span></span><br><span class="line"><span class="params">    startTime, <span class="comment">// React가 언제 해당 업데이트를 렌더링하기 시작했는지</span></span></span><br><span class="line"><span class="params">    commitTime, <span class="comment">// React가 해당 업데이트를 언제 커밋했는지</span></span></span><br><span class="line"><span class="params">    interactions <span class="comment">// 이 업데이트에 해당하는 상호작용들의 집합</span></span></span><br><span class="line"><span class="params">  </span>) &#123;</span><br><span class="line">    <span class="comment">// 렌더링 타이밍을 집합하거나 로그...</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`actualDuration(<span class="subst">$&#123;title&#125;</span>: <span class="subst">$&#123;actualDuration&#125;</span>)`</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleClick</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="title function_">onClick</span>();</span><br><span class="line">    <span class="title function_">setClickCount</span>(<span class="function">(<span class="params">prev</span>) =&gt;</span> prev + <span class="number">1</span>);</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">`<span class="subst">$&#123;title&#125;</span> 눌림`</span>);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> rate = <span class="title function_">useMemo</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;rate chk&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> likes &gt; <span class="number">10</span> ? <span class="string">&quot;Good&quot;</span> : <span class="string">&quot;Bad&quot;</span>;</span><br><span class="line">  &#125;, [likes]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Profiler</span> <span class="attr">id</span>=<span class="string">&quot;CommentItem&quot;</span> <span class="attr">onRender</span>=<span class="string">&#123;onRenderCallback&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;CommentItem&quot;</span> <span class="attr">onClick</span>=<span class="string">&#123;handleClick&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;title&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;content&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;likes&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;rate&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;clickCount&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">Profiler</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">memo</span>(<span class="title class_">CommentItem</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/koseony/post/8317a46d-b8ed-4a21-8b5e-5080ffa97cbc/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/2bf4af21-61a4-4b28-bd46-8a06a9473f42/image.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/TIL-Today-I-Learn/" rel="tag"># TIL(Today I Learn)</a>
+              <a href="/tags/react/" rel="tag"># react</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/15/TIL(Today%20I%20Learn)/220513-til/" rel="prev" title="TIL 220513 react 디테일 잡기 - (이벤트, 조건부, 렌더링, List, Form)">
+      <i class="fa fa-chevron-left"></i> TIL 220513 react 디테일 잡기 - (이벤트, 조건부, 렌더링, List, Form)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%EB%A6%AC%EC%95%A1%ED%8A%B8-%EB%94%94%ED%85%8C%EC%9D%BC-%EC%9E%A1%EA%B8%B0"><span class="nav-number">1.</span> <span class="nav-text">리액트 디테일 잡기</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Hooks"><span class="nav-number">1.1.</span> <span class="nav-text">1. Hooks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-State-Hook"><span class="nav-number">1.1.1.</span> <span class="nav-text">1-1. State Hook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Using-the-Effect-Hook"><span class="nav-number">1.1.2.</span> <span class="nav-text">1-2. Using the Effect Hook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Custom-Hooks"><span class="nav-number">1.1.3.</span> <span class="nav-text">1-3. Custom Hooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useReducer-%EC%98%88%EC%A0%9C"><span class="nav-number">1.1.4.</span> <span class="nav-text">useReducer 예제</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Composition"><span class="nav-number">1.2.</span> <span class="nav-text">2. Composition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-HOC-%EA%B3%A0%EC%B0%A8-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8"><span class="nav-number">1.3.</span> <span class="nav-text">3.HOC(고차 컴포넌트)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Memoization"><span class="nav-number">1.4.</span> <span class="nav-text">4. Memoization</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hoseon Kwak</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hoseon Kwak</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -160,6 +160,256 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/02/TIL(Today%20I%20Learn)/220429-til/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/02/TIL(Today%20I%20Learn)/220429-til/" class="post-title-link" itemprop="url">220429-TIL(typeScript - 개요 및 타입)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-02 22:37:28 / Updated at: 22:41:48" itemprop="dateCreated datePublished" datetime="2022-05-02T22:37:28+09:00">2022-05-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="https://velog.velcdn.com/images/koseony/post/7054a1d6-8e7e-4139-8770-03d6ae19cbe8/image.jpg" alt="thum"></p>
+<h1 id="1-TypeScript-개요"><a href="#1-TypeScript-개요" class="headerlink" title="1. TypeScript 개요"></a>1. TypeScript 개요</h1><hr>
+<ul>
+<li>‘programming Language’ 언어이다.</li>
+<li>‘compiled Language’ 이다.</li>
+</ul>
+<p>❗컴파일 언어는 런타임에서 에러가 발생하기 전에 컴파일 타임에 미리 에어응 찾아서 고칠 수 있다.</p>
+<table>
+<thead>
+<tr>
+<th>Compiled language</th>
+<th>Interpreted language</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>컴파일 필요 O</td>
+<td>컴파일 필요 X</td>
+</tr>
+<tr>
+<td>컴파일러 필요 O</td>
+<td>컴파일러 필요 X</td>
+</tr>
+<tr>
+<td>컴파일하는 시점 O</td>
+<td>컴파일하는 시점 X</td>
+</tr>
+<tr>
+<td>컴파일된 결과물을 실행</td>
+<td>코드자체를 실행</td>
+</tr>
+<tr>
+<td>컴파일 결과물을 실행하는 시점</td>
+<td>코드를 실행하는 시점 O(런타임)</td>
+</tr>
+</tbody></table>
+<h1 id="2-type-annotation"><a href="#2-type-annotation" class="headerlink" title="2. type annotation"></a>2. type annotation</h1><p>타입을 지정해주는걸 type annotation이라고 한다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="attr">a</span>: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">a = <span class="string">&#x27;kwak&#x27;</span>;	<span class="comment">//에러</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">31</span>; <span class="comment">//가능</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hello</span>(<span class="params">b: <span class="built_in">string</span></span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">hello</span>(<span class="string">&#x27;kwak&#x27;</span>);	<span class="comment">//가능</span></span><br><span class="line"><span class="title function_">hello</span>(<span class="number">31</span>);	<span class="comment">//에러</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="3-TypeScript-Types"><a href="#3-TypeScript-Types" class="headerlink" title="3. TypeScript Types"></a>3. TypeScript Types</h1><h2 id="primitive-types"><a href="#primitive-types" class="headerlink" title="primitive types"></a>primitive types</h2><p><img src="https://velog.velcdn.com/images/koseony/post/124ff18e-949b-4fb1-b2e7-1f9953fb7194/image.png"></p>
+<h2 id="1-blooean"><a href="#1-blooean" class="headerlink" title="1. blooean"></a>1. blooean</h2><p><img src="https://velog.velcdn.com/images/koseony/post/f4c7659f-ed64-4683-89b4-eb146d6618e9/image.png"><br><code>true</code> 값을 가진 <code>Boolean</code> 래퍼 객체가 생성되면서 프리미티브 타입인 <code>isNotOk</code> 변수에 할당하려고 하지만 에러가 발생한다.<br>따라서 리터럴 값으로 프리미티브 타입을 사용한다.</p>
+<h2 id="2-number"><a href="#2-number" class="headerlink" title="2. number"></a>2. number</h2><p><img src="https://velog.velcdn.com/images/koseony/post/fc8f8f20-eed5-4ac7-970d-a2d0239c31bd/image.png"></p>
+<h2 id="3-string"><a href="#3-string" class="headerlink" title="3. string"></a>3. string</h2><p><img src="https://velog.velcdn.com/images/koseony/post/7ed34a1c-2fd4-4f2d-9ac1-00dc8bbfee0c/image.png"></p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="attr">fullName</span>: <span class="built_in">string</span> = <span class="string">&#x27;kwak hoseon&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">age</span>: <span class="built_in">number</span> = <span class="number">31</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">sentence</span>: <span class="built_in">string</span> = <span class="string">`Hello, My name is <span class="subst">$&#123; fullName &#125;</span>.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">I&#x27;ll be <span class="subst">$&#123;age + <span class="number">1</span>&#125;</span> years old next month.`</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sentence);</span><br></pre></td></tr></table></figure>
+<p><img src="https://velog.velcdn.com/images/koseony/post/9c871cac-2008-49af-a995-dd6b4083fdd2/image.png"></p>
+<h2 id="4-symbol"><a href="#4-symbol" class="headerlink" title="4. symbol"></a>4. symbol</h2><p><img src="https://velog.velcdn.com/images/koseony/post/7b266f92-0d9f-4de2-99eb-e8e2c9e0235a/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/f3ae77ba-156f-407b-a8a5-43e2f8b98a98/image.png"></p>
+<h2 id="5-null-amp-undefined"><a href="#5-null-amp-undefined" class="headerlink" title="5. null &amp; undefined"></a>5. null &amp; undefined</h2><p><img src="https://velog.velcdn.com/images/koseony/post/d7ac2e1e-e2e1-40a8-a321-9f0178c70dea/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/cc2141be-48aa-43b1-86c0-448874388b86/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/bf93ef66-74b5-4221-918c-f38868682662/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/75f72cba-4f9e-4744-a231-b5adf7a71f90/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/2ffe9f63-6dc3-45be-9462-fb36867608e1/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/3daaa666-ccd5-4536-909c-95496158209d/image.png"></p>
+<h2 id="6-object"><a href="#6-object" class="headerlink" title="6. object"></a>6. object</h2><p><img src="https://velog.velcdn.com/images/koseony/post/06791492-82bc-4db7-b530-96d8b0093daa/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/c5505785-f494-4ecd-bee4-fef418519e8f/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/ea6a1747-ba45-4601-b07d-f760a848a905/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/60bf7980-7831-4a21-97bc-307e2ed0bc92/image.png"></p>
+<h2 id="7-array"><a href="#7-array" class="headerlink" title="7. array"></a>7. array</h2><p><img src="https://velog.velcdn.com/images/koseony/post/08e92da9-0601-49c1-96c0-a273136554a8/image.png"><br>위에걸로 사용<br><img src="https://velog.velcdn.com/images/koseony/post/2544d042-b825-420b-8175-29de6820c187/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/fb394c72-ec3b-42a7-b300-afebd8445db1/image.png"></p>
+<h2 id="8-tuple"><a href="#8-tuple" class="headerlink" title="8. tuple"></a>8. tuple</h2><p><img src="https://velog.velcdn.com/images/koseony/post/7fd93943-ffa8-481f-a90c-0f729acda9bd/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/287ee77f-58d3-47f7-ae70-bf213ad41121/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/4dab5cc8-20df-45ef-bfe8-5b8a203e65da/image.png"></p>
+<h2 id="9-any"><a href="#9-any" class="headerlink" title="9. any"></a>9. any</h2><p><img src="https://velog.velcdn.com/images/koseony/post/72382944-0d3c-4bab-bda2-8cbb43cd908c/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/debfafb4-222d-47e5-815a-6341142c7d4b/image.png"></p>
+<p>any는 정말 any일때만 써야한다.<br><img src="https://velog.velcdn.com/images/koseony/post/0940eb3a-986e-4475-ad23-b253df85999a/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/8aee1368-a5a8-4733-93cf-08db11729ee9/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/c87d9548-b5bc-4e5f-8f1c-34442aaebaf8/image.png"></p>
+<h2 id="10-unknown"><a href="#10-unknown" class="headerlink" title="10. unknown"></a>10. unknown</h2><p><img src="https://velog.velcdn.com/images/koseony/post/b89370ca-a58b-4638-a913-b71402dd06ea/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/87c4932a-51d3-4afd-aeae-1e3c416158f9/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/fab21d13-817b-4072-b5cb-a240496f1406/image.png"></p>
+<h2 id="11-never"><a href="#11-never" class="headerlink" title="11. never"></a>11. never</h2><p><img src="https://velog.velcdn.com/images/koseony/post/f8558717-367a-4e2e-a84f-921acd569e14/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/60a6c447-3698-4e76-95dd-b325901eb9e3/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/7985d21d-59a6-4259-a296-3e304d9d8540/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/3282bb6e-cfdb-4ce5-a9ad-358870230caf/image.png"></p>
+<h2 id="12-void"><a href="#12-void" class="headerlink" title="12. void"></a>12. void</h2><p>리턴값으로 아무것도 하지 않겠다.<br><img src="https://velog.velcdn.com/images/koseony/post/9a9d1354-9d7b-4752-84b6-2078062b39c7/image.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/02/TIL(Today%20I%20Learn)/220428-til2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/02/TIL(Today%20I%20Learn)/220428-til2/" class="post-title-link" itemprop="url">220427-TIL(정규표현식)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-02 18:38:29 / Updated at: 22:38:24" itemprop="dateCreated datePublished" datetime="2022-05-02T18:38:29+09:00">2022-05-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="https://velog.velcdn.com/images/koseony/post/ea692b52-124d-4e9a-8ea0-91a2300874d4/image.jpg" alt="thum"></p>
+<h1 id="🎈정규표현식"><a href="#🎈정규표현식" class="headerlink" title="🎈정규표현식"></a>🎈정규표현식</h1><p><img src="https://velog.velcdn.com/images/koseony/post/7a404792-3775-4aa5-80d3-5cca54bc5c47/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/e857a304-4b0e-4cae-8528-8049f05bae9e/image.png"><br><a target="_blank" rel="noopener" href="https://regexr.com/">https://regexr.com</a> 을 사용<br><img src="https://velog.velcdn.com/images/koseony/post/fe37e549-804e-443b-a20d-27b9f8981429/image.png"></p>
+<h2 id="1-정규식-생성"><a href="#1-정규식-생성" class="headerlink" title="1. 정규식 생성"></a>1. 정규식 생성</h2><p><img src="https://velog.velcdn.com/images/koseony/post/a6e0989d-2466-4edf-bb8a-e6ee832bd25b/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/cf78fa58-0cc6-4f1e-8631-1522db1043ca/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/4c403c32-046d-4f8c-b8f9-05ced26044f4/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/2722a9a5-6926-43f5-9c39-665435693fb2/image.png"></p>
+<h2 id="2-‘g’플래그"><a href="#2-‘g’플래그" class="headerlink" title="2. ‘g’플래그"></a>2. ‘g’플래그</h2><p><img src="https://velog.velcdn.com/images/koseony/post/33438362-ff00-47bd-8c6c-3d5f9aad9140/image.png"><br>‘gi’는 대소문자 가리지 않겠다.</p>
+<p>리터럴 방식<br><img src="https://velog.velcdn.com/images/koseony/post/e5909aae-a29d-4bf9-a9f6-bfcea75811a8/image.png"></p>
+<h2 id="3-메소드"><a href="#3-메소드" class="headerlink" title="3. 메소드"></a>3. 메소드</h2><p><img src="https://velog.velcdn.com/images/koseony/post/299c77a4-03b5-42f0-8941-f5f899fb7d72/image.png"></p>
+<h3 id="3-1-test"><a href="#3-1-test" class="headerlink" title="3-1. test"></a>3-1. test</h3><p><img src="https://velog.velcdn.com/images/koseony/post/73fe9d53-8d54-4c9f-9ecb-1a52f9a43ed7/image.png"></p>
+<h3 id="3-2-replace"><a href="#3-2-replace" class="headerlink" title="3-2. replace"></a>3-2. replace</h3><p><img src="https://velog.velcdn.com/images/koseony/post/d54aa9f1-4d6b-438f-ad56-dc866e5ca338/image.png"></p>
+<p>바뀐 내용으로 저장하려면 재할당 해준다.<br><img src="https://velog.velcdn.com/images/koseony/post/64c4840c-d65a-46cc-8353-49e1f816a934/image.png"></p>
+<h2 id="4-플래그-옵션"><a href="#4-플래그-옵션" class="headerlink" title="4. 플래그(옵션)"></a>4. 플래그(옵션)</h2><p><img src="https://velog.velcdn.com/images/koseony/post/86848a07-2a33-497c-a23b-389e9626433c/image.png"></p>
+<ul>
+<li><p>옵션 없을 때<br><img src="https://velog.velcdn.com/images/koseony/post/fe2fb74d-1ad0-4fc9-b8a6-1cfdfd5a4a9f/image.png"></p>
+</li>
+<li><p>g 옵션<br><img src="https://velog.velcdn.com/images/koseony/post/0dacf930-7736-480d-abc3-4f4edccedc19/image.png"></p>
+</li>
+<li><p>gi 옵션<br><img src="https://velog.velcdn.com/images/koseony/post/eb97f251-96fa-40bb-928f-4e29125cf40e/image.png"></p>
+</li>
+</ul>
+<p><img src="https://velog.velcdn.com/images/koseony/post/bd8a43ac-84c4-420d-bf84-7c1b24739890/image.png"></p>
+<ul>
+<li>m 옵션<br><img src="https://velog.velcdn.com/images/koseony/post/f5b5bcf9-f1cc-4e63-a28c-a615c4836f12/image.png"></li>
+</ul>
+<p><img src="https://velog.velcdn.com/images/koseony/post/4c2ae379-f9b7-40bd-a716-f95520ebb50e/image.png"><br>각각의 줄의 마침표로 끝나는 부분을 찾아라<br>(배열로 출력)<br>($: 끝나는 부분을 찾아서 일치)  </p>
+<h2 id="5-패턴-표현"><a href="#5-패턴-표현" class="headerlink" title="5. 패턴(표현)"></a>5. 패턴(표현)</h2><p><img src="https://velog.velcdn.com/images/koseony/post/f6da3e1c-a281-4b7a-bbf5-713ef3473b1c/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/c3438da3-72c5-4548-b11e-be9b7567b6c2/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/ad027186-5822-4b78-a341-11f8c06194ab/image.png"></p>
+<h3 id="‘-’-사용"><a href="#‘-’-사용" class="headerlink" title="‘.’ 사용"></a>‘.’ 사용</h3><p><img src="https://velog.velcdn.com/images/koseony/post/2a8983fb-a011-451c-a922-c32ebde89b5b/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/181bc5e2-a739-484b-970b-2333e24df581/image.png"></p>
+<h3 id="‘-’-사용-1"><a href="#‘-’-사용-1" class="headerlink" title="‘|’ 사용"></a>‘|’ 사용</h3><p><img src="https://velog.velcdn.com/images/koseony/post/b660f726-6cbf-4d02-9041-72c5e0147bfe/image.png"></p>
+<h3 id="사용"><a href="#사용" class="headerlink" title="? 사용"></a>? 사용</h3><p><img src="https://velog.velcdn.com/images/koseony/post/60d24fba-b6c9-4bc9-9971-b1fb9427b687/image.png"></p>
+<h3 id="‘숫자’-사용"><a href="#‘숫자’-사용" class="headerlink" title="{‘숫자’} 사용"></a>{‘숫자’} 사용</h3><p>2번 연속<br><img src="https://velog.velcdn.com/images/koseony/post/b8fd76be-501d-435a-a1cb-a8c582cacee0/image.png"><br>2연속 이상<br><img src="https://velog.velcdn.com/images/koseony/post/52b8cb9a-e061-4589-a69c-a439f7a1a03f/image.png"><br>2연속 이상 3연속 이하<br><img src="https://velog.velcdn.com/images/koseony/post/a61f97f6-623a-4ad7-a26e-53a84c1ca2e7/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/6c56cc8a-206d-46bd-a64e-71a27e95ace2/image.png"></p>
+<h3 id="사용-1"><a href="#사용-1" class="headerlink" title="[] 사용"></a>[] 사용</h3><p><img src="https://velog.velcdn.com/images/koseony/post/d6e8b6d5-0a9f-4459-b586-ce9ca952b598/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/794d6926-4ef9-4e46-b0e6-973dbaf315fd/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/149581f7-6797-4f46-a1f8-921737e9cecd/image.png"></p>
+<h3 id="‘f’가-들어간-단어-찾기"><a href="#‘f’가-들어간-단어-찾기" class="headerlink" title="‘f’가 들어간 단어 찾기"></a>‘f’가 들어간 단어 찾기</h3><p><img src="https://velog.velcdn.com/images/koseony/post/8a10b219-4952-41bf-a28d-1b39add3ae49/image.png"></p>
+<h3 id="공백-없애기"><a href="#공백-없애기" class="headerlink" title="공백 없애기"></a>공백 없애기</h3><p><img src="https://velog.velcdn.com/images/koseony/post/ac917026-af5a-443b-b5ed-417e0fdeaed8/image.png"></p>
+<h3 id="앞쪽-일치"><a href="#앞쪽-일치" class="headerlink" title="앞쪽 일치"></a>앞쪽 일치</h3><p><img src="https://velog.velcdn.com/images/koseony/post/8da750fe-058a-4535-b748-fff4a1895b54/image.png"></p>
+<h3 id="뒤쪽-일치"><a href="#뒤쪽-일치" class="headerlink" title="뒤쪽 일치"></a>뒤쪽 일치</h3><p><img src="https://velog.velcdn.com/images/koseony/post/af728dad-1519-45af-b2b3-b32db58a2a47/image.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
     <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/02/TIL(Today%20I%20Learn)/220428-til/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -962,187 +1212,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
-    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/01/TIL(Today%20I%20Learn)/220425-til/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hoseon Kwak">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="koseony의 개발블로그">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/01/TIL(Today%20I%20Learn)/220425-til/" class="post-title-link" itemprop="url">var, let, const의 차이</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">작성일</span>
-
-              <time title="Post created: 2022-05-01 19:26:04" itemprop="dateCreated datePublished" datetime="2022-05-01T19:26:04+09:00">2022-05-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Updated at: 2022-05-02 18:45:55" itemprop="dateModified" datetime="2022-05-02T18:45:55+09:00">2022-05-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javaScript/" itemprop="url" rel="index"><span itemprop="name">javaScript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://velog.velcdn.com/images/koseony/post/1d72bd99-7b9e-44d9-915d-2999aad4b338/image.jpg" alt="thum"></p>
-<h1 id="var와-let-const의-차이"><a href="#var와-let-const의-차이" class="headerlink" title="var와 let, const의 차이"></a>var와 let, const의 차이</h1><blockquote>
-<p>❗함수의 객체를 보고싶다면 console.dir로 보면된다.</p>
-</blockquote>
-<h1 id="var-let-const란"><a href="#var-let-const란" class="headerlink" title="var, let, const란?"></a>var, let, const란?</h1><p>변수를 선언할 때 사용하는데</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="string">&#x27;test&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> test = <span class="string">&#x27;test&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> test = <span class="string">&#x27;test&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<p>var는 기존부터 있었고, let과 const는 ES6문법이다.</p>
-<h1 id="차이점은"><a href="#차이점은" class="headerlink" title="차이점은?"></a>차이점은?</h1><h2 id="1-재할당-재선언-가능여부"><a href="#1-재할당-재선언-가능여부" class="headerlink" title="1. 재할당 재선언 가능여부"></a>1. 재할당 재선언 가능여부</h2><h3 id="1-1-var는-재할당-재선언-다-가능하다"><a href="#1-1-var는-재할당-재선언-다-가능하다" class="headerlink" title="1-1. var는 재할당 재선언 다 가능하다."></a>1-1. var는 재할당 재선언 다 가능하다.</h3><p><code>재할당</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="string">&#x27;test&#x27;</span>;</span><br><span class="line">test = <span class="string">&#x27;start&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test);  <span class="comment">// start</span></span><br></pre></td></tr></table></figure>
-
-<p><code>재선언</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="string">&#x27;test&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> test = <span class="string">&#x27;start&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test);  <span class="comment">// start</span></span><br></pre></td></tr></table></figure>
-<h3 id="1-2-let은-재할당은-가능하지만-재선언은-불가능하다"><a href="#1-2-let은-재할당은-가능하지만-재선언은-불가능하다" class="headerlink" title="1-2. let은 재할당은 가능하지만 재선언은 불가능하다."></a>1-2. let은 재할당은 가능하지만 재선언은 불가능하다.</h3><p><code>재할당</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> test = <span class="string">&#x27;test&#x27;</span>;</span><br><span class="line">test = <span class="string">&#x27;start&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test);  <span class="comment">// start</span></span><br></pre></td></tr></table></figure>
-
-<p><code>재선언</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> test = <span class="string">&#x27;test&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> test = <span class="string">&#x27;start&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test);  <span class="comment">// SyntaxError</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="1-3-const는-재할당-재선언-다-불가능하다"><a href="#1-3-const는-재할당-재선언-다-불가능하다" class="headerlink" title="1-3. const는 재할당, 재선언 다 불가능하다."></a>1-3. const는 재할당, 재선언 다 불가능하다.</h3><p><code>재할당</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> test = <span class="string">&#x27;test&#x27;</span>;</span><br><span class="line">test = <span class="string">&#x27;start&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test); <span class="comment">// TypeError</span></span><br></pre></td></tr></table></figure>
-
-<p><code>재선언</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> test = <span class="string">&#x27;test&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> test = <span class="string">&#x27;start&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test);  <span class="comment">// SyntaxError</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="범위"><a href="#범위" class="headerlink" title="범위"></a>범위</h1><h2 id="var는-함수-단위의-스코프이다"><a href="#var는-함수-단위의-스코프이다" class="headerlink" title="var는 함수 단위의 스코프이다."></a>var는 함수 단위의 스코프이다.</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">functiontest</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">if</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">functiontest</span>(); <span class="comment">// 100, 100;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="let과-const는-블록-단위-스코프이다"><a href="#let과-const는-블록-단위-스코프이다" class="headerlink" title="let과 const는 블록 단위 스코프이다."></a>let과 const는 블록 단위 스코프이다.</h2><p>let과 const는 <code>&#123;&#125;</code> 블록 단위로 사용 가능하다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">blocktest</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> b = <span class="number">100</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(b);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">blocktest</span>(); <span class="comment">// 100, Uncaught ReferenceError: b is not defined;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">blocktest</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> b = <span class="number">10</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(b);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">blocktest</span>(); <span class="comment">// 10, Uncaught ReferenceError: b is not defined;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>var</code>는 최대한 지양하고<br><code>const</code>를 기본으로 사용하고 재할당을 해야할때만 <code>let</code>을 사용한다. </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
-    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/04/22/TIL(Today%20I%20Learn)/220422-til-md/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hoseon Kwak">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="koseony의 개발블로그">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/22/TIL(Today%20I%20Learn)/220422-til-md/" class="post-title-link" itemprop="url">220420_TIL(position)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">작성일</span>
-              
-
-              <time title="Post created: 2022-04-22 21:05:10 / Updated at: 21:16:04" itemprop="dateCreated datePublished" datetime="2022-04-22T21:05:10+09:00">2022-04-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="220422-TIL-position"><a href="#220422-TIL-position" class="headerlink" title="220422_TIL(position)"></a>220422_TIL(position)</h1><ul>
-<li><p>오늘은 css position에 대해서 배웠다.<br>css를 하면서 개인적으로 제일 중요하다고 생각하는 개념이다.</p>
-</li>
-<li><p>position: static : 절대독립적인 배치가 아닌 상태(초기값)<br>position: relative : 기본흐름에 있는 자신의 자리(공간)를 기준으로<br>떨어져 나와 독립적으로 배치할 때<br>position: absolute : 조상이 되는 상자중에서 relative, absolute, fixed가 지정된<br>조상을 기준으로 떨어져 나와 독립적으로 배치할 때<br>position: fixed : 브라우저 viewport를 기준으로 떨어져 나와 절대독립적으로 배치할 때</p>
-</li>
-</ul>
-<p>개인적으로 relative는 그저 기준이 되는걸로만 생각했었는데<br>relative역시 떠있는 상태다라는걸 새삼 다시 깨닫게 되었다.</p>
-<ul>
-<li>offet과 margin의 관계또한 제대로 적립 되었다.</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1212,7 +1281,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hoseonkwak.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="리액트 디테일 잡기1. 이벤트1-1. 합성이벤트(SystheticEvent)https:&#x2F;&#x2F;ko.reactjs.org&#x2F;docs&#x2F;events.html#clipboard-events  지원하는 이벤트React는 이벤트들을 다른 브라우저에서도 같은 속성을 가지도록 표준화합니다. 다음 이벤트 핸들러는 이벤트 버블링 단계에서 호출됩니다.캡처 단계에 이벤트 핸들러를">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TIL 220513 react 디테일 잡기 - (이벤트, 조건부, 렌더링, List, Form)">
+<meta property="og:url" content="https://hoseonkwak.github.io/2022/05/15/TIL(Today%20I%20Learn)/220513-til/index.html">
+<meta property="og:site_name" content="koseony의 개발블로그">
+<meta property="og:description" content="리액트 디테일 잡기1. 이벤트1-1. 합성이벤트(SystheticEvent)https:&#x2F;&#x2F;ko.reactjs.org&#x2F;docs&#x2F;events.html#clipboard-events  지원하는 이벤트React는 이벤트들을 다른 브라우저에서도 같은 속성을 가지도록 표준화합니다. 다음 이벤트 핸들러는 이벤트 버블링 단계에서 호출됩니다.캡처 단계에 이벤트 핸들러를">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/aea4ebbd-931e-4f0c-b099-7134b94706df/image.jpg">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/b4c76e57-4fa5-4546-85d2-2872db1fffb8/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/b7b81d9a-1a8a-4795-b41a-954ee7ae1df7/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/c8c6a804-3118-4eba-b8ec-ba56326de6e2/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/b53106fd-079b-4ea5-9fb0-7976165115e8/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/8a414f27-1667-495a-be82-6ff768f9513b/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/11bde5e9-3ba9-42fd-8ff4-a76e6d8fcfe5/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/92ce9343-7e2b-465d-98fb-b8d0d198fbd7/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/9219b2ba-e9ba-4d4e-96c9-0a70940f249e/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/e204b047-8c04-4869-b637-e79a2ff9c449/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/34d11f1e-907f-4446-845c-66e15591f723/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/1da83674-805b-4afa-bb48-a058572e5327/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/1c490991-e3ce-4754-b1a6-3984e72f7ebc/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/acebc4d5-ff4a-4faa-904c-d00fc26c3a51/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/0337e111-a977-4c63-bacb-78d98ab78d71/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/31a2131b-7f24-4c29-9c32-5b24c45507bc/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/aa99130f-ee5e-4d7a-8b81-f266f381a54d/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/cf2ea26f-d0ea-46e8-9a83-3197ea90332b/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/48532386-1a4b-4e9f-a934-4558eaf21e8b/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/2a4c901b-979f-4977-8998-c4f8c4d8bd41/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/47bf00ed-4e1d-4e6c-a258-3032921a4491/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/3ce72617-bf18-48f2-b477-b56e9492279b/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/5ed65353-43c7-4ccc-9863-821ea7e8c4d3/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/koseony/post/ba7d4146-98bd-4f56-87b9-41b05ac9ebca/image.png">
+<meta property="article:published_time" content="2022-05-15T07:40:05.000Z">
+<meta property="article:modified_time" content="2022-05-15T07:47:37.110Z">
+<meta property="article:author" content="Hoseon Kwak">
+<meta property="article:tag" content="TIL(Today I Learn)">
+<meta property="article:tag" content="react">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/koseony/post/aea4ebbd-931e-4f0c-b099-7134b94706df/image.jpg">
+
+<link rel="canonical" href="https://hoseonkwak.github.io/2022/05/15/TIL(Today%20I%20Learn)/220513-til/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'ko'
+  };
+</script>
+
+  <title>TIL 220513 react 디테일 잡기 - (이벤트, 조건부, 렌더링, List, Form) | koseony의 개발블로그</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">koseony의 개발블로그</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/15/TIL(Today%20I%20Learn)/220513-til/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TIL 220513 react 디테일 잡기 - (이벤트, 조건부, 렌더링, List, Form)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-15 16:40:05 / Updated at: 16:47:37" itemprop="dateCreated datePublished" datetime="2022-05-15T16:40:05+09:00">2022-05-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="https://velog.velcdn.com/images/koseony/post/aea4ebbd-931e-4f0c-b099-7134b94706df/image.jpg" alt="thum"></p>
+<h1 id="리액트-디테일-잡기"><a href="#리액트-디테일-잡기" class="headerlink" title="리액트 디테일 잡기"></a>리액트 디테일 잡기</h1><h2 id="1-이벤트"><a href="#1-이벤트" class="headerlink" title="1. 이벤트"></a>1. 이벤트</h2><h3 id="1-1-합성이벤트-SystheticEvent"><a href="#1-1-합성이벤트-SystheticEvent" class="headerlink" title="1-1. 합성이벤트(SystheticEvent)"></a>1-1. 합성이벤트(SystheticEvent)</h3><p><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/events.html#clipboard-events">https://ko.reactjs.org/docs/events.html#clipboard-events</a></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/b4c76e57-4fa5-4546-85d2-2872db1fffb8/image.png"></p>
+<p><strong>지원하는 이벤트</strong><br>React는 이벤트들을 다른 브라우저에서도 같은 속성을 가지도록 표준화합니다.</p>
+<p>다음 이벤트 핸들러는 이벤트 버블링 단계에서 호출됩니다.<br>캡처 단계에 이벤트 핸들러를 등록하기 위해서는 이벤트 이름에 Capture를 덧붙이세요. 예를 들어 onClick 대신 onClickCapture를 사용해서 캡처 단계에서 클릭 이벤트 핸들러를 사용할 수 있습니다.</p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/b7b81d9a-1a8a-4795-b41a-954ee7ae1df7/image.png"></p>
+<h3 id="버블링-캡쳐링-예시"><a href="#버블링-캡쳐링-예시" class="headerlink" title="버블링, 캡쳐링 예시"></a>버블링, 캡쳐링 예시</h3><ul>
+<li><p>캡쳐링은 자식들로 내려가면서 체크</p>
+</li>
+<li><p>버블링은 부모로 올라가면서 체크<br>캡쳐링부터 실행된다</p>
+</li>
+<li><p>예시</p>
+</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Event</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleButtonClick</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;handleButtonClick&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleClickCapture</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;handleClickCapture&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleClickCapture2</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;handleClickCapture2&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleClickBubble</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;handleClickBubble&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClickCapture</span>=<span class="string">&#123;handleClickCapture&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">onClickCapture</span>=<span class="string">&#123;handleClickCapture2&#125;</span> <span class="attr">onClick</span>=<span class="string">&#123;handleClickBubble&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;handleButtonClick&#125;</span>&gt;</span>Button<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/koseony/post/c8c6a804-3118-4eba-b8ec-ba56326de6e2/image.png"></p>
+<h2 id="1-2-이벤트-처리하기"><a href="#1-2-이벤트-처리하기" class="headerlink" title="1-2. 이벤트 처리하기"></a>1-2. 이벤트 처리하기</h2><p><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/handling-events.html">https://ko.reactjs.org/docs/handling-events.html</a><br><img src="https://velog.velcdn.com/images/koseony/post/b53106fd-079b-4ea5-9fb0-7976165115e8/image.png"></p>
+<p>예를 들어</p>
+<ul>
+<li>html</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;activateLasers()&quot;</span>&gt;</span>Activate Lasers<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>react</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&quot;&#123;activateLasers&#125;&quot;</span>&gt;</span>Activate Lasers<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>또 다른 차이점으로, React에서는 false를 반환해도 기본 동작을<br>방지할 수 없습니다. 반드시 preventDefault를 명시적으로 호출해야 합니다.<br>예를 들어, 일반 HTML에서 폼을 제출할 때 가지고 있는 기본 동작을 방지하기 위해 다음과 같은 코드를 작성할 수 있습니다.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//html</span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">onsubmit</span>=<span class="string">&quot;console.log(&#x27;You clicked submit.&#x27;); return false&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>Submit<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>React에서는 다음과 같이 작성할 수 있습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// react</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Form</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">handleSubmit</span>(<span class="params">e</span>) &#123;</span><br><span class="line">    e.<span class="title function_">preventDefault</span>();</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;You clicked submit.&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">form</span> <span class="attr">onSubmit</span>=<span class="string">&#123;handleSubmit&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>Submit<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>여기서 e는 합성 이벤트입니다. React는 W3C 명세에 따라 합성 이벤트를 정의하기 때문에 브라우저 호환성에 대해 걱정할 필요가 없습니다. React 이벤트는 브라우저 고유 이벤트와 정확히 동일하게 동작하지는 않습니다.</p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/8a414f27-1667-495a-be82-6ff768f9513b/image.png"></p>
+<h2 id="2-조건부-렌더링"><a href="#2-조건부-렌더링" class="headerlink" title="2. 조건부 렌더링"></a>2. 조건부 렌더링</h2><p><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/conditional-rendering.html#gatsby-focus-wrapper">https://ko.reactjs.org/docs/conditional-rendering.html#gatsby-focus-wrapper</a><br><img src="https://velog.velcdn.com/images/koseony/post/11bde5e9-3ba9-42fd-8ff4-a76e6d8fcfe5/image.png"></p>
+<h3 id="예시"><a href="#예시" class="headerlink" title="예시"></a>예시</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">UserGreeting</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="comment">// return &lt;h1&gt;&#123;props.name &amp;&amp; `$&#123;props.name&#125;,`&#125; Welcome &#123;Boolean(props.count) &amp;&amp; `It&#x27;s $&#123;props.count&#125; times`&#125;&lt;/h1&gt;;</span></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;props.name &amp;&amp; `$&#123;props.name&#125;,`&#125; Welcome&#123;&quot; &quot;&#125;</span></span><br><span class="line"><span class="language-xml">      &#123;props.count ? `It&#x27;s $&#123;props.count&#125; times` : null&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">GuestGreeting</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Please sign up.<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Greeting</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="comment">//const isLoggedIn = props.isLoggedIn;</span></span><br><span class="line">  <span class="comment">// if (props.isLoggedIn) &#123;</span></span><br><span class="line">  <span class="comment">//   return &lt;UserGreeting /&gt;;</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">  <span class="comment">// return &lt;GuestGreeting /&gt;;</span></span><br><span class="line">  <span class="keyword">return</span> props.<span class="property">isLoggedIn</span> ? (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">UserGreeting</span> <span class="attr">name</span>=<span class="string">&quot;kwak&quot;</span> <span class="attr">count</span>=<span class="string">&#123;0&#125;</span> /&gt;</span></span></span><br><span class="line">  ) : (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">GuestGreeting</span> /&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Condition</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> isLoggedIn = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Greeting</span> <span class="attr">isLoggedIn</span>=<span class="string">&#123;isLoggedIn&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/koseony/post/92ce9343-7e2b-465d-98fb-b8d0d198fbd7/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/9219b2ba-e9ba-4d4e-96c9-0a70940f249e/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/e204b047-8c04-4869-b637-e79a2ff9c449/image.png"></p>
+<h2 id="3-List"><a href="#3-List" class="headerlink" title="3. List"></a>3. List</h2><p><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/lists-and-keys.html#rendering-multiple-components">https://ko.reactjs.org/docs/lists-and-keys.html#rendering-multiple-components</a></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/34d11f1e-907f-4446-845c-66e15591f723/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/1da83674-805b-4afa-bb48-a058572e5327/image.png"></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="keyword">const</span> listItems = numbers.<span class="title function_">map</span>(<span class="function">(<span class="params">number</span>) =&gt;</span> <span class="language-xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;number&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span>);</span><br></pre></td></tr></table></figure>
+
+<p>listItems 배열을 <code>&lt;ul&gt;</code>엘리먼트 안에 포함하고 DOM에 렌더링합니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">ul</span>&gt;</span>&#123;listItems&#125;<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span>, <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;root&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>key<br><img src="https://velog.velcdn.com/images/koseony/post/1c490991-e3ce-4754-b1a6-3984e72f7ebc/image.png"></li>
+</ul>
+<h4 id="예시-1"><a href="#예시-1" class="headerlink" title="예시"></a>예시</h4><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">List</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// const numbers = [1,2,3,4,5];</span></span><br><span class="line">  <span class="comment">// return (</span></span><br><span class="line">  <span class="comment">//   &lt;div&gt;</span></span><br><span class="line">  <span class="comment">//     &#123;numbers.map(item =&gt; (</span></span><br><span class="line">  <span class="comment">//       &lt;li key=&#123;item.toString()&#125;&gt;&#123;item&#125;&lt;/li&gt;</span></span><br><span class="line">  <span class="comment">//     ))&#125;</span></span><br><span class="line">  <span class="comment">//   &lt;/div&gt;</span></span><br><span class="line">  <span class="comment">// )</span></span><br><span class="line">  <span class="keyword">const</span> todos = [</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="number">1</span>, <span class="attr">text</span>: <span class="string">&quot;Drink Water&quot;</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="number">2</span>, <span class="attr">text</span>: <span class="string">&quot;Wash car&quot;</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="number">3</span>, <span class="attr">text</span>: <span class="string">&quot;Listen Lecture&quot;</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="number">4</span>, <span class="attr">text</span>: <span class="string">&quot;Go to bed&quot;</span> &#125;,</span><br><span class="line">  ];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">Item</span> = (<span class="params">props</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;props.text&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span>;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> todoList = todos.<span class="title function_">map</span>(<span class="function">(<span class="params">todo</span>) =&gt;</span> <span class="language-xml"><span class="tag">&lt;<span class="name">Item</span> <span class="attr">key</span>=<span class="string">&#123;todo.id&#125;</span> &#123;<span class="attr">...todo</span>&#125; /&gt;</span></span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;&gt;</span>&#123;todoList&#125;<span class="tag">&lt;/&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/koseony/post/acebc4d5-ff4a-4faa-904c-d00fc26c3a51/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/0337e111-a977-4c63-bacb-78d98ab78d71/image.png"></p>
+<h2 id="4-Form"><a href="#4-Form" class="headerlink" title="4. Form"></a>4. Form</h2><p><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/forms.html#gatsby-focus-wrapper">https://ko.reactjs.org/docs/forms.html#gatsby-focus-wrapper</a></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/31a2131b-7f24-4c29-9c32-5b24c45507bc/image.png"></p>
+<h3 id="제어-컴포넌트"><a href="#제어-컴포넌트" class="headerlink" title="제어 컴포넌트"></a>제어 컴포넌트</h3><p><img src="https://velog.velcdn.com/images/koseony/post/aa99130f-ee5e-4d7a-8b81-f266f381a54d/image.png"></p>
+<ul>
+<li>예시</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">ControlledComponent</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [name, setName] = <span class="title function_">useState</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> [essay, setEssay] = <span class="title function_">useState</span>(</span><br><span class="line">    <span class="string">&quot;Please write an essay about your favorite DOM element.&quot;</span></span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">const</span> [flavor, setFlavor] = <span class="title function_">useState</span>(<span class="string">&quot;coconut&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">handleChange</span>(<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="title function_">setName</span>(event.<span class="property">target</span>.<span class="property">value</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">handleSubmit</span>(<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">`name: <span class="subst">$&#123;name&#125;</span>, essay: <span class="subst">$&#123;essay&#125;</span>, flavor: <span class="subst">$&#123;flavor&#125;</span> `</span>);</span><br><span class="line">    event.<span class="title function_">preventDefault</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">handleEssayChange</span>(<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="title function_">setEssay</span>(event.<span class="property">target</span>.<span class="property">value</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">handleFlavorChange</span>(<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="title function_">setFlavor</span>(event.<span class="property">target</span>.<span class="property">value</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">form</span> <span class="attr">onSubmit</span>=<span class="string">&#123;handleSubmit&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        Name:</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">value</span>=<span class="string">&#123;name&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;handleChange&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        Essay:</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">value</span>=<span class="string">&#123;essay&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;handleEssayChange&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        Pick your favorite flavor:</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">select</span> <span class="attr">value</span>=<span class="string">&#123;flavor&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;handleFlavorChange&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;grapefruit&quot;</span>&gt;</span>Grapefruit<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;lime&quot;</span>&gt;</span>Lime<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;coconut&quot;</span>&gt;</span>Coconut<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;mango&quot;</span>&gt;</span>Mango<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/koseony/post/cf2ea26f-d0ea-46e8-9a83-3197ea90332b/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/48532386-1a4b-4e9f-a934-4558eaf21e8b/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/2a4c901b-979f-4977-8998-c4f8c4d8bd41/image.png"></p>
+<h4 id="다중-입력제어"><a href="#다중-입력제어" class="headerlink" title="다중 입력제어"></a>다중 입력제어</h4><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">ControlledComponent</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [name, setName] = <span class="title function_">useState</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> [essay, setEssay] = <span class="title function_">useState</span>(</span><br><span class="line">    <span class="string">&quot;Please write an essay about your favorite DOM element.&quot;</span></span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">const</span> [flavor, setFlavor] = <span class="title function_">useState</span>(<span class="string">&quot;coconut&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">handleChange</span>(<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> name = event.<span class="property">target</span>.<span class="property">name</span>;</span><br><span class="line">    <span class="keyword">if</span> (name === <span class="string">&quot;name&quot;</span>) &#123;</span><br><span class="line">      <span class="title function_">setName</span>(event.<span class="property">target</span>.<span class="property">value</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (name === <span class="string">&quot;essay&quot;</span>) &#123;</span><br><span class="line">      <span class="title function_">setEssay</span>(event.<span class="property">target</span>.<span class="property">value</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (name === <span class="string">&quot;flavor&quot;</span>) &#123;</span><br><span class="line">      <span class="title function_">setFlavor</span>(event.<span class="property">target</span>.<span class="property">value</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">handleSubmit</span>(<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">`name: <span class="subst">$&#123;name&#125;</span>, essay: <span class="subst">$&#123;essay&#125;</span>, flavor: <span class="subst">$&#123;flavor&#125;</span> `</span>);</span><br><span class="line">    event.<span class="title function_">preventDefault</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// function handleEssayChange(event) &#123;</span></span><br><span class="line">  <span class="comment">//   setEssay(event.target.value);</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// function handleFlavorChange(event) &#123;</span></span><br><span class="line">  <span class="comment">//   setFlavor(event.target.value);</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">form</span> <span class="attr">onSubmit</span>=<span class="string">&#123;handleSubmit&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        Name:</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">value</span>=<span class="string">&#123;name&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;handleChange&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        Essay:</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">&quot;essay&quot;</span> <span class="attr">value</span>=<span class="string">&#123;essay&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;handleChange&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        Pick your favorite flavor:</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;flavor&quot;</span> <span class="attr">value</span>=<span class="string">&#123;flavor&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;handleChange&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;grapefruit&quot;</span>&gt;</span>Grapefruit<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;lime&quot;</span>&gt;</span>Lime<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;coconut&quot;</span>&gt;</span>Coconut<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;mango&quot;</span>&gt;</span>Mango<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="비제어-컴포넌트"><a href="#비제어-컴포넌트" class="headerlink" title="비제어 컴포넌트"></a>비제어 컴포넌트</h3><p><img src="https://velog.velcdn.com/images/koseony/post/47bf00ed-4e1d-4e6c-a258-3032921a4491/image.png"></p>
+<ul>
+<li>예시</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useRef &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">UncontrolledComponent</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> fileInputRef = <span class="title function_">useRef</span>(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">handleSubmit</span>(<span class="params">e</span>) &#123;</span><br><span class="line">    e.<span class="title function_">preventDefault</span>();</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">`Selected file - <span class="subst">$&#123;fileInputRef.current.files[<span class="number">0</span>].name&#125;</span>`</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">form</span> <span class="attr">onSubmit</span>=<span class="string">&#123;handleSubmit&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        Upload file:</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">ref</span>=<span class="string">&#123;fileInputRef&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>Submit<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/koseony/post/3ce72617-bf18-48f2-b477-b56e9492279b/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/5ed65353-43c7-4ccc-9863-821ea7e8c4d3/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/ba7d4146-98bd-4f56-87b9-41b05ac9ebca/image.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/TIL-Today-I-Learn/" rel="tag"># TIL(Today I Learn)</a>
+              <a href="/tags/react/" rel="tag"># react</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/12/TIL(Today%20I%20Learn)/220512-til3/" rel="prev" title="TIL 220512 react 디테일 잡기 - (jsx, props, state, 컴포넌트 생명주기)">
+      <i class="fa fa-chevron-left"></i> TIL 220512 react 디테일 잡기 - (jsx, props, state, 컴포넌트 생명주기)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/15/TIL(Today%20I%20Learn)/220513-til2/" rel="next" title="TIL 220513 react 디테일 잡기 - (Hooks, Composition, HOC, Menoization)">
+      TIL 220513 react 디테일 잡기 - (Hooks, Composition, HOC, Menoization) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%EB%A6%AC%EC%95%A1%ED%8A%B8-%EB%94%94%ED%85%8C%EC%9D%BC-%EC%9E%A1%EA%B8%B0"><span class="nav-number">1.</span> <span class="nav-text">리액트 디테일 잡기</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%EC%9D%B4%EB%B2%A4%ED%8A%B8"><span class="nav-number">1.1.</span> <span class="nav-text">1. 이벤트</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%ED%95%A9%EC%84%B1%EC%9D%B4%EB%B2%A4%ED%8A%B8-SystheticEvent"><span class="nav-number">1.1.1.</span> <span class="nav-text">1-1. 합성이벤트(SystheticEvent)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%B2%84%EB%B8%94%EB%A7%81-%EC%BA%A1%EC%B3%90%EB%A7%81-%EC%98%88%EC%8B%9C"><span class="nav-number">1.1.2.</span> <span class="nav-text">버블링, 캡쳐링 예시</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%B2%98%EB%A6%AC%ED%95%98%EA%B8%B0"><span class="nav-number">1.2.</span> <span class="nav-text">1-2. 이벤트 처리하기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%EC%A1%B0%EA%B1%B4%EB%B6%80-%EB%A0%8C%EB%8D%94%EB%A7%81"><span class="nav-number">1.3.</span> <span class="nav-text">2. 조건부 렌더링</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%98%88%EC%8B%9C"><span class="nav-number">1.3.1.</span> <span class="nav-text">예시</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-List"><span class="nav-number">1.4.</span> <span class="nav-text">3. List</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EC%98%88%EC%8B%9C-1"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">예시</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Form"><span class="nav-number">1.5.</span> <span class="nav-text">4. Form</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%A0%9C%EC%96%B4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8"><span class="nav-number">1.5.1.</span> <span class="nav-text">제어 컴포넌트</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EB%8B%A4%EC%A4%91-%EC%9E%85%EB%A0%A5%EC%A0%9C%EC%96%B4"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">다중 입력제어</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%B9%84%EC%A0%9C%EC%96%B4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8"><span class="nav-number">1.5.2.</span> <span class="nav-text">비제어 컴포넌트</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hoseon Kwak</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hoseon Kwak</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
