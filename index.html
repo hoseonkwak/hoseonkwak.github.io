@@ -160,6 +160,98 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/16/TIL(Today%20I%20Learn)/220516-til/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/16/TIL(Today%20I%20Learn)/220516-til/" class="post-title-link" itemprop="url">TIL 220516 react 디테일 잡기 - (Context, Portal, Render Props, PropTypes, Reconciliation)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-16 22:15:53 / Updated at: 22:18:26" itemprop="dateCreated datePublished" datetime="2022-05-16T22:15:53+09:00">2022-05-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="https://velog.velcdn.com/images/koseony/post/e9a5581f-6620-4c9b-ba8f-e33ad6862209/image.jpg" alt="thum"></p>
+<h2 id="1-Context"><a href="#1-Context" class="headerlink" title="1. Context"></a>1. Context</h2><p><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/context.html#gatsby-focus-wrapper">https://ko.reactjs.org/docs/context.html#gatsby-focus-wrapper</a><br><img src="https://velog.velcdn.com/images/koseony/post/3abded3b-17ac-466b-8cc3-920d0aae3cb4/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/dff1ade6-2e28-4fd7-b70e-da2325a65b55/image.png"></p>
+<ul>
+<li>예제</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Example.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ThemeContext</span>, themes &#125; <span class="keyword">from</span> <span class="string">&quot;./ThemeContext&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ThemedButton</span> <span class="keyword">from</span> <span class="string">&quot;./ThemedButton&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">Example</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>(props);</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span> = &#123;</span><br><span class="line">      <span class="attr">theme</span>: themes.<span class="property">light</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">toggleTheme</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">setState</span>(<span class="function">(<span class="params">prev</span>) =&gt;</span> (&#123;</span><br><span class="line">        <span class="attr">theme</span>: prev.<span class="property">theme</span> === themes.<span class="property">dark</span> ? themes.<span class="property">light</span> : themes.<span class="property">dark</span>,</span><br><span class="line">      &#125;));</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">ThemeContext.Provider</span> <span class="attr">value</span>=<span class="string">&#123;this.state.theme&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">ThemedButton</span> <span class="attr">changeTheme</span>=<span class="string">&#123;this.toggleTheme&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">ThemeContext.Consumer</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            &#123;(theme) =&gt; (</span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">div</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">style</span>=<span class="string">&#123;&#123;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                  <span class="attr">height:</span> <span class="attr">300</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                  <span class="attr">width:</span> <span class="attr">300</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                  <span class="attr">backgroundColor:</span> <span class="attr">theme.background</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                &#125;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              &gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            )&#125;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">ThemeContext.Consumer</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">ThemeContext.Provider</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">ThemedButton</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ThemeContext.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> themes = &#123;</span><br><span class="line">  <span class="attr">light</span>: &#123;</span><br><span class="line">    <span class="attr">foreground</span>: <span class="string">&#x27;#000000&#x27;</span>,</span><br><span class="line">    <span class="attr">background</span>: <span class="string">&#x27;#eeeeee&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">dark</span>: &#123;</span><br><span class="line">    <span class="attr">foreground</span>: <span class="string">&#x27;#ffffff&#x27;</span>,</span><br><span class="line">    <span class="attr">background</span>: <span class="string">&#x27;#222222&#x27;</span>,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title class_">ThemeContext</span> = <span class="title class_">React</span>.<span class="title function_">createContext</span>(themes.<span class="property">dark</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//ThemedButton.jsx</span></span><br><span class="line"><span class="comment">// import React, &#123; Component &#125; from &quot;react&quot;;</span></span><br><span class="line"><span class="comment">// import &#123; ThemeContext &#125; from &quot;./ThemeContext&quot;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// class ThemedButton extends Component &#123;</span></span><br><span class="line"><span class="comment">//   render() &#123;</span></span><br><span class="line"><span class="comment">//     let props = this.props;</span></span><br><span class="line"><span class="comment">//     let theme = this.context;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//     return (</span></span><br><span class="line"><span class="comment">//       &lt;button</span></span><br><span class="line"><span class="comment">//         &#123;...props&#125;</span></span><br><span class="line"><span class="comment">//         onClick=&#123;props.changeTheme&#125;</span></span><br><span class="line"><span class="comment">//         style=&#123;&#123; backgroundColor: theme.background, color: theme.foreground &#125;&#125;</span></span><br><span class="line"><span class="comment">//       &gt;</span></span><br><span class="line"><span class="comment">//         Button</span></span><br><span class="line"><span class="comment">//       &lt;/button&gt;</span></span><br><span class="line"><span class="comment">//     );</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ThemedButton.contextType = ThemeContext;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// export default ThemedButton;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useContext &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ThemeContext</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./ThemeContext&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">ThemedButton</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> theme = <span class="title function_">useContext</span>(<span class="title class_">ThemeContext</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      &#123;<span class="attr">...props</span>&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">onClick</span>=<span class="string">&#123;props.changeTheme&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">backgroundColor:</span> <span class="attr">theme.background</span>, <span class="attr">color:</span> <span class="attr">theme.foreground</span> &#125;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    &gt;</span></span></span><br><span class="line"><span class="language-xml">      Button</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-Portal"><a href="#2-Portal" class="headerlink" title="2. Portal"></a>2. Portal</h2><p><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/portals.html#gatsby-focus-wrapper">https://ko.reactjs.org/docs/portals.html#gatsby-focus-wrapper</a><br><img src="https://velog.velcdn.com/images/koseony/post/4d5577cc-7cd6-4dd8-901d-f01f47cf30fa/image.png"></p>
+<ul>
+<li>예시</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Dialog.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Dialog</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [isOpen, setIsOpen] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">position:</span> &quot;<span class="attr">absolute</span>&quot;, <span class="attr">left:</span> <span class="attr">100</span> &#125;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setIsOpen(true)&#125;</span></span><br><span class="line"><span class="language-xml">      &gt;</span></span><br><span class="line"><span class="language-xml">        Open&#123;&quot; &quot;&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;isOpen &amp;&amp; (</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">style</span>=<span class="string">&#123;&#123;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">position:</span> &quot;<span class="attr">absolute</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">zIndex:</span> <span class="attr">99</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">top:</span> &quot;<span class="attr">50</span>%&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">left:</span> &quot;<span class="attr">50</span>%&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">transform:</span> &quot;<span class="attr">translate</span>(<span class="attr">-50</span>%, <span class="attr">-50</span>%)&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">border:</span> &quot;<span class="attr">1px</span> <span class="attr">solid</span> <span class="attr">black</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">padding:</span> &quot;<span class="attr">24px</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">backgroundColor:</span> &quot;<span class="attr">white</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          &#125;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        &gt;</span></span></span><br><span class="line"><span class="language-xml">          &#123;typeof props.title === &quot;string&quot; ? (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;props.title&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          ) : (</span></span><br><span class="line"><span class="language-xml">            props.title</span></span><br><span class="line"><span class="language-xml">          )&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">          &#123;typeof props.description === &quot;string&quot; ? (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">h5</span>&gt;</span>&#123;props.description&#125;<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          ) : (</span></span><br><span class="line"><span class="language-xml">            props.description</span></span><br><span class="line"><span class="language-xml">          )&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">          &#123;typeof props.button === &quot;string&quot; ? (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">backgroundColor:</span> &quot;<span class="attr">red</span>&quot;, <span class="attr">color:</span> &quot;<span class="attr">white</span>&quot; &#125;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setIsOpen(false)&#125;</span></span><br><span class="line"><span class="language-xml">            &gt;</span></span><br><span class="line"><span class="language-xml">              &#123;props.button&#125;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          ) : (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setIsOpen(false)&#125;&gt;&#123;props.button&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          )&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      )&#125;</span></span><br><span class="line"><span class="language-xml">      &#123;isOpen &amp;&amp; (</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">style</span>=<span class="string">&#123;&#123;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">position:</span> &quot;<span class="attr">fixed</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">top:</span> <span class="attr">0</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">left:</span> <span class="attr">0</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">bottom:</span> <span class="attr">0</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">right:</span> <span class="attr">0</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">backgroundColor:</span> &quot;<span class="attr">lightgray</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          &#125;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        /&gt;</span></span></span><br><span class="line"><span class="language-xml">      )&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Example.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createPortal &#125; <span class="keyword">from</span> <span class="string">&quot;react-dom&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ThankyouDialog</span> <span class="keyword">from</span> <span class="string">&quot;./ThankyouDialog&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Portal</span> = (<span class="params">props</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">createPortal</span>(props.<span class="property">children</span>, <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;portal&quot;</span>));</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Example</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> console.log(&quot;div&quot;)&#125;&gt;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Portal</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">ThankyouDialog</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">Portal</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">position:</span> &quot;<span class="attr">absolute</span>&quot; &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span>&gt;</span>하하하<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//ThankyouDialog.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Dialog</span> <span class="keyword">from</span> <span class="string">&quot;./Dialog&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">ThankyouDialog</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Dialog</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">title</span>=<span class="string">&#123;</span>&lt;<span class="attr">h1</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">color:</span> &quot;<span class="attr">royalblue</span>&quot; &#125;&#125;&gt;</span>Thanks<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">      description=&quot;It is honor to meet you!&quot;</span></span><br><span class="line"><span class="language-xml">      button=&#123;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">backgroundColor:</span> &quot;<span class="attr">pink</span>&quot;, <span class="attr">color:</span> &quot;<span class="attr">white</span>&quot; &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">          close</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#125;</span></span><br><span class="line"><span class="language-xml">    /&gt;</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Render-Props"><a href="#3-Render-Props" class="headerlink" title="3. Render Props"></a>3. Render Props</h2><p>아래 공식문서 보기<br><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/render-props.html#gatsby-focus-wrapper">https://ko.reactjs.org/docs/render-props.html#gatsby-focus-wrapper</a></p>
+<h2 id="4-PropTypes"><a href="#4-PropTypes" class="headerlink" title="4. PropTypes"></a>4. PropTypes</h2><p><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/typechecking-with-proptypes.html#gatsby-focus-wrapper">https://ko.reactjs.org/docs/typechecking-with-proptypes.html#gatsby-focus-wrapper</a></p>
+<ul>
+<li>예시</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">PropTypes</span> <span class="keyword">from</span> <span class="string">&quot;prop-types&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">PropComponent</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;props.name&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">PropComponent</span>.<span class="property">defaultProps</span> = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;kwak&quot;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">31</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title class_">PropComponent</span>.<span class="property">propTypes</span> = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="title class_">PropTypes</span>.<span class="property">string</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="keyword">function</span> (<span class="params">props, propName, componentName</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="regexp">/matchme/</span>.<span class="title function_">test</span>(props[propName])) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Error</span>(</span><br><span class="line">        <span class="string">&quot;Invalid prop `&quot;</span> +</span><br><span class="line">          propName +</span><br><span class="line">          <span class="string">&quot;` supplied to&quot;</span> +</span><br><span class="line">          <span class="string">&quot; `&quot;</span> +</span><br><span class="line">          componentName +</span><br><span class="line">          <span class="string">&quot;`. Validation failed.&quot;</span></span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Component</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">PropComponent</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/koseony/post/7ed32f2e-bad2-4841-9dbd-db817d52aef5/image.png"></p>
+<h2 id="5-Reconciliation"><a href="#5-Reconciliation" class="headerlink" title="5. Reconciliation"></a>5. Reconciliation</h2><h3 id="재조정"><a href="#재조정" class="headerlink" title="재조정"></a>재조정</h3><p>아래의 공식문서를 읽어보자.<br><a target="_blank" rel="noopener" href="https://ko.reactjs.org/docs/reconciliation.html#gatsby-focus-wrapper">https://ko.reactjs.org/docs/reconciliation.html#gatsby-focus-wrapper</a></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/5d42d910-52a3-447c-8ecf-f6314c5aa067/image.png"></p>
+<p><img src="https://velog.velcdn.com/images/koseony/post/6c970745-497c-44d0-abdf-588d3efcbee3/image.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
     <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/15/TIL(Today%20I%20Learn)/220513-til2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1385,176 +1477,6 @@ Comment 가 더욱 단순해졌습니다.<figure class="highlight jsx"><table><t
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
-    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/02/TIL(Today%20I%20Learn)/220502-til/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hoseon Kwak">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="koseony의 개발블로그">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/02/TIL(Today%20I%20Learn)/220502-til/" class="post-title-link" itemprop="url">TIL 220502 typeScript - 옵션</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">작성일</span>
-              
-
-              <time title="Post created: 2022-05-02 22:55:31 / Updated at: 22:56:52" itemprop="dateCreated datePublished" datetime="2022-05-02T22:55:31+09:00">2022-05-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://velog.velcdn.com/images/koseony/post/0f06293f-db34-4cf3-99de-543de480dc43/image.jpg" alt="thum"></p>
-<h1 id="typsScript-Compiler"><a href="#typsScript-Compiler" class="headerlink" title="typsScript Compiler"></a>typsScript Compiler</h1><h2 id="Compilation-Context"><a href="#Compilation-Context" class="headerlink" title="Compilation Context"></a>Compilation Context</h2><p><img src="https://velog.velcdn.com/images/koseony/post/b06d0277-5573-4968-9161-22a251f46d4c/image.png"></p>
-<p>타입스크립트 컴파일러를 어떤 파일과 어떤 방식으로 컴파일러할건지를 정해 놓은게 Compilation Context이고 이건 tsconfig.js파일에 선언되어 있다.</p>
-<h2 id="1-tsconfig-schema"><a href="#1-tsconfig-schema" class="headerlink" title="1. tsconfig schema"></a>1. tsconfig schema</h2><p>tsconfig파일의 전체적인 구조<br><a target="_blank" rel="noopener" href="https://json.schemastore.org/tsconfig">tsconfig 구조</a> 이곳에 들어가면 tsconfig파일의 전체적인 구조가 나온다.</p>
-<p>중요도가 높은 순서대로 설명<br><img src="https://velog.velcdn.com/images/koseony/post/0117d7e3-5d90-4730-8c6f-5867dfe4940e/image.png"></p>
-<p>❗<code>compileOptions</code>에 대해서 중점적으로 공부</p>
-<h3 id="1-1-compileOnSave"><a href="#1-1-compileOnSave" class="headerlink" title="1-1. compileOnSave"></a>1-1. compileOnSave</h3><p><img src="https://velog.velcdn.com/images/koseony/post/e24ab6c9-3253-49f0-8525-4229084b1ee7/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/f17344ab-53ab-4973-81e6-465be691cfb7/image.png"></p>
-<p>tsconfig파일에</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;compileOnSave&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
-<p>을 추가해준다.<br><img src="https://velog.velcdn.com/images/koseony/post/f55a9c04-533b-44e0-b2c7-6ae16f06ed8e/image.png"><br>이 프로젝트에서 파일을 저장하면 컴파일하겠다는 설정<br><img src="https://velog.velcdn.com/images/koseony/post/505c0aeb-6dda-47d2-a2b8-31554bff4812/image.png"></p>
-<h3 id="1-2-extends"><a href="#1-2-extends" class="headerlink" title="1-2. extends"></a>1-2. extends</h3><p>상속할 때 사용한다.<br><img src="https://velog.velcdn.com/images/koseony/post/5c585ac1-10e7-4999-8494-86968c292a4c/image.png"></p>
-<ul>
-<li>스키마<br><img src="https://velog.velcdn.com/images/koseony/post/9ae458f8-225a-4ff7-8d73-9e5d87f98ecb/image.png"></li>
-<li>예시</li>
-</ul>
-<ol>
-<li><p>tsconfig파일에 아래 코드 추가</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;extends&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./base.json&quot;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://velog.velcdn.com/images/koseony/post/05cc0cec-2477-4cfa-9f78-2c2c533e08ee/image.png"><br>그리고 <code>&quot;strict&quot;: true</code>를 꺼준다.<br><img src="https://velog.velcdn.com/images/koseony/post/1b036046-dbc2-43f9-8141-f69c79bfea22/image.png"></p>
-</li>
-<li><p>base.json파일 추가<br>base.json파일을 추가해서<br>아래와 같은 코드를 입력  </p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;strict&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://velog.velcdn.com/images/koseony/post/cdd023fd-227c-4eb7-b5da-86fe7b9253ae/image.png"></p>
-</li>
-<li><p>test.ts 파일 생성<br>test.ts파일을 만들어서 테스트<br>extends가 잘 동작할때는 test파일에 에러가 생긴다.</p>
-</li>
-</ol>
-<ul>
-<li>extends 동작</li>
-</ul>
-<p><img src="https://velog.velcdn.com/images/koseony/post/52f71035-e13a-41a6-a03a-0e0f30495c82/image.png"></p>
-<p><img src="https://velog.velcdn.com/images/koseony/post/75fdb017-7878-4f48-bade-d5a6ccff9ac6/image.png"></p>
-<ul>
-<li>extends 미동작</li>
-</ul>
-<p><img src="https://velog.velcdn.com/images/koseony/post/aae4a79d-08b2-47ca-906c-608e29488221/image.png"></p>
-<p><img src="https://velog.velcdn.com/images/koseony/post/b7a2f33e-153f-4b4d-884c-f23374bb2235/image.png"></p>
-<p><img src="https://velog.velcdn.com/images/koseony/post/a96ccd4f-1a41-44f1-8175-b595e77f1c1c/image.png"></p>
-<h3 id="1-3-files-include-exclude"><a href="#1-3-files-include-exclude" class="headerlink" title="1-3. files, include, exclude"></a>1-3. files, include, exclude</h3><p><img src="https://velog.velcdn.com/images/koseony/post/778084aa-1f85-4aa3-a3a3-5d7a94289dc0/image.png"></p>
-<ul>
-<li>스키마</li>
-</ul>
-<p><img src="https://velog.velcdn.com/images/koseony/post/9bca437b-4b64-4fe2-a4c6-b6c7496dc413/image.png"></p>
-<p><img src="https://velog.velcdn.com/images/koseony/post/dbf0723b-b362-4e8d-843e-0887b6598f02/image.png"></p>
-<p>files가 제일 최상위다.</p>
-<p><img src="https://velog.velcdn.com/images/koseony/post/f0b167f4-5156-485a-b78f-30b000ddc52b/image.png"></p>
-<h2 id="2-compileOptions"><a href="#2-compileOptions" class="headerlink" title="2. compileOptions"></a>2. compileOptions</h2><h3 id="2-1-typeRoots-types"><a href="#2-1-typeRoots-types" class="headerlink" title="2-1. typeRoots, types"></a>2-1. typeRoots, types</h3><ul>
-<li>스키마</li>
-</ul>
-<p><img src="https://velog.velcdn.com/images/koseony/post/6ce0c514-9c96-446f-bf9d-18989326788b/image.png"></p>
-<p><img src="https://velog.velcdn.com/images/koseony/post/1c485007-9de4-4573-90b0-9621545ea13e/image.png"></p>
-<h3 id="2-2-target과-lib"><a href="#2-2-target과-lib" class="headerlink" title="2-2. target과 lib"></a>2-2. target과 lib</h3><ul>
-<li>target 스키마</li>
-</ul>
-<p><img src="https://velog.velcdn.com/images/koseony/post/e3c2c4a8-6495-4c70-a040-2b6ef13c6c4a/image.png"></p>
-<ul>
-<li>lib 스키마</li>
-</ul>
-<p><img src="https://velog.velcdn.com/images/koseony/post/b9848674-7633-4b15-ab17-343139d87210/image.png"></p>
-<p><img src="https://velog.velcdn.com/images/koseony/post/b9a9152a-8b23-4f15-bcad-5cd376984aa7/image.png"></p>
-<h3 id="2-3-outDir-outFile-rootDir"><a href="#2-3-outDir-outFile-rootDir" class="headerlink" title="2-3. outDir, outFile, rootDir"></a>2-3. outDir, outFile, rootDir</h3><ul>
-<li>스키마</li>
-</ul>
-<p><img src="https://velog.velcdn.com/images/koseony/post/01d7504e-5ddc-489b-941b-4c5ab9fe9564/image.png"></p>
-<h3 id="2-2-strict"><a href="#2-2-strict" class="headerlink" title="2-2. strict"></a>2-2. strict</h3><p>strict는 true로 켜놓아야한다.</p>
-<ul>
-<li>스키마</li>
-</ul>
-<p><img src="https://velog.velcdn.com/images/koseony/post/286b3746-8b85-45cf-8413-39709d9e1e0b/image.png"></p>
-<p><img src="https://velog.velcdn.com/images/koseony/post/d46b87b3-bebc-4357-8c26-a3ebf6c5f20f/image.png"></p>
-<ul>
-<li>–noImplicitAny</li>
-</ul>
-<p><img src="https://velog.velcdn.com/images/koseony/post/a0ae5bfd-0d1d-4273-b173-fe8dae0df0c3/image.png"></p>
-<p><img src="https://velog.velcdn.com/images/koseony/post/90175803-90a6-4639-b54c-84af25bf0dc6/image.png"></p>
-<ul>
-<li>–noImplicitThis</li>
-</ul>
-<p><img src="https://velog.velcdn.com/images/koseony/post/a3658bf4-56e0-4796-b67c-a286bfe45941/image.png"></p>
-<p><img src="https://velog.velcdn.com/images/koseony/post/af4028b6-1973-4be5-a4f4-192db35c9396/image.png"></p>
-<p><img src="https://velog.velcdn.com/images/koseony/post/48f424e4-708c-48a6-b028-30a2a93a7427/image.png"></p>
-<ul>
-<li>–strictNullChecks</li>
-</ul>
-<p><img src="https://velog.velcdn.com/images/koseony/post/8b04144a-6f71-481b-ad38-8b7821cdd69b/image.png"></p>
-<p><img src="https://velog.velcdn.com/images/koseony/post/c238d4bc-4f12-4315-b55f-449387e8f730/image.png"></p>
-<ul>
-<li>–strictFunctionTypes</li>
-</ul>
-<p><img src="https://velog.velcdn.com/images/koseony/post/3b2fe272-fca9-44b8-9d64-08e6049ad100/image.png"></p>
-<p><img src="https://velog.velcdn.com/images/koseony/post/2d7c72cb-ef54-43fd-94e2-9732cf4897c6/image.png"></p>
-<ul>
-<li>–strictPropertyInitialization</li>
-</ul>
-<p><img src="https://velog.velcdn.com/images/koseony/post/4c07f308-c9f7-428a-bbb0-cb5ac6e53b82/image.png"></p>
-<p><img src="https://velog.velcdn.com/images/koseony/post/8ff7e99e-15c1-4a09-b9ee-d6cede6dd4c1/image.png"></p>
-<p><img src="https://velog.velcdn.com/images/koseony/post/c44d809c-3ffb-4b40-ba14-0c59cbf578aa/image.png"></p>
-<ul>
-<li><p>–strictBindCallAply<br><img src="https://velog.velcdn.com/images/koseony/post/52976dd7-01a2-4051-86f3-8d1d722a2209/image.png"></p>
-</li>
-<li><p>–alwaysStrict<br><img src="https://velog.velcdn.com/images/koseony/post/fa2d191f-a40e-4ca7-9c31-0fb9580e13c3/image.png"></p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1624,7 +1546,7 @@ Comment 가 더욱 단순해졌습니다.<figure class="highlight jsx"><table><t
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>

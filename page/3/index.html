@@ -160,6 +160,152 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/01/git/220425-gitBash-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hoseon Kwak">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="koseony의 개발블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/01/git/220425-gitBash-install/" class="post-title-link" itemprop="url">gitBash 설치 및 간단한 CLI 명령어</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2022-05-01 20:52:25 / Updated at: 21:11:19" itemprop="dateCreated datePublished" datetime="2022-05-01T20:52:25+09:00">2022-05-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="깃-설치"><a href="#깃-설치" class="headerlink" title="깃 설치"></a>깃 설치</h1><p>깃 공식홈페이지에서는 없는 도구를 사용해야하기 때문에</p>
+<p><a target="_blank" rel="noopener" href="https://gitforwindows.org/">https://gitforwindows.org/</a> 에서<br><img src="https://velog.velcdn.com/images/koseony/post/c47c9f42-849c-4fb8-8cea-0662b2319d6f/image.png"><br>다운로드를 해줍니다.</p>
+<p>CLI를 사용할거기 때문에 Gitbash로 작업합니다.  </p>
+<blockquote>
+<p>CLI란 Command-Line Interface의 약자로 명령 줄 인터페이스 입니다.<br>가상 터미널 또는 터미널을 통해 사용자와 컴퓨터가 상요 작용하는 방식을 말합니다.</p>
+</blockquote>
+<h2 id="git-bash-실습"><a href="#git-bash-실습" class="headerlink" title="- git bash 실습"></a>- git bash 실습</h2><p>Gitbash를 실행해 git –version을 입력하고 버전이 나오면 설치 완성!<br><img src="https://velog.velcdn.com/images/koseony/post/170c3adc-2337-4eb5-821e-7c2c89684475/image.png"><br>맨 뒤에 ~ 은 최상위를 의미합니다.<br>($, &gt;, %)는 명령을 받을 준비가 됐다는 의미입니다.</p>
+<h2 id="CLI에서-자주-사용하는-명령어"><a href="#CLI에서-자주-사용하는-명령어" class="headerlink" title="- CLI에서 자주 사용하는 명령어"></a>- CLI에서 자주 사용하는 명령어</h2><h3 id="1-ls-list-segment"><a href="#1-ls-list-segment" class="headerlink" title="1. ls(list segment)"></a>1. ls(list segment)</h3><p>현재 디렉토리의 파일 목록을 확인하는 명령어 입니다.<br><img src="https://velog.velcdn.com/images/koseony/post/3b16b8c4-551f-404c-b519-6990df498707/image.png"></p>
+<h3 id="2-ls-a"><a href="#2-ls-a" class="headerlink" title="2. ls -a"></a>2. ls -a</h3><p>현재 디렉토리의 숨긴파일(.으로 시작)도 확인하는 명령어 입니다.<br><img src="https://velog.velcdn.com/images/koseony/post/a7e0f9d5-95ea-463a-bc3d-a0f755bfc345/image.png"></p>
+<h3 id="3-ls-l"><a href="#3-ls-l" class="headerlink" title="3. ls -l"></a>3. ls -l</h3><p>상세정보를 확인하는 명령어 입니다.<br><img src="https://velog.velcdn.com/images/koseony/post/5df9e540-960b-4471-a256-049b3631a28b/image.png"></p>
+<h3 id="4-ls-al"><a href="#4-ls-al" class="headerlink" title="4. ls -al"></a>4. ls -al</h3><p>숨긴파일을 포함한 상세정보를 확인하는 명령어 입니다.</p>
+<h3 id="5-cd-change-directory"><a href="#5-cd-change-directory" class="headerlink" title="5. cd(change directory)"></a>5. cd(change directory)</h3><p>디렉토리를 이동하는 명령어 입니다.<br><img src="https://velog.velcdn.com/images/koseony/post/9fcb7ab1-1ae5-40f0-9fed-4e84ef1728f8/image.png"></p>
+<h3 id="6-‘-’"><a href="#6-‘-’" class="headerlink" title="6. ‘..’"></a>6. ‘..’</h3><p>상위 디렉토리로 올라간다.</p>
+<h3 id="7-‘-’"><a href="#7-‘-’" class="headerlink" title="7. ‘.’"></a>7. ‘.’</h3><p>‘.’은 현재 디렉토리를 의미한다.</p>
+<h3 id="8-mkdir"><a href="#8-mkdir" class="headerlink" title="8. mkdir"></a>8. mkdir</h3><p>폴더를 만드는 명령어 입니다.<br><img src="https://velog.velcdn.com/images/koseony/post/4f72219a-ccd2-41dd-a803-b8c44f54c277/image.png"></p>
+<h3 id="9-touch"><a href="#9-touch" class="headerlink" title="9. touch"></a>9. touch</h3><p>파일 만드는 명령어 입니다.<br><img src="https://velog.velcdn.com/images/koseony/post/ae51bc08-2b58-49e8-a09e-5132c2a84b1f/image.png"><br><img src="https://velog.velcdn.com/images/koseony/post/a37d68e3-a83d-406e-b734-d242b30c5575/image.png">  </p>
+<ul>
+<li>여러개 동시에 만들때는 &amp;&amp;를 중간에 입력합니다.<br><img src="https://velog.velcdn.com/images/koseony/post/9d6b4728-bf16-4a52-bb68-d0ed3c8401bd/image.png"></li>
+</ul>
+<h3 id="10-mv-move"><a href="#10-mv-move" class="headerlink" title="10. mv(move)"></a>10. mv(move)</h3><p>파일 이동 또는 이름을 변경하는 명령어 입니다.<br>mv OO를 OO로<br><img src="https://velog.velcdn.com/images/koseony/post/6e2711bf-6487-4269-9e28-17425cdd894e/image.png"><Br>다른위치에 있는 파일을 현재 위치로<br><img src="https://velog.velcdn.com/images/koseony/post/477b3a0a-7a0d-4372-93c8-5f21e04515fa/image.png"><br>와일드카드(*)를 이용한 방법<br><img src="https://velog.velcdn.com/images/koseony/post/a8b34b0a-71f1-4a65-9154-bc849aaafc85/image.png"><br>이름 변경<br><img src="https://velog.velcdn.com/images/koseony/post/d2d32dab-2a9e-4a95-bb11-5292c34c52ac/image.png"></p>
+<h3 id="11-cp-copy"><a href="#11-cp-copy" class="headerlink" title="11. cp(copy)"></a>11. cp(copy)</h3><p>복사하는 명령어 입니다.<br><img src="https://velog.velcdn.com/images/koseony/post/7281cfba-35cb-4433-beed-f0605b9a547c/image.png"><img src="https://velog.velcdn.com/images/koseony/post/31c846dc-b2b7-4a31-bdce-88fe94907964/image.png"></p>
+<h3 id="12-rm-remove"><a href="#12-rm-remove" class="headerlink" title="12. rm(remove)"></a>12. rm(remove)</h3><p>삭제하는 명령어 입니다.<br><img src="https://velog.velcdn.com/images/koseony/post/bdbdb66f-e071-4d4b-ac94-e7935a9e89f3/image.png"><img src="https://velog.velcdn.com/images/koseony/post/c72d0ca7-52d3-446a-87ad-aaa6fed71fe7/image.png">  </p>
+<p>rm -r이 안될때는 rm -rf 를 입력합니다.</p>
+<h2 id="표로-정리"><a href="#표로-정리" class="headerlink" title="표로 정리"></a>표로 정리</h2><table>
+<thead>
+<tr>
+<th align="center">이름</th>
+<th>뜻</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ls</td>
+<td>현재 디렉토리의 파일 목록을</br>확인하는 명령어</td>
+</tr>
+<tr>
+<td align="center">ls -a</td>
+<td>현재 디렉토리의 숨긴파일(.으로 시작)도</br>확인하는 명령어</td>
+</tr>
+<tr>
+<td align="center">ls -l</td>
+<td>상세정보를 확인하는 명령어</td>
+</tr>
+<tr>
+<td align="center">ls -al</td>
+<td>숨긴파일을 포함한 상세정보를</br>확인하는 명령어</td>
+</tr>
+<tr>
+<td align="center">cd</td>
+<td>디렉토리를 이동하는 명령어</td>
+</tr>
+<tr>
+<td align="center">‘..’</td>
+<td>상위 디렉토리로 올라간다</td>
+</tr>
+<tr>
+<td align="center">‘.’</td>
+<td>현재 디렉토리</td>
+</tr>
+<tr>
+<td align="center">mkdir</td>
+<td>폴더를 만드는 명령어</td>
+</tr>
+<tr>
+<td align="center">touch</td>
+<td>파일을 만드는 명령어</td>
+</tr>
+<tr>
+<td align="center">mv</td>
+<td>파일 이동 또는 이름을 변경하는 명령어</td>
+</tr>
+<tr>
+<td align="center">cp</td>
+<td>복사 명령어</td>
+</tr>
+<tr>
+<td align="center">rm</td>
+<td>삭제 명령어</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
     <link itemprop="mainEntityOfPage" href="https://hoseonkwak.github.io/2022/05/01/TIL(Today%20I%20Learn)/220425-til/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -621,7 +767,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
